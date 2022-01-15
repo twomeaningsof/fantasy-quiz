@@ -5,14 +5,18 @@ const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const isProduction = process.env.NODE_ENV == "production";
 
 module.exports = {
-  entry: "./src/index.ts",
+  entry: path.resolve(__dirname, "./src/index.ts"),
+  //
   mode: isProduction ? "production" : "development",
+  resolve: {
+    extensions: [".ts"],
+  },
   module: {
     rules: [
       {
         test: /\.ts$/,
         use: "ts-loader",
-        include: [path.resolve(__dirname, "src")],
+        include: [path.resolve(__dirname, "./src")],
       },
       {
         test: /\.s[ac]ss$/i,
