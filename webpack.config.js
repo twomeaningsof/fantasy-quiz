@@ -9,7 +9,7 @@ module.exports = {
   //
   mode: isProduction ? "production" : "development",
   resolve: {
-    extensions: [".ts"],
+    extensions: ["", ".js", ".ts"],
   },
   module: {
     rules: [
