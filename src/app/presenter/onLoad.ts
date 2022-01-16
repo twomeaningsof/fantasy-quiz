@@ -6,10 +6,10 @@ export class Presenter {
 
   constructor() {
     new LandingPage;
-    document.getElementsByClassName("content-wrapper")[0].addEventListener("click", this.changePage);
+    document.getElementsByClassName("closed-book")[0].addEventListener("click", this.changePage);
   }
 
-  changePage = () => {
+  changePage = (e: Event) => {
     document.getElementsByClassName("closed-book")[0].remove();
     new WelcomePage;
   }

@@ -1,3 +1,5 @@
+import openedBookImg from '../../../assets/img/opened-book.png';
+
 export class WelcomePage {
   openBookWrapper: HTMLDivElement;
   openBookImage: HTMLImageElement;
@@ -10,12 +12,12 @@ export class WelcomePage {
 
     this.openBookImage = document.createElement('img');
     this.openBookImage.className = 'opened-book__img';
-    this.openBookImage.src = "/src/assets/img/opened-book.png";
+    this.openBookImage.src = openedBookImg;
 
     this.leftPage = document.createElement('div');
-    this.leftPage.className = 'left-page';
+    this.leftPage.className = 'page__left';
     this.rightPage = document.createElement('div');
-    this.rightPage.className = 'right-page';
+    this.rightPage.className = 'page__right';
 
     this.openBookWrapper.append(this. openBookImage, this.leftPage,this.rightPage);
 
