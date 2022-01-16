@@ -2,4 +2,7 @@ import './style/index.scss'
 import { LandingPage } from './app/presenter/onLoad';
 
 
-window.onload = function () {new LandingPage};
+window.onload = () => {
+  const landingView = new LandingPage;
+  landingView.render();
+}
