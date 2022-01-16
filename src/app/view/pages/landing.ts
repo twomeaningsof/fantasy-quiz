@@ -1,9 +1,14 @@
-export function LandingPageInitialization (): void {
-  const contentWrapperElement = document.createElement('div');
-  contentWrapperElement.className = 'content-wrapper';
-  document.body.appendChild(contentWrapperElement);
+export class LandingPage {
+  contentWrapperElement: HTMLDivElement;
+  closedBookElement: HTMLDivElement;
 
-  const closedBookElement = document.createElement('div');
-  closedBookElement.className = 'closed-book';
-  document.getElementsByClassName('content-wrapper')[0]?.appendChild(closedBookElement);
+  constructor () {
+    this.contentWrapperElement = document.createElement('div');
+    this.contentWrapperElement.className = 'content-wrapper';
+    document.body.appendChild(this.contentWrapperElement);
+
+    this.closedBookElement = document.createElement('div');
+    this.closedBookElement.className = 'closed-book';
+    document.getElementsByClassName('content-wrapper')[0]?.appendChild(this.closedBookElement);
+  }
 }

@@ -1,4 +1,4 @@
-@use "landing-page";
+@use "./pages/landing.scss";
 
 *,
 *:before,
@@ -17,6 +17,7 @@ html {
 body {
   height: 100vh;
   margin: 0px;
+  cursor: url("../assets/img/standard-dagger.png"), auto;
 }
 
 .content-wrapper {
@@ -25,6 +26,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("../assets/img/background-image.png");
+  background-image: url("../assets/img/background.png");
   background-size: cover;
 }

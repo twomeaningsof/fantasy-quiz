@@ -1,2 +1,2 @@
-import { LandingPageInitialization } from '../view/pages/landing';
-export { LandingPageInitialization };
+import { LandingPage } from '../view/pages/landing';
+export { LandingPage };
