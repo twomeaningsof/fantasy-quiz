@@ -1,4 +1,5 @@
 @use "./pages/landing.scss";
+@use "./pages/welcome.scss";
 
 *,
 *:before,
@@ -17,7 +18,7 @@ html {
 body {
   height: 100vh;
   margin: 0px;
-  cursor: url("../assets/img/standard-dagger.png"), auto;
+  cursor: url("/src/assets/img/background.png"), auto;
 }
 
 .content-wrapper {

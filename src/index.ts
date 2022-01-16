@@ -1,5 +1,4 @@
 import './style/index.scss'
-import { LandingPage } from './app/presenter/onLoad';
+import { Presenter } from './app/presenter/onLoad';
 
-
-window.onload = function () {new LandingPage};
+window.onload = function () {new Presenter};
