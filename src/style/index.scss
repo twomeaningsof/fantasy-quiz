@@ -1,5 +1,5 @@
-@use "./pages/landing.scss";
-@use "./pages/welcome.scss";
+@use "./pages/_landing.scss";
+@use "./pages/_welcome.scss";
 
 *,
 *:before,
@@ -21,7 +21,7 @@ body {
   cursor: url("/src/assets/img/standard-dagger.png"), auto;
 }
 
-.content-wrapper {
+.wrapper {
   width: 100%;
   height: 100%;
   display: flex;

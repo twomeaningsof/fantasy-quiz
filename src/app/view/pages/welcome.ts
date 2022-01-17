@@ -1,27 +1,38 @@
 import openedBookImg from '../../../assets/img/opened-book.png';
 
 export class WelcomePage {
-  openBookWrapper: HTMLDivElement;
-  openBookImage: HTMLImageElement;
-  leftPage: HTMLDivElement;
-  rightPage: HTMLDivElement;
+  render() {
+    const openBookWrapper = document.createElement('div');
+    openBookWrapper.className = 'opened-book';
 
-  constructor () {
-    this.openBookWrapper = document.createElement('div');
-    this.openBookWrapper.className = 'opened-book';
+    const openBookImage = document.createElement('img');
+    openBookImage.className = 'opened-book__img';
+    openBookImage.src = openedBookImg;
 
-    this.openBookImage = document.createElement('img');
-    this.openBookImage.className = 'opened-book__img';
-    this.openBookImage.src = openedBookImg;
+    const bookContent = document.createElement('div');
+    bookContent.className = 'book-content';
 
-    this.leftPage = document.createElement('div');
-    this.leftPage.className = 'page__left';
-    this.rightPage = document.createElement('div');
-    this.rightPage.className = 'page__right';
+    const leftPage = document.createElement('div');
+    leftPage.className = 'left-page';
+    const leftPageTop = document.createElement('div');
+    leftPageTop.className = 'left-page__top';
+    const leftPageBottom = document.createElement('div');
+    leftPageBottom.className = 'left-page__bottom';
+    leftPage.append(leftPageTop,leftPageBottom);
 
-    this.openBookWrapper.append(this. openBookImage, this.leftPage,this.rightPage);
+    const rightPage = document.createElement('div');
+    rightPage.className = 'right-page';
+    const rightPageTop = document.createElement('div');
+    rightPageTop.className = 'right-page__top';
+    const rightPageMiddle = document.createElement('div');
+    rightPageMiddle.className = 'right-page__middle';
+    const rightPageBottom = document.createElement('div');
+    rightPageBottom.className = 'right-page__bottom';
+    rightPage.append(rightPageTop,rightPageMiddle,rightPageBottom);
 
-    document.getElementsByClassName('content-wrapper')[0]?.appendChild(this.openBookWrapper);
+    bookContent.append(leftPage,rightPage);
 
+    openBookWrapper.append(openBookImage, bookContent);
+    document.getElementsByClassName('wrapper')[0]?.appendChild(openBookWrapper);
   }
 }
