@@ -1,5 +1,18 @@
 @use "./pages/_landing.scss";
 @use "./pages/_welcome.scss";
+@use "./components/_buttons.scss";
+
+@media only screen and (max-width: 1024px) {
+  *,
+  *:before,
+  *:after {
+    display: none;
+  }
+}
+
+:root {
+  font-family: "MedievalSharp", cursive;
+}
 
 *,
 *:before,
