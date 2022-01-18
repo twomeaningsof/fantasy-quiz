@@ -2,7 +2,7 @@
   width: 1000px;
   height: 640px;
   position: relative;
-  background-image: url("../assets/img/opened-book.png");
+  background-image: url("/src/assets/img/opened-book.png");
   background-size: contain;
   background-repeat: no-repeat;
 
@@ -31,18 +31,19 @@
   padding-right: 4px;
 
   &__top {
-    width: 66%;
+    width: 80%;
     height: 80%;
     display: flex;
     justify-content: center;
-    margin-bottom: 15px;
+    position: relative;
+    top: -10px;
   }
 
   &__img {
     width: 90%;
     height: 90%;
     align-self: center;
-    background-image: url("../assets/img/welcome-page-image.png");
+    background-image: url("/src/assets/img/welcome-page-image.png");
     background-size: contain;
     background-repeat: no-repeat;
   }
@@ -51,6 +52,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    padding-top: 2%;
   }
 }
 
@@ -60,22 +62,27 @@
   display: flex;
   flex-direction: column;
   margin-left: -4px;
+  padding: 0px 70px 0px 50px;
 
   &__top {
     height: 20%;
-    font-size: 45px;
-    padding: 50px 80px 0px 80px;
+    font-size: 40px;
+    line-height: 47px;
+    padding-top: 38px;
   }
 
   &__middle {
-    height: 67%;
-    font-size: 28px;
-    padding: 60px 80px 0px 80px;
+    display: flex;
+    height: 58%;
+    font-size: 26px;
+    line-height: 34px;
+    margin-top: 40px;
   }
 
   &__bottom {
+    height: 22%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
   }
 }
 
@@ -92,12 +99,14 @@
   .right-page {
     &__top {
       font-size: 50px;
-      padding: 60px 80px 80px 80px;
+      line-height: 55px;
+      padding-top: 50px;
     }
 
     &__middle {
       font-size: 33px;
-      padding: 60px 80px 0px 80px;
+      line-height: 43px;
+      margin-top: 50px;
     }
   }
 }
@@ -110,5 +119,12 @@
 
   .book-content {
     padding: 30px 35px 37px 37px;
+  }
+  .right-page {
+    padding-right: 100px;
+
+    &__top {
+      padding-top: 58px;
+    }
   }
 }

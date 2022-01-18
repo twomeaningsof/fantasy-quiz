@@ -1,5 +1,7 @@
 @use "./pages/_landing.scss";
 @use "./pages/_welcome.scss";
+@use "./pages/rulebook.scss";
+@use "./pages/settings.scss";
 @use "./components/_buttons.scss";
 
 @media only screen and (max-width: 1024px) {
@@ -18,6 +20,7 @@
 *:before,
 *:after {
   box-sizing: border-box;
+  text-shadow: 0.15px 0.15px 0px #000000;
 }
 
 input {
@@ -40,6 +43,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("../assets/img/background.png");
+  background-image: url("/src/assets/img/background.png");
   background-size: cover;
 }

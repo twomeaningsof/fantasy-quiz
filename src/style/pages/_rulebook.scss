@@ -1,0 +1,37 @@
+.right-page {
+  &__middle {
+    overflow-y: auto;
+  }
+
+  &__scrollbar {
+    margin-left: 20px;
+  }
+}
+
+.right-page__middle::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.right-page__middle::-webkit-scrollbar {
+  width: 15px;
+}
+
+.right-page__middle::-webkit-scrollbar-thumb {
+  border-radius: 6px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #c0b3a3;
+}
+
+@media screen and (min-width: 1230px) {
+  .right-page {
+    &__scrollbar {
+      margin-left: 30px;
+    }
+  }
+
+  .right-page__middle::-webkit-scrollbar {
+    width: 20px;
+  }
+}

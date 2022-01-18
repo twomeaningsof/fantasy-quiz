@@ -1,11 +1,11 @@
 import { Button } from "../components/button";
-import { renderSettingsPage, renderQuizPage,renderRulebookPage } from "./renderFunctions";
+import { renderWelcomePage, renderRulebookPage, renderQuizPage } from "./renderFunctions";
 
-export class WelcomePage {
+export class SettingsPage {
   private createOpenedBook() {
-    const openBook = document.createElement('div');
-    openBook.classList.add('opened-book');
-    return openBook;
+    const openedBook = document.createElement('div');
+    openedBook.classList.add('opened-book');
+    return openedBook;
   }
 
   private createBookContent() {
@@ -28,7 +28,7 @@ export class WelcomePage {
     const leftPageBottom = document.createElement('div');
     leftPageBottom.classList.add('left-page__bottom');
 
-    const leftPageButton: Button = Button.standard('left-page-button').withText('Settings').onClick(renderSettingsPage);
+    const leftPageButton: Button = Button.standard('left-page-button').withText('Back').onClick(renderWelcomePage);
     leftPageBottom.append(leftPageButton.render());
     leftPage.append(leftPageTop,leftPageBottom);
 
@@ -44,16 +44,37 @@ export class WelcomePage {
 
     const rightPageTitle = document.createElement('span');
     rightPageTitle.classList.add('right-page__title');
-    rightPageTitle.textContent = 'Welcome to the fantasy quiz!'
+    rightPageTitle.textContent = 'Settings'
     rightPageTop.append(rightPageTitle);
 
     const rightPageMiddle = document.createElement('div');
     rightPageMiddle.classList.add('right-page__middle');
 
-    const rightPageMiddleText = document.createElement('span');
-    rightPageMiddleText.classList.add('right-page__middle-text');
-    rightPageMiddleText.textContent = 'Read the rules, brace yourself and test your fantasy knowledge with the best fantasy quiz in the world!'
-    rightPageMiddle.append(rightPageMiddleText);
+    const rightPageMiddleElementsWrapper = document.createElement('div');
+    rightPageMiddleElementsWrapper.classList.add('right-page__middle-wrapper');
+
+    const rightPageMiddleElementOne = document.createElement('div');
+    rightPageMiddleElementOne.classList.add('right-page__middle-settings-element');
+    rightPageMiddleElementOne.textContent = 'Raz dwa trzy, robisz settings\'y Ty!';
+
+    const rightPageMiddleElementTwo = document.createElement('div');
+    rightPageMiddleElementTwo.classList.add('right-page__middle-settings-element');
+    rightPageMiddleElementTwo.textContent = 'Raz dwa trzy, robisz settings\'y Ty!';
+
+    const rightPageMiddleElementThree = document.createElement('div');
+    rightPageMiddleElementThree.classList.add('right-page__middle-settings-element');
+    rightPageMiddleElementThree.textContent = 'Raz dwa trzy, robisz settings\'y Ty!';
+
+    const rightPageMiddleElementFour = document.createElement('div');
+    rightPageMiddleElementFour.classList.add('right-page__middle-settings-element');
+    rightPageMiddleElementFour.textContent = 'Raz dwa trzy, robisz settings\'y Ty!';
+
+    const rightPageMiddleScroll = document.createElement('div');
+    rightPageMiddleScroll.classList.add('right-page__scrollbar');
+
+    rightPageMiddleElementsWrapper.append(rightPageMiddleElementOne,rightPageMiddleElementTwo, rightPageMiddleElementThree, rightPageMiddleElementFour)
+
+    rightPageMiddle.append(rightPageMiddleElementsWrapper, rightPageMiddleScroll);
 
     const rightPageBottom = document.createElement('div');
     rightPageBottom.classList.add('right-page__bottom');
@@ -66,15 +87,17 @@ export class WelcomePage {
 
     return rightPage;
   }
-  render() {
+
+  render () {
     const openedBook = this.createOpenedBook();
     const bookContent = this.createBookContent();
     const leftPage = this.createLeftPage();
-    const rightPage = this.createRightPage()
+    const rightPage = this.createRightPage();
 
     bookContent.append(leftPage,rightPage);
     openedBook.append(bookContent);
     const rootWrapper = document.getElementsByClassName('wrapper')[0];
     rootWrapper?.appendChild(openedBook);
+
   }
 }

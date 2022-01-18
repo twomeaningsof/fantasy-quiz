@@ -1,11 +1,11 @@
 import { Button } from "../components/button";
-import { renderSettingsPage, renderQuizPage,renderRulebookPage } from "./renderFunctions";
+import { renderSettingsPage, renderWelcomePage, renderQuizPage } from "./renderFunctions";
 
-export class WelcomePage {
+export class RulebookPage {
   private createOpenedBook() {
-    const openBook = document.createElement('div');
-    openBook.classList.add('opened-book');
-    return openBook;
+    const openedBook = document.createElement('div');
+    openedBook.classList.add('opened-book');
+    return openedBook;
   }
 
   private createBookContent() {
@@ -52,13 +52,17 @@ export class WelcomePage {
 
     const rightPageMiddleText = document.createElement('span');
     rightPageMiddleText.classList.add('right-page__middle-text');
-    rightPageMiddleText.textContent = 'Read the rules, brace yourself and test your fantasy knowledge with the best fantasy quiz in the world!'
-    rightPageMiddle.append(rightPageMiddleText);
+    rightPageMiddleText.textContent = 'You have 3 minutes to answer as many questions as possible. There is finite number of questions, if you answer all of them before times is up, the quiz will end. You can see correct answers for all questions at the end.There are 3 types of questions. Single answer, multiple answer, true or false. You can toggle in the settings which questions you want to see in the quiz.';
+
+    const rightPageMiddleScroll = document.createElement('div');
+    rightPageMiddleScroll.classList.add('right-page__scrollbar');
+
+    rightPageMiddle.append(rightPageMiddleText,rightPageMiddleScroll);
 
     const rightPageBottom = document.createElement('div');
     rightPageBottom.classList.add('right-page__bottom');
 
-    const rightPageLeftButton: Button = Button.standard('right-page-left-button').withText('Rulebook').onClick(renderRulebookPage);
+    const rightPageLeftButton: Button = Button.standard('right-page-left-button').withText('Back').onClick(renderWelcomePage);
     const rightPageRightButton: Button = Button.standard('right-page-right-button').withText('Play').onClick(renderQuizPage);
     rightPageBottom.append(rightPageLeftButton.render(),rightPageRightButton.render());
 
@@ -66,15 +70,17 @@ export class WelcomePage {
 
     return rightPage;
   }
-  render() {
+
+  render () {
     const openedBook = this.createOpenedBook();
     const bookContent = this.createBookContent();
     const leftPage = this.createLeftPage();
-    const rightPage = this.createRightPage()
+    const rightPage = this.createRightPage();
 
     bookContent.append(leftPage,rightPage);
     openedBook.append(bookContent);
     const rootWrapper = document.getElementsByClassName('wrapper')[0];
     rootWrapper?.appendChild(openedBook);
+
   }
 }
