@@ -3,6 +3,7 @@
 @use "./pages/rulebook.scss";
 @use "./pages/settings.scss";
 @use "./components/_buttons.scss";
+@use "./components/checkbox.scss";
 
 @media only screen and (max-width: 1024px) {
   *,

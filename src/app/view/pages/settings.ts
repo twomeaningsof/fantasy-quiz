@@ -1,4 +1,5 @@
 import { Button } from "../components/button";
+import { Checkbox } from "../components/checkbox";
 import { renderWelcomePage, renderRulebookPage, renderQuizPage } from "./renderFunctions";
 
 export class SettingsPage {
@@ -53,26 +54,52 @@ export class SettingsPage {
     const rightPageMiddleElementsWrapper = document.createElement('div');
     rightPageMiddleElementsWrapper.classList.add('right-page__middle-wrapper');
 
-    const rightPageMiddleElementOne = document.createElement('div');
-    rightPageMiddleElementOne.classList.add('right-page__middle-settings-element');
-    rightPageMiddleElementOne.textContent = 'Raz dwa trzy, robisz settings\'y Ty!';
+    const singleChoiceSettingWrapper = document.createElement('div');
+    singleChoiceSettingWrapper.classList.add('right-page__settings-element');
+    const singleChoiceCheckbox: Checkbox = Checkbox.checked('settings-single-choice-checkbox').onCheck(() => { console.log('settings-single-choice-checkbox') });
+    const singleChoiceText = document.createElement('div');
+    singleChoiceText.classList.add('right-page__settings-text');
+    singleChoiceText.textContent = 'Enable single choice questions'
+    singleChoiceSettingWrapper.append(singleChoiceCheckbox.render(),singleChoiceText);
 
-    const rightPageMiddleElementTwo = document.createElement('div');
-    rightPageMiddleElementTwo.classList.add('right-page__middle-settings-element');
-    rightPageMiddleElementTwo.textContent = 'Raz dwa trzy, robisz settings\'y Ty!';
 
-    const rightPageMiddleElementThree = document.createElement('div');
-    rightPageMiddleElementThree.classList.add('right-page__middle-settings-element');
-    rightPageMiddleElementThree.textContent = 'Raz dwa trzy, robisz settings\'y Ty!';
+    const multipleChoiceSettingWrapper = document.createElement('div');
+    multipleChoiceSettingWrapper.classList.add('right-page__settings-element');
+    const multipleChoiceCheckbox: Checkbox = Checkbox.checked('settings-multiple-choice-checkbox').onCheck(() => { console.log('settings-multiple-choice-checkbox') });
+    const multipleChoiceText = document.createElement('div');
+    multipleChoiceText.classList.add('right-page__settings-text');
+    multipleChoiceText.textContent = 'Enable multiple choice questions'
+    multipleChoiceSettingWrapper.append(multipleChoiceCheckbox.render(),multipleChoiceText);
 
-    const rightPageMiddleElementFour = document.createElement('div');
-    rightPageMiddleElementFour.classList.add('right-page__middle-settings-element');
-    rightPageMiddleElementFour.textContent = 'Raz dwa trzy, robisz settings\'y Ty!';
+    const trueFalseSettingWrapper = document.createElement('div');
+    trueFalseSettingWrapper.classList.add('right-page__settings-element');
+    const trueFalseCheckbox: Checkbox = Checkbox.checked('settings-true-false-checkbox').onCheck(() => { console.log('settings-true-false-checkbox') });
+    const trueFalseText = document.createElement('div');
+    trueFalseText.classList.add('right-page__settings-text');
+    trueFalseText.textContent = 'Enable true or false questions'
+    trueFalseSettingWrapper.append(trueFalseCheckbox.render(),trueFalseText);
+
+    const timeLimitSettingWrapper = document.createElement('div');
+    timeLimitSettingWrapper.classList.add('right-page__settings-element-reversed');
+    const timeLimitText = document.createElement('div');
+    timeLimitText.classList.add('right-page__time-limit-text');
+    timeLimitText.textContent = 'Time limit for answers';
+    const timeLimitTextInput = document.createElement('input');
+    timeLimitTextInput.type = 'text';
+    timeLimitTextInput.id = 'time-limit-input';
+    timeLimitTextInput.classList.add('input');
+    timeLimitTextInput.size = 2;
+    timeLimitTextInput.value = '3';
+    timeLimitTextInput.onclick = function () {
+      const position = timeLimitTextInput.value.length;
+      timeLimitTextInput.setSelectionRange(position, position);
+    }
+    timeLimitSettingWrapper.append(timeLimitText,timeLimitTextInput);
 
     const rightPageMiddleScroll = document.createElement('div');
     rightPageMiddleScroll.classList.add('right-page__scrollbar');
 
-    rightPageMiddleElementsWrapper.append(rightPageMiddleElementOne,rightPageMiddleElementTwo, rightPageMiddleElementThree, rightPageMiddleElementFour)
+    rightPageMiddleElementsWrapper.append(singleChoiceSettingWrapper,multipleChoiceSettingWrapper, trueFalseSettingWrapper, timeLimitSettingWrapper);
 
     rightPageMiddle.append(rightPageMiddleElementsWrapper, rightPageMiddleScroll);
 
