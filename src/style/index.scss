@@ -1,9 +1,7 @@
 @use "./pages/_landing.scss";
 @use "./pages/_welcome.scss";
-@use "./pages/rulebook.scss";
-@use "./pages/settings.scss";
-@use "./components/_buttons.scss";
-@use "./components/checkbox.scss";
+@use "./pages/_rulebook.scss";
+@use "./pages/_settings.scss";
 
 @media only screen and (max-width: 1024px) {
   *,
@@ -41,9 +39,11 @@ body {
 .wrapper {
   width: 100%;
   height: 100%;
+
   display: flex;
   justify-content: center;
   align-items: center;
+
   background-image: url("/src/assets/img/background.png");
   background-size: cover;
 }
