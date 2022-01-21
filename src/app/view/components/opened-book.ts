@@ -1,11 +1,5 @@
 export class OpenedBook {
-  static render(): HTMLDivElement {
-    const openedBook = document.createElement('div');
-    openedBook.classList.add('opened-book');
-
-    const bookContent = document.createElement('div');
-    bookContent.classList.add('book-content');
-
+  private createLeftPage() {
     const leftPage = document.createElement('div');
     leftPage.classList.add('left-page');
 
@@ -21,6 +15,10 @@ export class OpenedBook {
 
     leftPage.append(leftPageTop,leftPageBottom);
 
+    return leftPage
+  }
+
+  private createRightPage() {
     const rightPage = document.createElement('div');
     rightPage.classList.add('right-page');
 
@@ -34,6 +32,19 @@ export class OpenedBook {
     rightPageBottom.classList.add('right-page__bottom');
 
     rightPage.append(rightPageTop,rightPageMiddle,rightPageBottom);
+
+    return rightPage;
+  }
+
+  render() {
+    const openedBook = document.createElement('div');
+    openedBook.classList.add('opened-book');
+
+    const bookContent = document.createElement('div');
+    bookContent.classList.add('book-content');
+
+    const leftPage = this.createLeftPage();
+    const rightPage = this.createRightPage();
 
     bookContent.append(leftPage,rightPage);
     openedBook.append(bookContent)

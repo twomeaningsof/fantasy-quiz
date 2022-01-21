@@ -1,41 +1,28 @@
-export enum State {
-  CHECKED = 'checked',
-  UNCHECKED = 'unchecked',
-}
-
 export class Checkbox {
-  constructor(private id: string, private checked: State, private onCheckFn: () => void = () => {}) {}
+  constructor(private id: string, private checked: boolean, private onCheckFn: () => void = () => {}) {}
 
 
-  static checked(id: string): Checkbox {
-    return new Checkbox(id, State.CHECKED);
+  static checked(id: string) {
+    return new Checkbox(id, true);
   }
 
-  static unchecked(id: string): Checkbox {
-    return new Checkbox(id, State.UNCHECKED);
+  static unchecked(id: string) {
+    return new Checkbox(id, false);
   }
 
-  onCheck(checkFn: () => void): Checkbox {
+  onCheck(checkFn: () => void) {
     return new Checkbox(this.id, this.checked, checkFn);
   }
 
-  render(): HTMLDivElement {
-    const checkboxWrapper: HTMLDivElement = document.createElement('div');
+  render() {
+    const checkboxWrapper = document.createElement('div');
     checkboxWrapper.classList.add('checkbox-wrapper')
 
-    const checkboxDOMElement: HTMLInputElement = document.createElement('input')
+    const checkboxDOMElement = document.createElement('input')
     checkboxDOMElement.type = 'checkbox';
     checkboxDOMElement.id = this.id;
     checkboxDOMElement.classList.add('checkbox-checkmark');
-
-    if (this.checked == State.CHECKED) {
-      checkboxDOMElement.checked = true;
-    }
-
-    if (this.checked == State.UNCHECKED) {
-      checkboxDOMElement.checked = false;
-    }
-
+    checkboxDOMElement.checked = this.checked;
     checkboxDOMElement.onclick = this.onCheckFn;
 
     checkboxWrapper.append(checkboxDOMElement);
