@@ -1,6 +1,6 @@
 import { Button } from "../components/button";
 import { OpenedBook } from "../components/opened-book";
-import { renderSettingsPage, renderQuizPage,renderRulebookPage } from "./renderFunctions";
+import { renderSettingsPage,renderRulebookPage } from "./renderFunctions";
 
 export class WelcomePage {
   private createOpenedBook(): HTMLDivElement {
@@ -24,8 +24,7 @@ export class WelcomePage {
 
     const rightPageBottom = openedBook.getElementsByClassName('right-page__bottom')[0];
     const rightPageLeftButton: Button = Button.standard('right-page-left-button').withText('Rulebook').onClick(renderRulebookPage);
-    const rightPageRightButton: Button = Button.standard('right-page-right-button').withText('Play').onClick(renderQuizPage);
-    rightPageBottom.append(rightPageLeftButton.render(),rightPageRightButton.render());
+    rightPageBottom.prepend(rightPageLeftButton.render());
 
     return openedBook;
   }

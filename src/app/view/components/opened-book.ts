@@ -1,3 +1,6 @@
+import { Button } from "./button";
+import { renderSCQuestionPage } from "../pages/renderFunctions";
+
 export class OpenedBook {
   static render(): HTMLDivElement {
     const openedBook = document.createElement('div');
@@ -32,6 +35,8 @@ export class OpenedBook {
 
     const rightPageBottom = document.createElement('div');
     rightPageBottom.classList.add('right-page__bottom');
+    const rightPagePlayButton: Button = Button.standard('right-page-right-button').withText('Play').onClick(renderSCQuestionPage);
+    rightPageBottom.append(rightPagePlayButton.render());
 
     rightPage.append(rightPageTop,rightPageMiddle,rightPageBottom);
 

@@ -2,6 +2,7 @@
 @use "./pages/_welcome.scss";
 @use "./pages/_rulebook.scss";
 @use "./pages/_settings.scss";
+@use "./pages/_question.scss";
 
 @media only screen and (max-width: 1024px) {
   *,
@@ -9,6 +10,10 @@
   *:after {
     display: none;
   }
+}
+
+label {
+  cursor: inherit;
 }
 
 :root {

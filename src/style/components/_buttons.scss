@@ -16,6 +16,17 @@ button {
   text-decoration: underline;
 }
 
+.button--bolded {
+  font-size: 40px;
+  text-shadow: 1px 1px 0px #000000;
+}
+
+.button--bolded:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
 @media screen and (min-width: 1230px) {
   .button--standard {
     font-size: 45px;

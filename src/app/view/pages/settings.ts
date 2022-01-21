@@ -1,7 +1,7 @@
 import { Button } from "../components/button";
 import { Checkbox } from "../components/checkbox";
 import { OpenedBook } from "../components/opened-book";
-import { renderWelcomePage, renderRulebookPage, renderQuizPage } from "./renderFunctions";
+import { renderWelcomePage, renderRulebookPage } from "./renderFunctions";
 
 export class SettingsPage {
   private createOpenedBook(): HTMLDivElement {
@@ -80,8 +80,7 @@ export class SettingsPage {
 
     const rightPageBottom = openedBook.getElementsByClassName('right-page__bottom')[0];
     const rightPageLeftButton: Button = Button.standard('right-page-left-button').withText('Rulebook').onClick(renderRulebookPage);
-    const rightPageRightButton: Button = Button.standard('right-page-right-button').withText('Play').onClick(renderQuizPage);
-    rightPageBottom.append(rightPageLeftButton.render(),rightPageRightButton.render());
+    rightPageBottom.prepend(rightPageLeftButton.render());
 
     return openedBook;
   }
