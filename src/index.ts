@@ -1,8 +1,7 @@
 import './style/index.scss'
-import { LandingPage } from './app/presenter/onLoad';
-
+import { LandingView as LandingPresenter } from './app/presenter/onLoad';
 
 window.onload = () => {
-  const landingView = new LandingPage;
-  landingView.render();
+  const landingPresenter = new LandingPresenter();
+  landingPresenter.renderLanding();
 }

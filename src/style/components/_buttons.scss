@@ -1,0 +1,23 @@
+button {
+  padding: 0;
+  outline: inherit;
+  background: none;
+  color: inherit;
+  border: none;
+  font: inherit;
+  cursor: url("/src/assets/img/hover-dagger.png"), auto;
+}
+
+.button--standard {
+  font-size: 38px;
+}
+
+.button--standard:hover {
+  text-decoration: underline;
+}
+
+@media screen and (min-width: 1230px) {
+  .button--standard {
+    font-size: 45px;
+  }
+}

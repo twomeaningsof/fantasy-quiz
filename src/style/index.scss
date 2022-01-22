@@ -1,9 +1,25 @@
 @use "./pages/_landing.scss";
+@use "./pages/_welcome.scss";
+@use "./pages/_rulebook.scss";
+@use "./pages/_settings.scss";
+
+@media only screen and (max-width: 1024px) {
+  *,
+  *:before,
+  *:after {
+    display: none;
+  }
+}
+
+:root {
+  font-family: "MedievalSharp", cursive;
+}
 
 *,
 *:before,
 *:after {
   box-sizing: border-box;
+  text-shadow: 0.15px 0.15px 0px #000000;
 }
 
 input {
@@ -17,15 +33,17 @@ html {
 body {
   height: 100vh;
   margin: 0px;
-  cursor: url("../assets/img/standard-dagger.png"), auto;
+  cursor: url("/src/assets/img/standard-dagger.png"), auto;
 }
 
-.content-wrapper {
+.wrapper {
   width: 100%;
   height: 100%;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("../assets/img/background.png");
+
+  background-image: url("/src/assets/img/background.png");
   background-size: cover;
 }

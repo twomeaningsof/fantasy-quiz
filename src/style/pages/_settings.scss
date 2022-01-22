@@ -1,0 +1,64 @@
+@use "../components/_opened-book.scss";
+@use "../components/_buttons.scss";
+@use "../components/_checkbox.scss";
+
+.right-page {
+  &__settings-element {
+    width: 100%;
+    position: relative;
+    margin-bottom: 35px;
+  }
+
+  &__settings-text {
+    padding-left: 60px;
+    margin-right: 40px;
+
+    text-decoration: underline dashed;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+
+  &__settings-element-reversed {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 15px;
+  }
+
+  &__time-limit-text {
+    align-self: center;
+  }
+}
+
+.input {
+  width: 35px;
+  height: 35px;
+  margin-bottom: 5px;
+  border: 1px solid #000000;
+  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+  text-align: center;
+}
+
+@media screen and (min-width: 1230px) {
+  .right-page {
+    &__settings-text {
+      padding-left: 85px;
+      text-decoration-thickness: 1.2px;
+      text-underline-offset: 3px;
+    }
+    &__settings-element {
+      margin-bottom: 50px;
+    }
+  }
+
+  .input {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+@media screen and (min-width: 1350px) {
+  .input {
+    width: 48px;
+    height: 48px;
+  }
+}

@@ -1,0 +1,45 @@
+.checkbox-wrapper {
+  width: 37px;
+  height: 37px;
+
+  position: absolute;
+  left: 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+  border: 1px solid #000000;
+}
+
+.checkbox-checkmark {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.checkbox-checkmark:checked {
+  background-image: url("/src/assets/img/checkmark.png");
+  background-size: 26px 25px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+@media screen and (min-width: 1230px) {
+  .checkbox-wrapper {
+    width: 42px;
+    height: 42px;
+  }
+
+  .checkbox-checkmark:checked {
+    background-size: 31px 30px;
+  }
+}
+
+@media screen and (min-width: 1350px) {
+  .input {
+    width: 48px;
+    height: 48px;
+  }
+}
