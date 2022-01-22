@@ -43,7 +43,14 @@ export class Checkbox {
     checkboxInputElementWrapper.append(checkboxDOMElement);
 
     const checkboxLabelElement = document.createElement('label');
-    checkboxLabelElement.classList.add('question-page__answer');
+    if (this.size === 'small'){
+      checkboxLabelElement.classList.add('right-page__settings-element-text')
+    }
+
+    if(this.size === 'large'){
+      checkboxLabelElement.classList.add('question-page__answer');
+    }
+
     checkboxLabelElement.htmlFor = this.id;
     checkboxLabelElement.textContent = this.labelText;
 

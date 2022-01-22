@@ -17,23 +17,29 @@ button {
   }
 
   &--bolded {
-    font-size: 40px;
+    font-size: 50px;
     text-shadow: 1px 1px 0px #000000;
     &:hover {
       text-decoration: underline;
-      text-decoration-thickness: 2px;
+      text-decoration-thickness: 4px;
       text-underline-offset: 4px;
     }
   }
-  &--trueFalse {
-    width: 350px;
-    height: 120px;
+  &--true-false {
+    width: 330px;
+    height: 100px;
     font-size: 60px;
     background: linear-gradient(180deg, rgb(255, 255, 255) 0%, rgba(207, 194, 161, 0.9) 100%);
     border: 2px solid #000000;
     &:hover {
-      filter: drop-shadow(0px 0px 50px #37360c);
+      filter: drop-shadow(0px 0px 50px #2e2d0a);
     }
+  }
+  &--true-false-active {
+    filter: drop-shadow(0px 0px 50px #2e2d0a);
+    text-decoration: underline;
+    text-decoration-thickness: 4px;
+    text-underline-offset: 3px;
   }
 }
 

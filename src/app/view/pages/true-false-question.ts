@@ -12,8 +12,8 @@ export class TrueFalseQuestionPage {
   private createQuestions() {
     const questionPageAnswers = this.questionPage.getElementsByClassName('question-page__answers')[0];
 
-    const trueFalseButtonOne = Button.trueFalse('answer-one').withText('True').onClick(trueFalseChoice);
-    const trueFalseButtonTwo = Button.trueFalse('answer-two').withText('False').onClick(trueFalseChoice);
+    const trueFalseButtonOne = Button.trueFalse('answer-true').withText('True').onClick(() => trueFalseChoice("true"));
+    const trueFalseButtonTwo = Button.trueFalse('answer-false').withText('False').onClick(() => trueFalseChoice("false"));
 
     questionPageAnswers.append(trueFalseButtonOne.render(),trueFalseButtonTwo.render());
   }

@@ -14,6 +14,16 @@
     margin-bottom: 35px;
   }
 
+  &__settings-element-text {
+    position: absolute;
+    padding-left: 60px;
+    margin-right: 40px;
+
+    text-decoration: underline dashed;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
+
   &__settings-element-reversed {
     display: flex;
     padding-bottom: 15px;
@@ -43,6 +53,9 @@
     }
     &__settings-element {
       margin-bottom: 50px;
+    }
+    &__settings-element-text {
+      padding-left: 70px;
     }
   }
 

@@ -40,8 +40,9 @@ export class SettingsPage {
 
     const timeLimitSettingWrapper = document.createElement('div');
     timeLimitSettingWrapper.classList.add('right-page__settings-element-reversed');
-    const timeLimitText = document.createElement('div');
+    const timeLimitText = document.createElement('label');
     timeLimitText.classList.add('right-page__time-limit-text');
+    timeLimitText.htmlFor = 'time-limit-input';
     timeLimitText.textContent = 'Time limit for answers';
     const timeLimitTextInput = document.createElement('input');
     timeLimitTextInput.type = 'text';

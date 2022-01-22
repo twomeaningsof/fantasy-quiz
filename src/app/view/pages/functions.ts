@@ -40,8 +40,19 @@ export const renderTrueFalseQuestionPage = () => {
   trueFalseQuestionPage.render();
 }
 
-export const trueFalseChoice = () => {
-  // this.style.filter = "drop-shadow(0px 0px 50px #37360c)";
-  // console.log(element);
-  // }
+export const trueFalseChoice = (type: "true" | "false") => {
+  const button = document.getElementById(`answer-${type}`);
+  const activeButtons = document.getElementsByClassName('button--true-false-active');
+
+  if (button?.classList.contains('button--true-false-active')){
+    return button.classList.remove('button-true-false-active');
+  }
+
+  if (activeButtons.length > 0) {
+    activeButtons[0].classList.remove("button--true-false-active")
+  }
+
+  button?.classList.add('button--true-false-active')
+  "drop-shadow(0px 0px 50px #37360c)";
+  
 }

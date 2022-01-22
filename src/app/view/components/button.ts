@@ -42,7 +42,7 @@ export class Button {
     }
 
     if (this.type == Type.TRUEFALSE) {
-      buttonDomElement.classList.add('button--trueFalse');
+      buttonDomElement.classList.add('button--true-false');
     }
 
     buttonDomElement.onclick = this.onClickFn;
