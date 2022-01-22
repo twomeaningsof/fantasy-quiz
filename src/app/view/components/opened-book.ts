@@ -1,14 +1,5 @@
-import { Button } from "./button";
-import { renderSCQuestionPage } from "../pages/renderFunctions";
-
 export class OpenedBook {
-  static render(): HTMLDivElement {
-    const openedBook = document.createElement('div');
-    openedBook.classList.add('opened-book');
-
-    const bookContent = document.createElement('div');
-    bookContent.classList.add('book-content');
-
+  private createLeftPage() {
     const leftPage = document.createElement('div');
     leftPage.classList.add('left-page');
 
@@ -24,6 +15,10 @@ export class OpenedBook {
 
     leftPage.append(leftPageTop,leftPageBottom);
 
+    return leftPage
+  }
+
+  private createRightPage() {
     const rightPage = document.createElement('div');
     rightPage.classList.add('right-page');
 
@@ -35,10 +30,21 @@ export class OpenedBook {
 
     const rightPageBottom = document.createElement('div');
     rightPageBottom.classList.add('right-page__bottom');
-    const rightPagePlayButton: Button = Button.standard('right-page-right-button').withText('Play').onClick(renderSCQuestionPage);
-    rightPageBottom.append(rightPagePlayButton.render());
 
     rightPage.append(rightPageTop,rightPageMiddle,rightPageBottom);
+
+    return rightPage;
+  }
+
+  render() {
+    const openedBook = document.createElement('div');
+    openedBook.classList.add('opened-book');
+
+    const bookContent = document.createElement('div');
+    bookContent.classList.add('book-content');
+
+    const leftPage = this.createLeftPage();
+    const rightPage = this.createRightPage();
 
     bookContent.append(leftPage,rightPage);
     openedBook.append(bookContent)

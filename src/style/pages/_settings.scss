@@ -3,24 +3,19 @@
 @use "../components/_checkbox.scss";
 
 .right-page {
+  &__middle-wrapper {
+    width: 100%;
+  }
+
   &__settings-element {
     width: 100%;
+    height: 82px;
     position: relative;
     margin-bottom: 35px;
   }
 
-  &__settings-text {
-    padding-left: 60px;
-    margin-right: 40px;
-
-    text-decoration: underline dashed;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 2px;
-  }
-
   &__settings-element-reversed {
     display: flex;
-    justify-content: space-around;
     padding-bottom: 15px;
   }
 
@@ -33,6 +28,7 @@
   width: 35px;
   height: 35px;
   margin-bottom: 5px;
+  margin-left: 28px;
   border: 1px solid #000000;
   background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
   text-align: center;
@@ -53,6 +49,7 @@
   .input {
     width: 42px;
     height: 42px;
+    margin-left: 30px;
   }
 }
 
@@ -60,5 +57,6 @@
   .input {
     width: 48px;
     height: 48px;
+    margin-left: 50px;
   }
 }

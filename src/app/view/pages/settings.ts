@@ -1,49 +1,42 @@
 import { Button } from "../components/button";
 import { Checkbox } from "../components/checkbox";
 import { OpenedBook } from "../components/opened-book";
-import { renderWelcomePage, renderRulebookPage } from "./renderFunctions";
+import { renderWelcomePage, renderRulebookPage,renderSCQuestionPage } from "./functions";
 
 export class SettingsPage {
-  private createOpenedBook(): HTMLDivElement {
-    const openedBook: HTMLDivElement = OpenedBook.render();
+  openedBook = new OpenedBook().render();
 
-    const leftPageBottom = openedBook.getElementsByClassName('left-page__bottom')[0];
-    const leftPageButton: Button = Button.standard('left-page-button').withText('Back').onClick(renderWelcomePage);
+  private createLeftPage() {
+    const leftPageBottom = this.openedBook.getElementsByClassName('left-page__bottom')[0];
+    const leftPageButton = Button.standard('left-page-button').withText('Back').onClick(renderWelcomePage);
     leftPageBottom.append(leftPageButton.render());
+  }
 
-    const rightPageTop = openedBook.getElementsByClassName('right-page__top')[0];
+  private createRightPage() {
+    const rightPageTop = this.openedBook.getElementsByClassName('right-page__top')[0];
     const rightPageTitle = document.createElement('span');
     rightPageTitle.classList.add('right-page__title');
     rightPageTitle.textContent = 'Settings'
     rightPageTop.append(rightPageTitle);
 
-    const rightPageMiddle = openedBook.getElementsByClassName('right-page__middle')[0];
+    const rightPageMiddle = this.openedBook.getElementsByClassName('right-page__middle')[0];
     const rightPageMiddleElementsWrapper = document.createElement('div');
     rightPageMiddleElementsWrapper.classList.add('right-page__middle-wrapper');
 
     const singleChoiceSettingWrapper = document.createElement('div');
     singleChoiceSettingWrapper.classList.add('right-page__settings-element');
-    const singleChoiceCheckbox: Checkbox = Checkbox.checked('settings-single-choice-checkbox').onCheck(() => { console.log('settings-single-choice-checkbox') });
-    const singleChoiceText = document.createElement('div');
-    singleChoiceText.classList.add('right-page__settings-text');
-    singleChoiceText.textContent = 'Enable single choice questions'
-    singleChoiceSettingWrapper.append(singleChoiceCheckbox.render(),singleChoiceText);
+    const singleChoiceCheckbox = Checkbox.checked('settings-single-choice-checkbox').small().withText('Enable single choice questions').onCheck(() => { console.log('settings-single-choice-checkbox') });
+    singleChoiceSettingWrapper.append(singleChoiceCheckbox.render());
 
     const multipleChoiceSettingWrapper = document.createElement('div');
     multipleChoiceSettingWrapper.classList.add('right-page__settings-element');
-    const multipleChoiceCheckbox: Checkbox = Checkbox.checked('settings-multiple-choice-checkbox').onCheck(() => { console.log('settings-multiple-choice-checkbox') });
-    const multipleChoiceText = document.createElement('div');
-    multipleChoiceText.classList.add('right-page__settings-text');
-    multipleChoiceText.textContent = 'Enable multiple choice questions'
-    multipleChoiceSettingWrapper.append(multipleChoiceCheckbox.render(),multipleChoiceText);
+    const multipleChoiceCheckbox = Checkbox.checked('settings-multiple-choice-checkbox').small().withText('Enable multiple choice questions').onCheck(() => { console.log('settings-multiple-choice-checkbox') });
+    multipleChoiceSettingWrapper.append(multipleChoiceCheckbox.render());
 
     const trueFalseSettingWrapper = document.createElement('div');
     trueFalseSettingWrapper.classList.add('right-page__settings-element');
-    const trueFalseCheckbox: Checkbox = Checkbox.checked('settings-true-false-checkbox').onCheck(() => { console.log('settings-true-false-checkbox') });
-    const trueFalseText = document.createElement('div');
-    trueFalseText.classList.add('right-page__settings-text');
-    trueFalseText.textContent = 'Enable true or false questions'
-    trueFalseSettingWrapper.append(trueFalseCheckbox.render(),trueFalseText);
+    const trueFalseCheckbox = Checkbox.checked('settings-true-false-checkbox').small().withText('Enable true or false questions').onCheck(() => { console.log('settings-true-false-checkbox') });
+    trueFalseSettingWrapper.append(trueFalseCheckbox.render());
 
     const timeLimitSettingWrapper = document.createElement('div');
     timeLimitSettingWrapper.classList.add('right-page__settings-element-reversed');
@@ -78,16 +71,17 @@ export class SettingsPage {
 
     rightPageMiddle.append(rightPageMiddleElementsWrapper, rightPageMiddleScroll);
 
-    const rightPageBottom = openedBook.getElementsByClassName('right-page__bottom')[0];
-    const rightPageLeftButton: Button = Button.standard('right-page-left-button').withText('Rulebook').onClick(renderRulebookPage);
-    rightPageBottom.prepend(rightPageLeftButton.render());
-
-    return openedBook;
+    const rightPageBottom = this.openedBook.getElementsByClassName('right-page__bottom')[0];
+    const rightPageLeftButton = Button.standard('right-page-left-button').withText('Rulebook').onClick(renderRulebookPage);
+    const rightPageRightButton = Button.standard('right-page-right-button').withText('Play').onClick(renderSCQuestionPage);
+    rightPageBottom.append(rightPageLeftButton.render(),rightPageRightButton.render());
   }
 
+
   render () {
-    const openedBook = this.createOpenedBook();
+    this.createLeftPage();
+    this.createRightPage();
     const rootWrapper = document.getElementsByClassName('wrapper')[0];
-    rootWrapper?.appendChild(openedBook);
+    rootWrapper?.appendChild(this.openedBook);
   }
 }

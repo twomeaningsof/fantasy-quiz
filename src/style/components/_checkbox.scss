@@ -1,39 +1,63 @@
 .checkbox-wrapper {
-  width: 37px;
-  height: 37px;
-
-  position: absolute;
-  left: 5px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
-  border: 1px solid #000000;
-}
-
-.checkbox-checkmark {
   width: 100%;
   height: 100%;
-  position: absolute;
-}
 
-.checkbox-checkmark:checked {
-  background-image: url("/src/assets/img/checkbox-checked.png");
-  background-size: 26px 25px;
-  background-repeat: no-repeat;
-  background-position: center;
+  display: flex;
+
+  &__input-wrapper {
+    background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+    border: 1px solid #000000;
+    position: relative;
+    top: 4px;
+    &--small {
+      width: 37px;
+      height: 37px;
+    }
+    &--large {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  &__checkmark {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+
+  &__checkmark:checked {
+    background-image: url("/src/assets/img/checkbox-checked.png");
+    background-size: 26px 25px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  &__label {
+    position: absolute;
+    padding-left: 60px;
+    margin-right: 40px;
+
+    text-decoration: underline dashed;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
 }
 
 @media screen and (min-width: 1230px) {
   .checkbox-wrapper {
-    width: 42px;
-    height: 42px;
-  }
+    &__input-wrapper {
+      &--small {
+        width: 42px;
+        height: 42px;
+      }
+    }
 
-  .checkbox-checkmark:checked {
-    background-size: 31px 30px;
+    &__checkmark:checked {
+      background-size: 31px 30px;
+    }
+    &__label {
+      padding-left: 70px;
+    }
   }
 }
 

@@ -1,8 +1,5 @@
-import { Button } from "./button";
-import { renderMCQuestionPage } from "../pages/renderFunctions";
-
 export class QuestionPage {
-  static render(): HTMLDivElement {
+  private createPage() {
     const questionPage = document.createElement('div');
     questionPage.classList.add('question-page');
 
@@ -15,11 +12,11 @@ export class QuestionPage {
     const questionPageConfirmButtonWrapper = document.createElement('div');
     questionPageConfirmButtonWrapper.classList.add('question-page__confirm-button-wrapper');
 
-    const questionPageConfirmButton: Button = Button.bolded('confirm-button').withText('Confirm').onClick(renderMCQuestionPage);
-    questionPageConfirmButtonWrapper.append(questionPageConfirmButton.render());
-
-    questionPage.append(questionPageQuestion,questionPageAnswers,questionPageConfirmButtonWrapper);
+    questionPage.append(questionPageQuestion, questionPageAnswers, questionPageConfirmButtonWrapper);
 
     return questionPage;
+  }
+  render() {
+    return this.createPage();
   }
 }

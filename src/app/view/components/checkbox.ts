@@ -1,44 +1,53 @@
-export enum State {
-  CHECKED = 'checked',
-  UNCHECKED = 'unchecked',
-}
-
 export class Checkbox {
-  constructor(private id: string, private state: State, private onCheckFn: () => void = () => {}) {}
+  constructor(private id: string, private checked: boolean, private size = '', private labelText: string = '', private onCheckFn: () => void = () => {}) {}
 
 
-  static checked(id: string): Checkbox {
-    return new Checkbox(id, State.CHECKED);
+  static checked(id: string) {
+    return new Checkbox(id, true);
   }
 
-  static unchecked(id: string): Checkbox {
-    return new Checkbox(id, State.UNCHECKED);
+  static unchecked(id: string) {
+    return new Checkbox(id, false);
   }
 
-  onCheck(checkFn: () => void): Checkbox {
-    return new Checkbox(this.id, this.state, checkFn);
+  small(){
+    return new Checkbox(this.id,this.checked,this.size = 'small')
   }
 
-  render(): HTMLDivElement {
-    const checkboxWrapper: HTMLDivElement = document.createElement('div');
+  large(){
+    return new Checkbox(this.id,this.checked,this.size = 'large')
+  }
+
+  withText(labelText:string) {
+    return new Checkbox(this.id, this.checked, this.size, labelText);
+  }
+
+  onCheck(checkFn: () => void) {
+    return new Checkbox(this.id, this.checked,this.size, this.labelText, checkFn);
+  }
+
+  render() {
+    const checkboxWrapper = document.createElement('div');
     checkboxWrapper.classList.add('checkbox-wrapper')
 
-    const checkboxInputElement: HTMLInputElement = document.createElement('input')
-    checkboxInputElement.type = 'checkbox';
-    checkboxInputElement.id = this.id;
-    checkboxInputElement.classList.add('checkbox-checkmark');
+    const checkboxInputElementWrapper = document.createElement('div');
+    checkboxInputElementWrapper.classList.add('checkbox-wrapper__input-wrapper', `checkbox-wrapper__input-wrapper--${this.size}`);
 
-    if (this.state == State.CHECKED) {
-      checkboxInputElement.checked = true;
-    }
+    const checkboxDOMElement = document.createElement('input')
+    checkboxDOMElement.type = 'checkbox';
+    checkboxDOMElement.id = this.id;
+    checkboxDOMElement.classList.add('checkbox-wrapper__checkmark');
+    checkboxDOMElement.checked = this.checked;
+    checkboxDOMElement.onclick = this.onCheckFn;
 
-    if (this.state == State.UNCHECKED) {
-      checkboxInputElement.checked = false;
-    }
+    checkboxInputElementWrapper.append(checkboxDOMElement);
 
-    checkboxInputElement.onclick = this.onCheckFn;
+    const checkboxLabelElement = document.createElement('label');
+    checkboxLabelElement.classList.add('question-page__answer');
+    checkboxLabelElement.htmlFor = this.id;
+    checkboxLabelElement.textContent = this.labelText;
 
-    checkboxWrapper.append(checkboxInputElement);
+    checkboxWrapper.append(checkboxInputElementWrapper, checkboxLabelElement);
 
     return checkboxWrapper;
   }

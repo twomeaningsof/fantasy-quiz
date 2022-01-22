@@ -1,42 +1,52 @@
-export enum Size {
+export enum Type {
   BOLDED = 'bolded',
   STANDARD = 'standard',
+  TRUEFALSE = 'trueFalse'
 }
 
 export class Button {
-  constructor(private id: string, private size: Size, private btnText: string = '', private onClickFn: () => void = () => {}) {}
+  constructor(private id: string, private type: Type, private btnText: string = '', private onClickFn: () => void = () => {}) {}
 
 
-  static standard(id: string): Button {
-    return new Button(id, Size.STANDARD);
+  static standard(id: string) {
+    return new Button(id, Type.STANDARD);
   }
 
-  static bolded(id: string): Button {
-    return new Button(id, Size.BOLDED);
+  static bolded(id: string) {
+    return new Button(id, Type.BOLDED);
   }
 
-  withText(text: string): Button {
-    return new Button(this.id, this.size, text, this.onClickFn);
+  static trueFalse(id:string) {
+    return new Button(id, Type.TRUEFALSE);
   }
 
-  onClick(clickFn: () => void): Button {
-    return new Button(this.id, this.size, this.btnText, clickFn);
+  withText(text: string) {
+    return new Button(this.id, this.type, text, this.onClickFn);
   }
 
-  render(): HTMLButtonElement {
+  onClick(clickFn: () => void) {
+    return new Button(this.id, this.type, this.btnText, clickFn);
+  }
+
+  render() {
     const buttonDomElement: HTMLButtonElement = document.createElement('button');
     buttonDomElement.id = this.id;
     buttonDomElement.textContent = this.btnText;
 
-    if (this.size == Size.STANDARD) {
+    if (this.type == Type.STANDARD) {
       buttonDomElement.classList.add('button--standard');
     }
 
-    if (this.size == Size.BOLDED) {
+    if (this.type == Type.BOLDED) {
       buttonDomElement.classList.add('button--bolded');
     }
 
+    if (this.type == Type.TRUEFALSE) {
+      buttonDomElement.classList.add('button--trueFalse');
+    }
+
     buttonDomElement.onclick = this.onClickFn;
+
     return buttonDomElement;
   }
 }

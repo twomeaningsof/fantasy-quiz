@@ -1,9 +1,10 @@
 .radio-button {
-  width: 64px;
-  height: 64px;
+  width: 58px;
+  height: 58px;
   position: relative;
 
   background-image: url("/src/assets/img/radio-button.png");
+  background-size: contain;
 
   &__input {
     width: 100%;
@@ -13,18 +14,8 @@
 
   &__input:checked {
     background-image: url("/src/assets/img/radio-checked.png");
-    background-size: 28px;
+    background-size: 20px;
     background-repeat: no-repeat;
     background-position: center;
-  }
-
-  &__label {
-    height: 100%;
-    padding: 10px 0px 0px 30px;
-    font-size: 38px;
-
-    text-decoration: underline dashed;
-    text-decoration-thickness: 1px;
-    text-underline-offset: 15px;
   }
 }
