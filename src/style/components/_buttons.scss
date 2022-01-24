@@ -26,9 +26,9 @@ button {
     }
   }
   &--true-false {
-    width: 330px;
-    height: 100px;
-    font-size: 60px;
+    width: 300px;
+    height: 70px;
+    font-size: 45px;
     background: linear-gradient(180deg, rgb(255, 255, 255) 0%, rgba(207, 194, 161, 0.9) 100%);
     border: 2px solid #000000;
     &:hover {
@@ -47,6 +47,12 @@ button {
   .button {
     &--standard {
       font-size: 45px;
+    }
+
+    &--true-false {
+      width: 330px;
+      height: 100px;
+      font-size: 60px;
     }
   }
 }

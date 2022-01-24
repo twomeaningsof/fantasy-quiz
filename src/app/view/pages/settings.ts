@@ -1,7 +1,7 @@
-import { Button } from "../components/button";
-import { Checkbox } from "../components/checkbox";
-import { OpenedBook } from "../components/opened-book";
-import { renderWelcomePage, renderRulebookPage,renderSCQuestionPage } from "./functions";
+import { Button } from "../components/Button";
+import { Checkbox } from "../components/Checkbox";
+import { OpenedBook } from "../components/Opened-book";
+import { renderWelcomePage, renderRulebookPage,renderSCQuestionPage } from "./Functions";
 
 export class SettingsPage {
   openedBook = new OpenedBook().render();

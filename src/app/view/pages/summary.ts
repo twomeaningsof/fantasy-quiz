@@ -1,6 +1,6 @@
-import { Button } from "../components/button";
-import { QuestionPage } from "../components/question-page";
-import { renderFinishPage } from "./functions";
+import { Button } from "../components/Button";
+import { QuestionPage } from "../components/Question-page";
+import { renderFinishPage } from "./Functions";
 
 export class SummaryPage {
   questionPage = new QuestionPage().render();

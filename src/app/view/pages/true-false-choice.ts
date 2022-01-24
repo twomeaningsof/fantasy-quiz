@@ -1,7 +1,7 @@
-import { Button } from "../components/button";
-import { QuestionPage } from "../components/question-page";
-import { trueFalseChoice } from "./functions";
-import { renderSummaryPage } from "./functions";
+import { Button } from "../components/Button";
+import { QuestionPage } from "../components/Question-page";
+import { trueFalseChoice } from "./Functions";
+import { renderSummaryPage } from "./Functions";
 
 export class TrueFalseQuestionPage {
   questionPage = new QuestionPage().render();

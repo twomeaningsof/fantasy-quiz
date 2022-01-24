@@ -1,6 +1,6 @@
-import { LandingPage } from '../view/pages/landing';
-import { WelcomePage } from '../view/pages/welcome';
-import { RulebookPage } from '../view/pages/rulebook';
+import { LandingPage } from '../view/pages/Landing';
+import { WelcomePage } from '../view/pages/Welcome';
+import { RulebookPage } from '../view/pages/Rulebook';
 
 
 
