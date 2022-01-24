@@ -2,8 +2,11 @@
 @use "./pages/_welcome.scss";
 @use "./pages/_rulebook.scss";
 @use "./pages/_settings.scss";
-@use "./pages/_question-single-choice.scss";
-@use "./pages/_question-multiple-choice.scss";
+@use "./pages/_single-choice.scss";
+@use "./pages/_multiple-choice.scss";
+@use "./pages/_true-false-choice.scss";
+@use "./pages/_summary.scss";
+@use "./pages/_finish.scss";
 
 @media only screen and (max-width: 1024px) {
   *,
