@@ -1,8 +1,5 @@
 import { LandingPage } from '../view/pages/Landing';
 import { WelcomePage } from '../view/pages/Welcome';
-import { RulebookPage } from '../view/pages/Rulebook';
-
-
 
 export class LandingView {
   renderLanding() {

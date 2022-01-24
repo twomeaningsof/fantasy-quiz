@@ -1,15 +1,16 @@
 @use "../components/_question-page.scss";
 
 .question-page {
-    &__summary-wrapper {
-        font-size: 47px;
-        text-align: center;
-        text-shadow: none;
+  &__summary-wrapper {
+    font-size: 47px;
+    text-align: center;
+    text-shadow: none;
+  }
+
+  &__question {
+    &--bolded {
+      font-size: 65px;
+      text-shadow: 1.3px 1.3px 0px #000000;
     }
-    &__question {
-        &--bolded {
-            font-size: 65px;
-            text-shadow: 1.3px 1.3px 0px #000000;
-        }
-    }
+  }
 }

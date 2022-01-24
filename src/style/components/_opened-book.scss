@@ -2,7 +2,6 @@
   width: 1000px;
   height: 640px;
   position: relative;
-
   background-image: url("/src/assets/img/opened-book.png");
   background-size: contain;
   background-repeat: no-repeat;
@@ -24,20 +23,17 @@
 .left-page {
   width: 50%;
   height: 100%;
-
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-
   padding-right: 4px;
 
   &__top {
     width: 80%;
     height: 80%;
     top: -10px;
-
     display: flex;
     justify-content: center;
     position: relative;
@@ -46,9 +42,7 @@
   &__img {
     width: 90%;
     height: 90%;
-
     align-self: center;
-
     background-image: url("/src/assets/img/welcome-page-image.png");
     background-size: contain;
     background-repeat: no-repeat;
@@ -65,10 +59,8 @@
 .right-page {
   width: 50%;
   height: 100%;
-
   display: flex;
   flex-direction: column;
-
   margin-left: -4px;
   padding: 0px 45px 0px 50px;
 
@@ -80,29 +72,29 @@
   }
 
   &__middle {
+    height: 58%;
     display: flex;
     justify-content: space-between;
-    height: 58%;
     margin-top: 40px;
+    overflow-y: auto;
     font-size: 26px;
     line-height: 34px;
-    overflow-y: auto;
-  }
 
-  &__middle::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
-    border-radius: 6px;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
+    &::-webkit-scrollbar-track {
+      -webkit-box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.3);
+      border-radius: 6px;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
 
-  &__middle::-webkit-scrollbar {
-    width: 15px;
-  }
+    &::-webkit-scrollbar {
+      width: 15px;
+    }
 
-  &__middle::-webkit-scrollbar-thumb {
-    border-radius: 6px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #c0b3a3;
+    &::-webkit-scrollbar-thumb {
+      border-radius: 6px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: #c0b3a3;
+    }
   }
 
   &__scrollbar {
@@ -137,10 +129,10 @@
       margin-top: 50px;
       font-size: 33px;
       line-height: 43px;
-    }
 
-    &__middle::-webkit-scrollbar {
-      width: 20px;
+      &::-webkit-scrollbar {
+        width: 20px;
+      }
     }
 
     &__scrollbar {

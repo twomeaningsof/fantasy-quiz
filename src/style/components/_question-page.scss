@@ -1,14 +1,11 @@
 .question-page {
   width: 100%;
   height: 100%;
-
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
   padding: 10% 15% 4.5% 15%;
-
   background-image: url("/src/assets/img/question-page.png");
   background-size: cover;
 
@@ -20,13 +17,11 @@
   &__answers {
     width: 100%;
     height: 100%;
-
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     align-content: space-around;
     justify-content: space-around;
-
     padding-top: 50px;
     padding-bottom: 50px;
   }
@@ -34,7 +29,6 @@
   &__answer {
     padding: 10px 0px 0px 30px;
     font-size: 38px;
-
     text-decoration: underline dashed;
     text-decoration-thickness: 1px;
     text-underline-offset: 4px;
@@ -44,6 +38,7 @@
       display: flex;
       justify-items: center;
     }
+
     &--checkbox {
       width: 100%;
       display: flex;
