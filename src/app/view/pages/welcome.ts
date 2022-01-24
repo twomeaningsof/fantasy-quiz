@@ -1,6 +1,6 @@
-import { Button } from "../components/button";
-import { OpenedBook } from "../components/opened-book";
-import { renderSettingsPage,renderRulebookPage,renderSCQuestionPage } from "./functions";
+import { Button } from "../components/Button";
+import { OpenedBook } from "../components/Opened-book";
+import { renderSettingsPage,renderRulebookPage,renderSCQuestionPage } from "./Functions";
 
 export class WelcomePage {
   openedBook = new OpenedBook().render();

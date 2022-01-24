@@ -1,7 +1,7 @@
-import { Button } from "../components/button";
-import { Checkbox } from "../components/checkbox";
-import { QuestionPage } from "../components/question-page";
-import { renderTrueFalseQuestionPage } from "./functions";
+import { Button } from "../components/Button";
+import { Checkbox } from "../components/Checkbox";
+import { QuestionPage } from "../components/Question-page";
+import { renderTrueFalseQuestionPage } from "./Functions";
 
 export class MultipleChoiceQuestionPage {
   questionPage = new QuestionPage().render();

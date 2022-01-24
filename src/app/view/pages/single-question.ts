@@ -1,7 +1,7 @@
-import { Button } from "../components/button";
-import { RadioButton } from "../components/radio-button";
-import { QuestionPage } from "../components/question-page";
-import { renderMCQuestionPage } from "./functions";
+import { Button } from "../components/Button";
+import { RadioButton } from "../components/Radio-button";
+import { QuestionPage } from "../components/Question-page";
+import { renderMCQuestionPage } from "./Functions";
 
 export class SingleChoiceQuestionPage {
   questionPage = new QuestionPage().render();
