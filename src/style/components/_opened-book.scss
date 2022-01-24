@@ -2,7 +2,6 @@
   width: 1000px;
   height: 640px;
   position: relative;
-
   background-image: url("/src/assets/img/opened-book.png");
   background-size: contain;
   background-repeat: no-repeat;
@@ -24,20 +23,17 @@
 .left-page {
   width: 50%;
   height: 100%;
-
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-
   padding-right: 4px;
 
   &__top {
     width: 80%;
     height: 80%;
     top: -10px;
-
     display: flex;
     justify-content: center;
     position: relative;
@@ -46,9 +42,7 @@
   &__img {
     width: 90%;
     height: 90%;
-
     align-self: center;
-
     background-image: url("/src/assets/img/welcome-page-image.png");
     background-size: contain;
     background-repeat: no-repeat;
@@ -65,10 +59,8 @@
 .right-page {
   width: 50%;
   height: 100%;
-
   display: flex;
   flex-direction: column;
-
   margin-left: -4px;
   padding: 0px 45px 0px 50px;
 
@@ -81,6 +73,7 @@
 
   &__middle {
     display: flex;
+    justify-content: space-between;
     height: 58%;
     margin-top: 40px;
     font-size: 26px;

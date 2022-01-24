@@ -1,6 +1,6 @@
-import { Button } from "../components/button";
-import { OpenedBook } from "../components/opened-book";
-import { renderSettingsPage, renderWelcomePage } from "./renderFunctions";
+import { Button } from "../components/Button";
+import { OpenedBook } from "../components/Opened-book";
+import { renderSettingsPage, renderWelcomePage,renderSCQuestionPage } from "./Functions";
 
 export class RulebookPage {
   openedBook = new OpenedBook().render();
@@ -30,7 +30,7 @@ export class RulebookPage {
 
     const rightPageBottom = this.openedBook.getElementsByClassName('right-page__bottom')[0];
     const rightPageLeftButton = Button.standard('right-page-left-button').withText('Back').onClick(renderWelcomePage);
-    const rightPageRightButton = Button.standard('right-page-right-button').withText('Play').onClick(function() {});
+    const rightPageRightButton = Button.standard('right-page-right-button').withText('Play').onClick(renderSCQuestionPage);
     rightPageBottom.append(rightPageLeftButton.render(),rightPageRightButton.render());
   }
 

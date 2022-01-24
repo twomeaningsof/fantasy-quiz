@@ -2,6 +2,8 @@
 @use "./pages/_welcome.scss";
 @use "./pages/_rulebook.scss";
 @use "./pages/_settings.scss";
+@use "./pages/_question-single-choice.scss";
+@use "./pages/_question-multiple-choice.scss";
 
 @media only screen and (max-width: 1024px) {
   *,
@@ -9,6 +11,10 @@
   *:after {
     display: none;
   }
+}
+
+label {
+  cursor: inherit;
 }
 
 :root {
@@ -20,6 +26,7 @@
 *:after {
   box-sizing: border-box;
   text-shadow: 0.15px 0.15px 0px #000000;
+  user-select: none;
 }
 
 input {
@@ -39,11 +46,9 @@ body {
 .wrapper {
   width: 100%;
   height: 100%;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   background-image: url("/src/assets/img/background.png");
   background-size: cover;
 }

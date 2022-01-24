@@ -1,7 +1,7 @@
-import { Button } from "../components/button";
-import { Checkbox } from "../components/checkbox";
-import { OpenedBook } from "../components/opened-book";
-import { renderWelcomePage, renderRulebookPage } from "./renderFunctions";
+import { Button } from "../components/Button";
+import { Checkbox } from "../components/Checkbox";
+import { OpenedBook } from "../components/Opened-book";
+import { renderWelcomePage, renderRulebookPage,renderSCQuestionPage } from "./Functions";
 
 export class SettingsPage {
   openedBook = new OpenedBook().render();
@@ -25,32 +25,24 @@ export class SettingsPage {
 
     const singleChoiceSettingWrapper = document.createElement('div');
     singleChoiceSettingWrapper.classList.add('right-page__settings-element');
-    const singleChoiceCheckbox = Checkbox.checked('settings-single-choice-checkbox').onCheck(() => { console.log('settings-single-choice-checkbox') });
-    const singleChoiceText = document.createElement('div');
-    singleChoiceText.classList.add('right-page__settings-text');
-    singleChoiceText.textContent = 'Enable single choice questions'
-    singleChoiceSettingWrapper.append(singleChoiceCheckbox.render(),singleChoiceText);
+    const singleChoiceCheckbox = Checkbox.checked('settings-single-choice-checkbox').small().withText('Enable single choice questions').onCheck(() => { console.log('settings-single-choice-checkbox') });
+    singleChoiceSettingWrapper.append(singleChoiceCheckbox.render());
 
     const multipleChoiceSettingWrapper = document.createElement('div');
     multipleChoiceSettingWrapper.classList.add('right-page__settings-element');
-    const multipleChoiceCheckbox = Checkbox.checked('settings-multiple-choice-checkbox').onCheck(() => { console.log('settings-multiple-choice-checkbox') });
-    const multipleChoiceText = document.createElement('div');
-    multipleChoiceText.classList.add('right-page__settings-text');
-    multipleChoiceText.textContent = 'Enable multiple choice questions'
-    multipleChoiceSettingWrapper.append(multipleChoiceCheckbox.render(),multipleChoiceText);
+    const multipleChoiceCheckbox = Checkbox.checked('settings-multiple-choice-checkbox').small().withText('Enable multiple choice questions').onCheck(() => { console.log('settings-multiple-choice-checkbox') });
+    multipleChoiceSettingWrapper.append(multipleChoiceCheckbox.render());
 
     const trueFalseSettingWrapper = document.createElement('div');
     trueFalseSettingWrapper.classList.add('right-page__settings-element');
-    const trueFalseCheckbox = Checkbox.checked('settings-true-false-checkbox').onCheck(() => { console.log('settings-true-false-checkbox') });
-    const trueFalseText = document.createElement('div');
-    trueFalseText.classList.add('right-page__settings-text');
-    trueFalseText.textContent = 'Enable true or false questions'
-    trueFalseSettingWrapper.append(trueFalseCheckbox.render(),trueFalseText);
+    const trueFalseCheckbox = Checkbox.checked('settings-true-false-checkbox').small().withText('Enable true or false questions').onCheck(() => { console.log('settings-true-false-checkbox') });
+    trueFalseSettingWrapper.append(trueFalseCheckbox.render());
 
     const timeLimitSettingWrapper = document.createElement('div');
     timeLimitSettingWrapper.classList.add('right-page__settings-element-reversed');
-    const timeLimitText = document.createElement('div');
+    const timeLimitText = document.createElement('label');
     timeLimitText.classList.add('right-page__time-limit-text');
+    timeLimitText.htmlFor = 'time-limit-input';
     timeLimitText.textContent = 'Time limit for answers';
     const timeLimitTextInput = document.createElement('input');
     timeLimitTextInput.type = 'text';
@@ -82,7 +74,7 @@ export class SettingsPage {
 
     const rightPageBottom = this.openedBook.getElementsByClassName('right-page__bottom')[0];
     const rightPageLeftButton = Button.standard('right-page-left-button').withText('Rulebook').onClick(renderRulebookPage);
-    const rightPageRightButton = Button.standard('right-page-right-button').withText('Play').onClick(function() {});
+    const rightPageRightButton = Button.standard('right-page-right-button').withText('Play').onClick(renderSCQuestionPage);
     rightPageBottom.append(rightPageLeftButton.render(),rightPageRightButton.render());
   }
 
