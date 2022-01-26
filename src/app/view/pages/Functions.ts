@@ -1,9 +1,11 @@
 import { WelcomePage } from "./Welcome";
 import { SettingsPage } from "./Settings";
 import { RulebookPage } from "./Rulebook";
-import { SingleChoiceQuestionPage } from "./Single-question";
-import { MultipleChoiceQuestionPage } from "./Multiple-question";
-import { TrueFalseQuestionPage } from "./True-false-question";
+import { SingleChoiceQuestionPage } from "./Single-choice";
+import { MultipleChoiceQuestionPage } from "./Multiple-choice";
+import { TrueFalseQuestionPage } from "./True-false-choice";
+import { SummaryPage } from "./Summary";
+import { FinishPage } from "./Finish";
 
 export const renderSettingsPage = () => {
   document.getElementsByClassName('opened-book')[0].remove();
@@ -53,4 +55,19 @@ export const trueFalseChoice = (type: "true" | "false") => {
   }
 
   button?.classList.add('button--true-false-active');
+}
+
+export const renderSummaryPage = () => {
+  document.getElementsByClassName('question-page')[0].remove();
+  const summaryPage = new SummaryPage();
+  summaryPage.render();
+}
+
+export const renderFinishPage = () => {
+  document.getElementsByClassName('question-page')[0].remove();
+  const wrapper = document.createElement('div');
+  wrapper.classList.add('wrapper');
+  document.body.append(wrapper);
+  const finishPage = new FinishPage();
+  finishPage.render();
 }

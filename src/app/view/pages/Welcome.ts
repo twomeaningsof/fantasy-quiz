@@ -1,6 +1,6 @@
 import { Button } from "../components/Button";
 import { OpenedBook } from "../components/Opened-book";
-import { renderSettingsPage,renderRulebookPage,renderSCQuestionPage } from "./Functions";
+import { renderSettingsPage, renderRulebookPage, renderSCQuestionPage } from "./Functions";
 
 export class WelcomePage {
   openedBook = new OpenedBook().render();
@@ -27,7 +27,7 @@ export class WelcomePage {
     const rightPageBottom = this.openedBook.getElementsByClassName('right-page__bottom')[0];
     const rightPageLeftButton = Button.standard('right-page-left-button').withText('Rulebook').onClick(renderRulebookPage);
     const rightPageRightButton = Button.standard('right-page-right-button').withText('Play').onClick(renderSCQuestionPage);
-    rightPageBottom.append(rightPageLeftButton.render(),rightPageRightButton.render());
+    rightPageBottom.append(rightPageLeftButton.render(), rightPageRightButton.render());
   }
 
   render() {

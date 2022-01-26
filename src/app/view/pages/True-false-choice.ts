@@ -1,6 +1,7 @@
 import { Button } from "../components/Button";
 import { QuestionPage } from "../components/Question-page";
 import { trueFalseChoice } from "./Functions";
+import { renderSummaryPage } from "./Functions";
 
 export class TrueFalseQuestionPage {
   questionPage = new QuestionPage().render();
@@ -19,7 +20,7 @@ export class TrueFalseQuestionPage {
   }
   private createConfirm(){
     const questionPageConfirmButtonWrapper = this.questionPage.getElementsByClassName('question-page__confirm-button-wrapper')[0];
-    const questionPageConfirmButton: Button = Button.bolded('confirm-button').withText('Confirm').onClick(()=>{});
+    const questionPageConfirmButton: Button = Button.bolded('confirm-button').withText('Confirm').onClick(renderSummaryPage);
     questionPageConfirmButtonWrapper.append(questionPageConfirmButton.render());
   }
 
