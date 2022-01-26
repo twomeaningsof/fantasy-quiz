@@ -1,8 +1,11 @@
 import { Button } from "../components/Button";
 import { QuestionPage } from "../components/Question-page";
-import { renderFinishPage } from "./Functions";
+
+type handleChange = () => void;
 
 export class SummaryPage {
+  constructor(private handleChangeToFinish: handleChange) {}
+
   questionPage = new QuestionPage().render();
 
   private createTitle() {
@@ -28,7 +31,7 @@ export class SummaryPage {
 
   private createConfirm(){
     const questionPageConfirmButtonWrapper = this.questionPage.getElementsByClassName('question-page__confirm-button-wrapper')[0];
-    const questionPageConfirmButton: Button = Button.bolded('confirm-button').withText('See all answers').onClick(renderFinishPage);
+    const questionPageConfirmButton: Button = Button.bolded('confirm-button').withText('See all answers').onClick(this.handleChangeToFinish);
     questionPageConfirmButtonWrapper.append(questionPageConfirmButton.render());
   }
 

@@ -1,6 +1,7 @@
 import { Button } from "../components/Button";
 import { OpenedBook } from "../components/Opened-book";
-import { renderWelcomePage } from "./Functions";
+
+type handleChange = () => void;
 
 interface Question {
   index: number;
@@ -10,6 +11,8 @@ interface Question {
 }
 
 export class FinishPage {
+  constructor(private handleChangeToWelcome: handleChange) {}
+
   openedBook = new OpenedBook().render();
 
   private renderQuestion({
@@ -40,7 +43,7 @@ export class FinishPage {
 
   private createLeftPage() {
     const leftPageBottom = this.openedBook.getElementsByClassName('left-page__bottom')[0];
-    const leftPageButton = Button.standard('left-page-button').withText('Finish').onClick(renderWelcomePage);
+    const leftPageButton = Button.standard('left-page-button').withText('Finish').onClick(this.handleChangeToWelcome);
     leftPageBottom.append(leftPageButton.render());
   }
 

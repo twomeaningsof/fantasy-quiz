@@ -16,6 +16,7 @@ export class QuestionPage {
 
     return questionPage;
   }
+
   render() {
     return this.createPage();
   }

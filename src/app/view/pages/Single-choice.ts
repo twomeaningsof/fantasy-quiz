@@ -1,15 +1,19 @@
 import { Button } from "../components/Button";
 import { RadioButton } from "../components/Radio-button";
 import { QuestionPage } from "../components/Question-page";
-import { renderMCQuestionPage } from "./Functions";
+
+type handleChange = () => void;
 
 export class SingleChoiceQuestionPage {
+  constructor(private handleChangeToMultiple: handleChange) {}
+
   questionPage = new QuestionPage().render();
 
   private createTitle() {
     const questionPageQuestion = this.questionPage.getElementsByClassName('question-page__question')[0];
     questionPageQuestion.textContent = 'Who managed to bring the Ring to Mount Doom to destroy it and Sauron\'s power?';
   }
+
   private createQuestions() {
     const questionPageAnswers = this.questionPage.getElementsByClassName('question-page__answers')[0];
 
@@ -19,9 +23,10 @@ export class SingleChoiceQuestionPage {
 
     questionPageAnswers.append(radioButtonOne.render(),radioButtonTwo.render(),radioButtonThree.render());
   }
+
   private createConfirm(){
     const questionPageConfirmButtonWrapper = this.questionPage.getElementsByClassName('question-page__confirm-button-wrapper')[0];
-    const questionPageConfirmButton: Button = Button.bolded('confirm-button').withText('Confirm').onClick(renderMCQuestionPage);
+    const questionPageConfirmButton: Button = Button.bolded('confirm-button').withText('Confirm').onClick(this.handleChangeToMultiple);
     questionPageConfirmButtonWrapper.append(questionPageConfirmButton.render());
   }
 

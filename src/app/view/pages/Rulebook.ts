@@ -1,13 +1,16 @@
 import { Button } from "../components/Button";
 import { OpenedBook } from "../components/Opened-book";
-import { renderSettingsPage, renderWelcomePage,renderSCQuestionPage } from "./Functions";
+
+type handleChange = () => void;
 
 export class RulebookPage {
+  constructor(private handleChangeToSettings: handleChange, private handleChangeToWelcome: handleChange, private handleChangeToQuiz: handleChange) {}
+
   openedBook = new OpenedBook().render();
 
   private createLeftPage() {
     const leftPageBottom = this.openedBook.getElementsByClassName('left-page__bottom')[0];
-    const leftPageButton = Button.standard('left-page-button').withText('Settings').onClick(renderSettingsPage);
+    const leftPageButton = Button.standard('left-page-button').withText('Settings').onClick(this.handleChangeToSettings);
     leftPageBottom.append(leftPageButton.render());
   }
 
@@ -29,8 +32,8 @@ export class RulebookPage {
     rightPageMiddle.append(rightPageMiddleText,rightPageMiddleScroll);
 
     const rightPageBottom = this.openedBook.getElementsByClassName('right-page__bottom')[0];
-    const rightPageLeftButton = Button.standard('right-page-left-button').withText('Back').onClick(renderWelcomePage);
-    const rightPageRightButton = Button.standard('right-page-right-button').withText('Play').onClick(renderSCQuestionPage);
+    const rightPageLeftButton = Button.standard('right-page-left-button').withText('Back').onClick(this.handleChangeToWelcome);
+    const rightPageRightButton = Button.standard('right-page-right-button').withText('Play').onClick(this.handleChangeToQuiz);
     rightPageBottom.append(rightPageLeftButton.render(),rightPageRightButton.render());
   }
 

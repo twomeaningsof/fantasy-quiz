@@ -1,23 +1,18 @@
-export enum Type {
-  BOLDED = 'bolded',
-  STANDARD = 'standard',
-  TRUEFALSE = 'trueFalse'
-}
+type type = 'bolded' | 'standard' | 'trueFalse';
 
 export class Button {
-  constructor(private id: string, private type: Type, private btnText: string = '', private onClickFn: () => void = () => {}) {}
-
+  constructor(private id: string, private type: type, private btnText: string = '', private onClickFn: () => void = () => {}) {}
 
   static standard(id: string) {
-    return new Button(id, Type.STANDARD);
+    return new Button(id, 'standard');
   }
 
   static bolded(id: string) {
-    return new Button(id, Type.BOLDED);
+    return new Button(id, 'bolded');
   }
 
   static trueFalse(id:string) {
-    return new Button(id, Type.TRUEFALSE);
+    return new Button(id, 'trueFalse');
   }
 
   withText(text: string) {
@@ -33,15 +28,15 @@ export class Button {
     buttonDomElement.id = this.id;
     buttonDomElement.textContent = this.btnText;
 
-    if (this.type == Type.STANDARD) {
+    if (this.type == 'standard') {
       buttonDomElement.classList.add('button--standard');
     }
 
-    if (this.type == Type.BOLDED) {
+    if (this.type == 'bolded') {
       buttonDomElement.classList.add('button--bolded');
     }
 
-    if (this.type == Type.TRUEFALSE) {
+    if (this.type == 'trueFalse') {
       buttonDomElement.classList.add('button--true-false');
     }
 

@@ -1,9 +1,12 @@
 import { Button } from "../components/Button";
 import { Checkbox } from "../components/Checkbox";
 import { QuestionPage } from "../components/Question-page";
-import { renderTrueFalseQuestionPage } from "./Functions";
+
+type handleChange = () => void;
 
 export class MultipleChoiceQuestionPage {
+  constructor(private handleChangeToTrueFalse: handleChange) {}
+
   questionPage = new QuestionPage().render();
 
   private createTitle() {
@@ -40,7 +43,7 @@ export class MultipleChoiceQuestionPage {
 
   private createConfirm() {
     const questionPageConfirmButtonWrapper = this.questionPage.getElementsByClassName('question-page__confirm-button-wrapper')[0];
-    const questionPageConfirmButton: Button = Button.bolded('confirm-button').withText('Confirm').onClick(renderTrueFalseQuestionPage);
+    const questionPageConfirmButton: Button = Button.bolded('confirm-button').withText('Confirm').onClick(this.handleChangeToTrueFalse);
     questionPageConfirmButtonWrapper.append(questionPageConfirmButton.render());
   }
 

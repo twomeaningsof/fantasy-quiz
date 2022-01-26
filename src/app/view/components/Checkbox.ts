@@ -1,7 +1,6 @@
 export class Checkbox {
   constructor(private id: string, private checked: boolean, private size = '', private labelText: string = '', private onCheckFn: () => void = () => {}) {}
 
-
   static checked(id: string) {
     return new Checkbox(id, true);
   }
