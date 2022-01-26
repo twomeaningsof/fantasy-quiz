@@ -11,6 +11,7 @@ export class SummaryPage {
     questionPageQuestion.classList.add('question-page__question--bolded');
     questionPageQuestion.textContent = 'Congratulations';
   }
+
   private createQuestions() {
     const questionPageAnswers = this.questionPage.getElementsByClassName('question-page__answers')[0];
 
@@ -24,6 +25,7 @@ export class SummaryPage {
 
     questionPageAnswers.append(questionPageSummaryWrapper);
   }
+
   private createConfirm(){
     const questionPageConfirmButtonWrapper = this.questionPage.getElementsByClassName('question-page__confirm-button-wrapper')[0];
     const questionPageConfirmButton: Button = Button.bolded('confirm-button').withText('See all answers').onClick(renderFinishPage);
