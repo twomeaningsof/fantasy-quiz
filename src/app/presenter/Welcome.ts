@@ -5,23 +5,30 @@ import { QuizSinglePresenter } from "./QuizSingle";
 
 export class WelcomePresenter {
   handleChangePageToSettings() {
-    const settingsPresenter  = new SettingsPresenter();
-    settingsPresenter.initialize()
+    const settingsPresenter = new SettingsPresenter();
+    settingsPresenter.initialize();
   }
 
   handleChangePageToRulebook() {
-    const rulebookPresenter  = new RulebookPresenter();
-    rulebookPresenter.initialize()
+    const rulebookPresenter = new RulebookPresenter();
+    rulebookPresenter.initialize();
   }
 
   handleChangePageToQuiz() {
-    const quizPresenter  = new QuizSinglePresenter();
-    quizPresenter.initialize()
+    const quizPresenter = new QuizSinglePresenter();
+    quizPresenter.initialize();
   }
 
-  initialize(toRemove: string) {
+  static destroy(toRemove: string) {
     document.getElementsByClassName(toRemove)[0].remove();
-    const welcomePage = new WelcomePage(this.handleChangePageToSettings, this.handleChangePageToRulebook, this.handleChangePageToQuiz);
+  }
+
+  initialize() {
+    const welcomePage = new WelcomePage(
+      this.handleChangePageToSettings,
+      this.handleChangePageToRulebook,
+      this.handleChangePageToQuiz
+    );
     welcomePage.render();
   }
 }

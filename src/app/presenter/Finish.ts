@@ -3,14 +3,18 @@ import { WelcomePresenter } from "./Welcome";
 
 export class FinishPresenter {
   handleChangePageToWelcome() {
-    const welcomePresenter  = new WelcomePresenter();
-    welcomePresenter.initialize('opened-book');
+    const welcomePresenter = new WelcomePresenter();
+    WelcomePresenter.destroy("opened-book");
+    welcomePresenter.initialize();
+  }
+
+  static destroy() {
+    document.getElementsByClassName("question-page")[0].remove();
   }
 
   initialize() {
-    document.getElementsByClassName('question-page')[0].remove();
-    const wrapper = document.createElement('div');
-    wrapper.classList.add('wrapper');
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("wrapper");
     document.body.append(wrapper);
 
     const finishPage = new FinishPage(this.handleChangePageToWelcome);

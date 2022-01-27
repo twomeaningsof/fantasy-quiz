@@ -3,12 +3,15 @@ import { FinishPresenter } from "./Finish";
 
 export class SummaryPresenter {
   handleChangePageToFinish() {
-    const finishPresenter  = new FinishPresenter();
-    finishPresenter.initialize()
+    const finishPresenter = new FinishPresenter();
+    finishPresenter.initialize();
+  }
+
+  static destroy() {
+    document.getElementsByClassName("question-page")[0].remove();
   }
 
   initialize() {
-    document.getElementsByClassName('question-page')[0].remove();
     const summaryPage = new SummaryPage(this.handleChangePageToFinish);
     summaryPage.render();
   }
