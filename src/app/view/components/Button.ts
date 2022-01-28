@@ -1,18 +1,23 @@
-type type = 'bolded' | 'standard' | 'trueFalse';
+type type = "bolded" | "standard" | "trueFalse";
 
 export class Button {
-  constructor(private id: string, private type: type, private btnText: string = '', private onClickFn: () => void = () => {}) {}
+  constructor(
+    private id: string,
+    private type: type,
+    private btnText: string = "",
+    private onClickFn: () => void = () => {}
+  ) {}
 
   static standard(id: string) {
-    return new Button(id, 'standard');
+    return new Button(id, "standard");
   }
 
   static bolded(id: string) {
-    return new Button(id, 'bolded');
+    return new Button(id, "bolded");
   }
 
-  static trueFalse(id:string) {
-    return new Button(id, 'trueFalse');
+  static trueFalse(id: string) {
+    return new Button(id, "trueFalse");
   }
 
   withText(text: string) {
@@ -24,20 +29,20 @@ export class Button {
   }
 
   render() {
-    const buttonDomElement: HTMLButtonElement = document.createElement('button');
+    const buttonDomElement: HTMLButtonElement = document.createElement("button");
     buttonDomElement.id = this.id;
     buttonDomElement.textContent = this.btnText;
 
-    if (this.type == 'standard') {
-      buttonDomElement.classList.add('button--standard');
+    if (this.type == "standard") {
+      buttonDomElement.classList.add("button--standard");
     }
 
-    if (this.type == 'bolded') {
-      buttonDomElement.classList.add('button--bolded');
+    if (this.type == "bolded") {
+      buttonDomElement.classList.add("button--bolded");
     }
 
-    if (this.type == 'trueFalse') {
-      buttonDomElement.classList.add('button--true-false');
+    if (this.type == "trueFalse") {
+      buttonDomElement.classList.add("button--true-false");
     }
 
     buttonDomElement.onclick = this.onClickFn;

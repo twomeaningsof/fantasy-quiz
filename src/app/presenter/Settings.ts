@@ -4,24 +4,26 @@ import { RulebookPresenter } from "./Rulebook";
 import { QuizSinglePresenter } from "./QuizSingle";
 
 export class SettingsPresenter {
+  static destroy() {
+    document.getElementsByClassName("opened-book")[0].remove();
+  }
+
   handleChangePageToWelcome() {
     const welcomePresenter = new WelcomePresenter();
-    WelcomePresenter.destroy("opened-book");
+    SettingsPresenter.destroy();
     welcomePresenter.initialize();
   }
 
   handleChangePageToRulebook() {
     const rulebookPresenter = new RulebookPresenter();
+    SettingsPresenter.destroy();
     rulebookPresenter.initialize();
   }
 
   handleChangePageToQuiz() {
     const quizPresenter = new QuizSinglePresenter();
+    SettingsPresenter.destroy();
     quizPresenter.initialize();
-  }
-
-  static destroy() {
-    document.getElementsByClassName("opened-book")[0].remove();
   }
 
   initialize() {

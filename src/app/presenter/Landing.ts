@@ -2,9 +2,14 @@ import { LandingPage } from "../view/pages/Landing";
 import { WelcomePresenter } from "./Welcome";
 
 export class LandingPresenter {
+  static destroy() {
+    document.getElementsByClassName("closed-book")[0].remove();
+  }
+
   handleChangePageToWelcome() {
     const welcomePresenter = new WelcomePresenter();
-    welcomePresenter.initialize("closed-book");
+    LandingPresenter.destroy();
+    welcomePresenter.initialize();
   }
 
   initialize() {

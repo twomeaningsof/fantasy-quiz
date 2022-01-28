@@ -2,13 +2,14 @@ import { SummaryPage } from "../view/pages/Summary";
 import { FinishPresenter } from "./Finish";
 
 export class SummaryPresenter {
-  handleChangePageToFinish() {
-    const finishPresenter = new FinishPresenter();
-    finishPresenter.initialize();
-  }
-
   static destroy() {
     document.getElementsByClassName("question-page")[0].remove();
+  }
+
+  handleChangePageToFinish() {
+    const finishPresenter = new FinishPresenter();
+    SummaryPresenter.destroy();
+    finishPresenter.initialize();
   }
 
   initialize() {

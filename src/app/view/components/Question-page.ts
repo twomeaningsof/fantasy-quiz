@@ -1,18 +1,22 @@
 export class QuestionPage {
   private createPage() {
-    const questionPage = document.createElement('div');
-    questionPage.classList.add('question-page');
+    const questionPage = document.createElement("div");
+    questionPage.classList.add("question-page");
 
-    const questionPageQuestion = document.createElement('div');
-    questionPageQuestion.classList.add('question-page__question');
+    const questionPageQuestion = document.createElement("div");
+    questionPageQuestion.classList.add("question-page__question");
 
-    const questionPageAnswers = document.createElement('div');
-    questionPageAnswers.classList.add('question-page__answers');
+    const questionPageAnswers = document.createElement("div");
+    questionPageAnswers.classList.add("question-page__answers");
 
-    const questionPageConfirmButtonWrapper = document.createElement('div');
-    questionPageConfirmButtonWrapper.classList.add('question-page__confirm-button-wrapper');
+    const questionPageConfirmButtonWrapper = document.createElement("div");
+    questionPageConfirmButtonWrapper.classList.add("question-page__confirm-button-wrapper");
 
-    questionPage.append(questionPageQuestion, questionPageAnswers, questionPageConfirmButtonWrapper);
+    questionPage.append(
+      questionPageQuestion,
+      questionPageAnswers,
+      questionPageConfirmButtonWrapper
+    );
 
     return questionPage;
   }

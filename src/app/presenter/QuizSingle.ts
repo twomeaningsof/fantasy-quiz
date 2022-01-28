@@ -1,15 +1,15 @@
-import { SingleChoiceQuestionPage } from "../view/pages/Single-choice";
+import { SingleChoiceQuestionPage } from "../view/pages/QuizSingle";
 import { QuizMultiplePresenter } from "./QuizMultiple";
 
 export class QuizSinglePresenter {
-  handleChangePageToMultipleChoice() {
-    const quizMultiplePresenter = new QuizMultiplePresenter();
-    QuizMultiplePresenter.destroy();
-    quizMultiplePresenter.initialize();
+  static destroy() {
+    document.getElementsByClassName("question-page")[0].remove();
   }
 
-  static destroy() {
-    document.getElementsByClassName("wrapper")[0].remove();
+  handleChangePageToMultipleChoice() {
+    const quizMultiplePresenter = new QuizMultiplePresenter();
+    QuizSinglePresenter.destroy();
+    quizMultiplePresenter.initialize();
   }
 
   initialize() {

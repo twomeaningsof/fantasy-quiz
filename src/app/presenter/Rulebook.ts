@@ -4,33 +4,32 @@ import { WelcomePresenter } from "./Welcome";
 import { QuizSinglePresenter } from "./QuizSingle";
 
 export class RulebookPresenter {
+  static destroy() {
+    document.getElementsByClassName("opened-book")[0].remove();
+  }
+
   handleChangePageToSettings() {
     const settingsPresenter = new SettingsPresenter();
-    SettingsPresenter.destroy();
+    RulebookPresenter.destroy();
     settingsPresenter.initialize();
   }
 
-  handleChangePageToRulebook() {
+  handleChangePageToWelcome() {
     const welcomePresenter = new WelcomePresenter();
-    WelcomePresenter.destroy("opened-book");
+    RulebookPresenter.destroy();
     welcomePresenter.initialize();
   }
 
   handleChangePageToQuiz() {
     const quizPresenter = new QuizSinglePresenter();
-    QuizSinglePresenter.destroy();
+    RulebookPresenter.destroy();
     quizPresenter.initialize();
   }
 
-  static destroy() {
-    document.getElementsByClassName("question-page")[0].remove();
-  }
-
   initialize() {
-    document.getElementsByClassName("opened-book")[0].remove();
     const rulebookPage = new RulebookPage(
       this.handleChangePageToSettings,
-      this.handleChangePageToRulebook,
+      this.handleChangePageToWelcome,
       this.handleChangePageToQuiz
     );
     rulebookPage.render();
