@@ -13,7 +13,7 @@ export class QuizSinglePresenter {
   }
 
   initialize() {
-    const multiplePage = new SingleChoiceQuestionPage(this.handleChangePageToMultipleChoice);
-    multiplePage.render();
+    const singlePage = new SingleChoiceQuestionPage(this.handleChangePageToMultipleChoice);
+    singlePage.render();
   }
 }

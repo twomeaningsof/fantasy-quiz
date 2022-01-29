@@ -4,25 +4,25 @@ import { RulebookPresenter } from "./Rulebook";
 import { QuizSinglePresenter } from "./QuizSingle";
 
 export class SettingsPresenter {
-  static destroy() {
-    document.getElementsByClassName("opened-book")[0].remove();
+  static destroy(toRemove: string) {
+    document.getElementsByClassName(toRemove)[0].remove();
   }
 
   handleChangePageToWelcome() {
     const welcomePresenter = new WelcomePresenter();
-    SettingsPresenter.destroy();
+    SettingsPresenter.destroy("opened-book");
     welcomePresenter.initialize();
   }
 
   handleChangePageToRulebook() {
     const rulebookPresenter = new RulebookPresenter();
-    SettingsPresenter.destroy();
+    SettingsPresenter.destroy("opened-book");
     rulebookPresenter.initialize();
   }
 
   handleChangePageToQuiz() {
     const quizPresenter = new QuizSinglePresenter();
-    SettingsPresenter.destroy();
+    SettingsPresenter.destroy("wrapper");
     quizPresenter.initialize();
   }
 
