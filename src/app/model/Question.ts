@@ -1,14 +1,15 @@
-interface QuestionPattern {
+interface QuestionData {
   id: number;
   type: "single-choice" | "multiple-choice" | "true-false";
   content: string;
   correctAnswers: string[];
+  possibleAnswers: string[];
 }
 
 export class Question {
-  constructor(private data: QuestionPattern) {}
+  constructor(private data: QuestionData) {}
 
-  handleAnswer(answers: string[]): boolean {
+  isAnsweredCorrectly(answers: string[]): boolean {
     return answers.sort().join(",") === this.data.correctAnswers.sort().join(",");
   }
 }
