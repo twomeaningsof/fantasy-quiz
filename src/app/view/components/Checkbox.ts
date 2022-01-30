@@ -45,6 +45,7 @@ export class Checkbox {
     checkboxDOMElement.type = "checkbox";
     checkboxDOMElement.id = this.id;
     checkboxDOMElement.classList.add("checkbox-wrapper__checkmark");
+    checkboxDOMElement.value = this.labelText;
     checkboxDOMElement.checked = this.checked;
     checkboxDOMElement.onclick = this.onCheckFn;
 

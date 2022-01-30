@@ -32,6 +32,7 @@ export class Button {
     const buttonDomElement: HTMLButtonElement = document.createElement("button");
     buttonDomElement.id = this.id;
     buttonDomElement.textContent = this.btnText;
+    buttonDomElement.value = this.btnText;
 
     if (this.type == "standard") {
       buttonDomElement.classList.add("button--standard");
