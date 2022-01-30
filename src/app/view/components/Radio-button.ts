@@ -28,6 +28,7 @@ export class RadioButton {
     radioButtonInputElement.id = this.id;
     radioButtonInputElement.classList.add("radio-button__input");
     radioButtonInputElement.name = "radio-group";
+    radioButtonInputElement.value = this.labelText;
     radioButtonInputElement.checked = false;
     radioButtonWrapperElement.append(radioButtonInputElement);
 
