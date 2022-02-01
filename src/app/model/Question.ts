@@ -1,4 +1,4 @@
-interface QuestionData {
+export interface QuestionData {
   id: number;
   type: "single-choice" | "multiple-choice" | "true-false";
   content: string;
@@ -11,5 +11,9 @@ export class Question {
 
   isAnsweredCorrectly(answers: string[]): boolean {
     return answers.sort().join(",") === this.data.correctAnswers.sort().join(",");
+  }
+
+  getData() {
+    return this.data;
   }
 }
