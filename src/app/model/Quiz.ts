@@ -8,7 +8,7 @@ interface Settings {
 
 export class Quiz {
   constructor(
-    private questionsData: QuestionData[],
+    private allQuestionsData: QuestionData[],
     private settings: Settings = {
       singleChoiceEnabled: true,
       multipleChoiceEnabled: true,
@@ -19,8 +19,6 @@ export class Quiz {
   remainingQuestions: QuestionData[] = [];
   correctlyAnswered: QuestionData[] = [];
   currentQuestion?: Question;
-
-  allQuestionsData = [...this.questionsData];
 
   setNextQuestion() {
     const randomlySelectedQuestion = this.getRandomQuestion(
