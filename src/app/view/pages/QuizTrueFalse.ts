@@ -1,16 +1,17 @@
+import { Question } from "../../model/Question";
 import { Button } from "../components/Button";
 import { QuestionPage } from "../components/Question-page";
 
-type handleChange = () => void;
-
 export class TrueFalseQuestionPage {
-  constructor(private handleChangeToSummary: handleChange) {}
+  constructor(private currentQuestion: Question) {}
 
   questionPage = new QuestionPage().render();
 
   private trueFalseChoice = (type: "true" | "false") => {
     const button = document.getElementById(`answer-${type}`);
-    const activeButtons = document.getElementsByClassName("button--true-false-active");
+    const activeButtons = document.getElementsByClassName(
+      "button--true-false-active"
+    );
 
     if (button?.classList.contains("button--true-false-active")) {
       return button.classList.remove("button-true-false-active");
@@ -24,32 +25,37 @@ export class TrueFalseQuestionPage {
   };
 
   private createTitle() {
-    const questionPageQuestion =
-      this.questionPage.getElementsByClassName("question-page__question")[0];
-    questionPageQuestion.textContent = "Harry, are you a wizard?";
+    const questionPageQuestion = this.questionPage.getElementsByClassName(
+      "question-page__question"
+    )[0];
+    questionPageQuestion.textContent = this.currentQuestion.getData().content;
   }
 
   private createQuestions() {
-    const questionPageAnswers =
-      this.questionPage.getElementsByClassName("question-page__answers")[0];
+    const questionPageAnswers = this.questionPage.getElementsByClassName(
+      "question-page__answers"
+    )[0];
 
-    const trueFalseButtonOne = Button.trueFalse("answer-true")
-      .withText("True")
-      .onClick(() => this.trueFalseChoice("true"));
-    const trueFalseButtonTwo = Button.trueFalse("answer-false")
-      .withText("False")
-      .onClick(() => this.trueFalseChoice("false"));
-
-    questionPageAnswers.append(trueFalseButtonOne.render(), trueFalseButtonTwo.render());
+    this.currentQuestion.getData().possibleAnswers.forEach((answer) => {
+      if (answer === "true" || answer === "false") {
+        const trueFalseButton = Button.trueFalse(answer)
+          .withText(answer)
+          .onClick(() => this.trueFalseChoice(answer));
+        questionPageAnswers.appendChild(trueFalseButton.render());
+      }
+    });
   }
 
   private createConfirm() {
-    const questionPageConfirmButtonWrapper = this.questionPage.getElementsByClassName(
-      "question-page__confirm-button-wrapper"
-    )[0];
+    const questionPageConfirmButtonWrapper =
+      this.questionPage.getElementsByClassName(
+        "question-page__confirm-button-wrapper"
+      )[0];
     const questionPageConfirmButton: Button = Button.bolded("confirm-button")
       .withText("Confirm")
-      .onClick(this.handleChangeToSummary);
+      .onClick(() => {
+        console.log("placeholder for handleConfirm");
+      });
     questionPageConfirmButtonWrapper.append(questionPageConfirmButton.render());
   }
 

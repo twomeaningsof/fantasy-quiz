@@ -1,66 +1,46 @@
+import { Question } from "../../model/Question";
 import { Button } from "../components/Button";
 import { Checkbox } from "../components/Checkbox";
 import { QuestionPage } from "../components/Question-page";
 
-type handleChange = () => void;
-
 export class MultipleChoiceQuestionPage {
-  constructor(private handleChangeToTrueFalse: handleChange) {}
+  constructor(private currentQuestion: Question) {}
 
   questionPage = new QuestionPage().render();
 
   private createTitle() {
-    const questionPageQuestion =
-      this.questionPage.getElementsByClassName("question-page__question")[0];
-    questionPageQuestion.textContent = "What are the characteristics of Gandalf the Grey?";
+    const questionPageQuestion = this.questionPage.getElementsByClassName(
+      "question-page__question"
+    )[0];
+    questionPageQuestion.textContent = this.currentQuestion.getData().content;
   }
 
   private createQuestions() {
-    const questionPageAnswers =
-      this.questionPage.getElementsByClassName("question-page__answers")[0];
+    const questionPageAnswers = this.questionPage.getElementsByClassName(
+      "question-page__answers"
+    )[0];
 
-    const answerOne = document.createElement("div");
-    answerOne.classList.add("question-page__answer--checkbox");
-    const checkboxOne = Checkbox.unchecked("answer-one")
-      .large()
-      .withText("Old, crazy, handsome")
-      .onCheck(() => {});
-    answerOne.append(checkboxOne.render());
+    this.currentQuestion.getData().possibleAnswers.forEach((answer) => {
+      const checkboxWrapper = document.createElement("div");
+      checkboxWrapper.classList.add("question-page__answer--checkbox");
 
-    const answerTwo = document.createElement("div");
-    answerTwo.classList.add("question-page__answer--checkbox");
-    const checkboxTwo = Checkbox.unchecked("answer-two")
-      .large()
-      .withText("Sit back, relax, and enjoy the flight")
-      .onCheck(() => {});
-    answerTwo.append(checkboxTwo.render());
+      const checkbox = Checkbox.unchecked(answer).large().withText(answer);
 
-    const answerThree = document.createElement("div");
-    answerThree.classList.add("question-page__answer--checkbox");
-    const checkboxThree = Checkbox.unchecked("answer-three")
-      .large()
-      .withText("You shall not paaaaas!")
-      .onCheck(() => {});
-    answerThree.append(checkboxThree.render());
-
-    const answerFour = document.createElement("div");
-    answerFour.classList.add("question-page__answer--checkbox");
-    const checkboxFour = Checkbox.unchecked("answer-four")
-      .large()
-      .withText("Nie wiem")
-      .onCheck(() => {});
-    answerFour.append(checkboxFour.render());
-
-    questionPageAnswers.append(answerOne, answerTwo, answerThree, answerFour);
+      checkboxWrapper.appendChild(checkbox.render());
+      questionPageAnswers.appendChild(checkboxWrapper);
+    });
   }
 
   private createConfirm() {
-    const questionPageConfirmButtonWrapper = this.questionPage.getElementsByClassName(
-      "question-page__confirm-button-wrapper"
-    )[0];
+    const questionPageConfirmButtonWrapper =
+      this.questionPage.getElementsByClassName(
+        "question-page__confirm-button-wrapper"
+      )[0];
     const questionPageConfirmButton: Button = Button.bolded("confirm-button")
       .withText("Confirm")
-      .onClick(this.handleChangeToTrueFalse);
+      .onClick(() => {
+        console.log("placeholder for handleConfirm");
+      });
     questionPageConfirmButtonWrapper.append(questionPageConfirmButton.render());
   }
 

@@ -3,8 +3,7 @@ export class Checkbox {
     private id: string,
     private checked: boolean,
     private size = "",
-    private labelText: string = "",
-    private onCheckFn: () => void = () => {}
+    private labelText: string = ""
   ) {}
 
   static checked(id: string) {
@@ -27,10 +26,6 @@ export class Checkbox {
     return new Checkbox(this.id, this.checked, this.size, labelText);
   }
 
-  onCheck(checkFn: () => void) {
-    return new Checkbox(this.id, this.checked, this.size, this.labelText, checkFn);
-  }
-
   render() {
     const checkboxWrapper = document.createElement("div");
     checkboxWrapper.classList.add("checkbox-wrapper");
@@ -47,7 +42,6 @@ export class Checkbox {
     checkboxDOMElement.classList.add("checkbox-wrapper__checkmark");
     checkboxDOMElement.value = this.labelText;
     checkboxDOMElement.checked = this.checked;
-    checkboxDOMElement.onclick = this.onCheckFn;
 
     checkboxInputElementWrapper.append(checkboxDOMElement);
 

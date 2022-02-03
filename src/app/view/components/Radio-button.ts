@@ -1,9 +1,5 @@
 export class RadioButton {
-  constructor(
-    private id: string,
-    private labelText: string = "",
-    private onCheckFn: () => void = () => {}
-  ) {}
+  constructor(private id: string, private labelText: string = "") {}
 
   static unchecked(id: string) {
     return new RadioButton(id);
@@ -11,10 +7,6 @@ export class RadioButton {
 
   withText(text: string) {
     return new RadioButton(this.id, text);
-  }
-
-  onCheck(checkFn: () => void) {
-    return new RadioButton(this.id, this.labelText, checkFn);
   }
 
   render() {
@@ -37,9 +29,10 @@ export class RadioButton {
     radioButtonLabelElement.htmlFor = this.id;
     radioButtonLabelElement.textContent = this.labelText;
 
-    radioButtonInputElement.onclick = this.onCheckFn;
-
-    questionPageAnswer.append(radioButtonWrapperElement, radioButtonLabelElement);
+    questionPageAnswer.append(
+      radioButtonWrapperElement,
+      radioButtonLabelElement
+    );
 
     return questionPageAnswer;
   }
