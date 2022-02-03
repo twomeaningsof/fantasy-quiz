@@ -1,4 +1,4 @@
-import { Question, QuestionData } from "./Question";
+import { Question, QuestionData, QuestionType } from "./Question";
 
 interface Settings {
   singleChoiceEnabled: boolean;
@@ -18,125 +18,145 @@ export class Quiz {
 
   remainingQuestions: QuestionData[] = [];
   correctlyAnswered: QuestionData[] = [];
-
   currentQuestion?: Question;
 
-  allQuestions = JSON.parse(JSON.stringify(this.questionsData));
+  allQuestionsData = [...this.questionsData];
 
   setNextQuestion() {
-    const randomlySelectedQuestion = this.remainingQuestions[Math.floor(Math.random() * this.questionsData.length) - 1];
+    const randomlySelectedQuestion = this.getRandomQuestion(
+      this.remainingQuestions
+    );
 
-    this.remainingQuestions = this.remainingQuestions.filter(function (question) {
+    this.remainingQuestions = this.remainingQuestions.filter(function (
+      question
+    ) {
       return question.id !== randomlySelectedQuestion.id;
     });
 
     this.currentQuestion = new Question(randomlySelectedQuestion);
   }
 
-  isAnsweredCorrectly(answers: string[]) {
-    if (this.currentQuestion?.isAnsweredCorrectly(answers)) this.correctlyAnswered.push(this.currentQuestion.getData());
+  determineAnswerCorrectness(answers: string[]) {
+    if (
+      this.currentQuestion &&
+      !this.currentQuestion.isAnsweredCorrectly(answers)
+    )
+      this.correctlyAnswered.push(this.currentQuestion.getData());
   }
 
-  applySettings(): QuestionData[] {
+  private getRandomQuestion(questions: QuestionData[]) {
+    return questions[Math.floor(Math.random() * questions.length) - 1];
+  }
+
+  private filterOutQuestionType(limit: number, type: QuestionType) {
     let filteredQuestions: QuestionData[] = [];
+    let count = 0;
 
-    const questionTypesCounters = {
-      singleQuestionCountLimit: 0,
-      multipleQuestionCountLimit: 0,
-      trueFalseQuestionCountLimit: 0,
-    };
-
-    if (this.settings.singleChoiceEnabled && this.settings.multipleChoiceEnabled && this.settings.trueFalseChoiceEnabled) {
-      questionTypesCounters.singleQuestionCountLimit = 5;
-      questionTypesCounters.multipleQuestionCountLimit = 5;
-      questionTypesCounters.trueFalseQuestionCountLimit = 5;
-    }
-
-    if (this.settings.singleChoiceEnabled && this.settings.multipleChoiceEnabled && !this.settings.trueFalseChoiceEnabled) {
-      questionTypesCounters.singleQuestionCountLimit = 8;
-      questionTypesCounters.multipleQuestionCountLimit = 7;
-    }
-
-    if (this.settings.singleChoiceEnabled && !this.settings.multipleChoiceEnabled && this.settings.trueFalseChoiceEnabled) {
-      questionTypesCounters.singleQuestionCountLimit = 8;
-      questionTypesCounters.trueFalseQuestionCountLimit = 7;
-    }
-
-    if (this.settings.singleChoiceEnabled && !this.settings.multipleChoiceEnabled && !this.settings.trueFalseChoiceEnabled) {
-      questionTypesCounters.singleQuestionCountLimit = 15;
-    }
-
-    if (!this.settings.singleChoiceEnabled && this.settings.multipleChoiceEnabled && this.settings.trueFalseChoiceEnabled) {
-      questionTypesCounters.multipleQuestionCountLimit = 8;
-      questionTypesCounters.trueFalseQuestionCountLimit = 7;
-    }
-
-    if (!this.settings.singleChoiceEnabled && this.settings.multipleChoiceEnabled && !this.settings.trueFalseChoiceEnabled) {
-      questionTypesCounters.multipleQuestionCountLimit = 15;
-    }
-
-    if (!this.settings.singleChoiceEnabled && !this.settings.multipleChoiceEnabled && this.settings.trueFalseChoiceEnabled) {
-      questionTypesCounters.trueFalseQuestionCountLimit = 15;
-    }
-
-    let singleChoiceQuestionCount = 0;
-
-    while (singleChoiceQuestionCount < questionTypesCounters.singleQuestionCountLimit) {
-      const randomlySelectedQuestion = this.questionsData[Math.floor(Math.random() * this.questionsData.length) - 1];
-
+    while (count < limit) {
+      const randomlySelectedQuestion = this.getRandomQuestion(
+        this.allQuestionsData
+      );
       if (
-        randomlySelectedQuestion.type === "single-choice" &&
-        !filteredQuestions.some((element) => {
-          if (element.id === randomlySelectedQuestion.id) {
-            return true;
-          }
-        })
+        randomlySelectedQuestion &&
+        randomlySelectedQuestion.type === type &&
+        !filteredQuestions.some(
+          (element) => element.id === randomlySelectedQuestion.id
+        )
       ) {
         filteredQuestions.push(randomlySelectedQuestion);
-        singleChoiceQuestionCount++;
-      }
-    }
-
-    let multipleChoiceQuestionCount = 0;
-
-    while (multipleChoiceQuestionCount < questionTypesCounters.multipleQuestionCountLimit) {
-      const randomlySelectedQuestion = this.questionsData[Math.floor(Math.random() * this.questionsData.length) - 1];
-
-      if (
-        randomlySelectedQuestion.type === "multiple-choice" &&
-        !filteredQuestions.some((element) => {
-          if (element.id === randomlySelectedQuestion.id) {
-            return true;
-          }
-        })
-      ) {
-        filteredQuestions.push(randomlySelectedQuestion);
-        multipleChoiceQuestionCount++;
-      }
-    }
-
-    let trueFalseChoiceQuestionCount = 0;
-
-    while (trueFalseChoiceQuestionCount < questionTypesCounters.trueFalseQuestionCountLimit) {
-      const randomlySelectedQuestion = this.questionsData[Math.floor(Math.random() * this.questionsData.length) - 1];
-
-      if (
-        randomlySelectedQuestion.type === "true-false" &&
-        !filteredQuestions.some((element) => {
-          if (element.id === randomlySelectedQuestion.id) {
-            return true;
-          }
-        })
-      ) {
-        filteredQuestions.push(randomlySelectedQuestion);
-        trueFalseChoiceQuestionCount++;
+        count++;
       }
     }
 
     return filteredQuestions;
   }
 
+  private getQuestionTypesCounters() {
+    const questionTypesCounters = {
+      singleQuestionCountLimit: 5,
+      multipleQuestionCountLimit: 5,
+      trueFalseQuestionCountLimit: 5,
+    };
+
+    if (
+      this.settings.singleChoiceEnabled &&
+      this.settings.multipleChoiceEnabled &&
+      !this.settings.trueFalseChoiceEnabled
+    ) {
+      questionTypesCounters.singleQuestionCountLimit = 8;
+      questionTypesCounters.multipleQuestionCountLimit = 7;
+    }
+
+    if (
+      this.settings.singleChoiceEnabled &&
+      !this.settings.multipleChoiceEnabled &&
+      this.settings.trueFalseChoiceEnabled
+    ) {
+      questionTypesCounters.singleQuestionCountLimit = 8;
+      questionTypesCounters.trueFalseQuestionCountLimit = 7;
+    }
+
+    if (
+      this.settings.singleChoiceEnabled &&
+      !this.settings.multipleChoiceEnabled &&
+      !this.settings.trueFalseChoiceEnabled
+    ) {
+      questionTypesCounters.singleQuestionCountLimit = 15;
+    }
+
+    if (
+      !this.settings.singleChoiceEnabled &&
+      this.settings.multipleChoiceEnabled &&
+      this.settings.trueFalseChoiceEnabled
+    ) {
+      questionTypesCounters.multipleQuestionCountLimit = 8;
+      questionTypesCounters.trueFalseQuestionCountLimit = 7;
+    }
+
+    if (
+      !this.settings.singleChoiceEnabled &&
+      this.settings.multipleChoiceEnabled &&
+      !this.settings.trueFalseChoiceEnabled
+    ) {
+      questionTypesCounters.multipleQuestionCountLimit = 15;
+    }
+
+    if (
+      !this.settings.singleChoiceEnabled &&
+      !this.settings.multipleChoiceEnabled &&
+      this.settings.trueFalseChoiceEnabled
+    ) {
+      questionTypesCounters.trueFalseQuestionCountLimit = 15;
+    }
+
+    return questionTypesCounters;
+  }
+
+  private applySettings() {
+    const questionTypesCounters = this.getQuestionTypesCounters();
+    const singleChoiceQuestions = this.filterOutQuestionType(
+      questionTypesCounters.singleQuestionCountLimit,
+      "single-choice"
+    );
+    const multipleChoiceQuestions = this.filterOutQuestionType(
+      questionTypesCounters.multipleQuestionCountLimit,
+      "multiple-choice"
+    );
+    const trueFalseQuestions = this.filterOutQuestionType(
+      questionTypesCounters.trueFalseQuestionCountLimit,
+      "true-false"
+    );
+
+    this.allQuestionsData = [
+      ...singleChoiceQuestions,
+      ...multipleChoiceQuestions,
+      ...trueFalseQuestions,
+    ];
+  }
+
   startQuiz() {
-    this.remainingQuestions = this.applySettings();
+    this.applySettings();
+    this.remainingQuestions = [...this.allQuestionsData];
+    this.setNextQuestion();
   }
 }
