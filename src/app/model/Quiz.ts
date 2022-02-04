@@ -6,7 +6,7 @@ interface Settings {
   trueFalseChoiceEnabled: boolean;
 }
 
-export class Quiz {
+export class QuizModel {
   constructor(
     private allQuestionsData: QuestionData[],
     private settings: Settings = {
