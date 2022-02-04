@@ -25,11 +25,9 @@ export class Quiz {
       this.remainingQuestions
     );
 
-    this.remainingQuestions = this.remainingQuestions.filter(function (
-      question
-    ) {
-      return question.id !== randomlySelectedQuestion.id;
-    });
+    this.remainingQuestions = this.remainingQuestions.filter(
+      (question) => question.id !== randomlySelectedQuestion.id
+    );
 
     this.currentQuestion = new Question(randomlySelectedQuestion);
   }
