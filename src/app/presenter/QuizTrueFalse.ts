@@ -2,14 +2,17 @@ import { Question } from "../model/Question";
 import { TrueFalseQuestionPage } from "../view/pages/QuizTrueFalse";
 
 export class QuizTrueFalsePresenter {
-  constructor(private currentQuestion: Question) {}
+  constructor(private currentQuestion: Question, private onConfirm: () => {}) {}
 
   static destroy() {
     document.getElementsByClassName("question-page")[0].remove();
   }
 
   initialize() {
-    const trueFalsePage = new TrueFalseQuestionPage(this.currentQuestion);
+    const trueFalsePage = new TrueFalseQuestionPage(
+      this.currentQuestion,
+      this.onConfirm
+    );
     trueFalsePage.render();
   }
 }

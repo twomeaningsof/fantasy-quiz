@@ -3,9 +3,12 @@ import { Button } from "../components/Button";
 import { QuestionPage } from "../components/Question-page";
 
 export class TrueFalseQuestionPage {
-  constructor(private currentQuestion: Question) {}
+  constructor(private currentQuestion: Question, private onConfirm: () => {}) {}
 
   questionPage = new QuestionPage().render();
+  questionPageAnswers = this.questionPage.getElementsByClassName(
+    "question-page__answers"
+  )[0];
 
   private trueFalseChoice = (type: "true" | "false") => {
     const button = document.getElementById(`answer-${type}`);
@@ -24,6 +27,15 @@ export class TrueFalseQuestionPage {
     button?.classList.add("button--true-false-active");
   };
 
+  private renderPossibleAnswer(answer: string) {
+    if (answer === "true" || answer === "false") {
+      const trueFalseButton = Button.trueFalse(answer)
+        .withText(answer)
+        .onClick(() => this.trueFalseChoice(answer));
+      this.questionPageAnswers.appendChild(trueFalseButton.render());
+    }
+  }
+
   private createTitle() {
     const questionPageQuestion = this.questionPage.getElementsByClassName(
       "question-page__question"
@@ -32,18 +44,9 @@ export class TrueFalseQuestionPage {
   }
 
   private createQuestions() {
-    const questionPageAnswers = this.questionPage.getElementsByClassName(
-      "question-page__answers"
-    )[0];
-
-    this.currentQuestion.getData().possibleAnswers.forEach((answer) => {
-      if (answer === "true" || answer === "false") {
-        const trueFalseButton = Button.trueFalse(answer)
-          .withText(answer)
-          .onClick(() => this.trueFalseChoice(answer));
-        questionPageAnswers.appendChild(trueFalseButton.render());
-      }
-    });
+    this.currentQuestion
+      .getData()
+      .possibleAnswers.forEach(this.renderPossibleAnswer);
   }
 
   private createConfirm() {
@@ -53,9 +56,7 @@ export class TrueFalseQuestionPage {
       )[0];
     const questionPageConfirmButton: Button = Button.bolded("confirm-button")
       .withText("Confirm")
-      .onClick(() => {
-        console.log("placeholder for handleConfirm");
-      });
+      .onClick(() => this.onConfirm());
     questionPageConfirmButtonWrapper.append(questionPageConfirmButton.render());
   }
 

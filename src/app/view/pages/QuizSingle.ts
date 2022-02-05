@@ -4,9 +4,19 @@ import { QuestionPage } from "../components/Question-page";
 import { Question } from "../../model/Question";
 
 export class SingleChoiceQuestionPage {
-  constructor(private currentQuestion: Question) {}
+  constructor(private currentQuestion: Question, private onConfirm: () => {}) {}
 
   questionPage = new QuestionPage().render();
+  questionPageAnswers = this.questionPage.getElementsByClassName(
+    "question-page__answers"
+  )[0];
+
+  private renderPossibleAnswer(answer: string) {
+    if (answer === "true" || answer === "false") {
+      const radioButton = RadioButton.unchecked(answer).withText(answer);
+      this.questionPageAnswers.appendChild(radioButton.render());
+    }
+  }
 
   private createTitle() {
     const questionPageQuestion = this.questionPage.getElementsByClassName(
@@ -16,14 +26,9 @@ export class SingleChoiceQuestionPage {
   }
 
   private createQuestions() {
-    const questionPageAnswers = this.questionPage.getElementsByClassName(
-      "question-page__answers"
-    )[0];
-
-    this.currentQuestion.getData().possibleAnswers.forEach((answer) => {
-      const radioButton = RadioButton.unchecked(answer).withText(answer);
-      questionPageAnswers.appendChild(radioButton.render());
-    });
+    this.currentQuestion
+      .getData()
+      .possibleAnswers.forEach(this.renderPossibleAnswer);
   }
 
   private createConfirm() {
@@ -33,9 +38,7 @@ export class SingleChoiceQuestionPage {
       )[0];
     const questionPageConfirmButton: Button = Button.bolded("confirm-button")
       .withText("Confirm")
-      .onClick(() => {
-        console.log("placeholder for handleConfirm");
-      });
+      .onClick(() => this.onConfirm());
     questionPageConfirmButtonWrapper.append(questionPageConfirmButton.render());
   }
 

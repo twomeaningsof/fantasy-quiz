@@ -4,9 +4,24 @@ import { Checkbox } from "../components/Checkbox";
 import { QuestionPage } from "../components/Question-page";
 
 export class MultipleChoiceQuestionPage {
-  constructor(private currentQuestion: Question) {}
+  constructor(private currentQuestion: Question, private onConfirm: () => {}) {}
 
   questionPage = new QuestionPage().render();
+  questionPageAnswers = this.questionPage.getElementsByClassName(
+    "question-page__answers"
+  )[0];
+
+  private renderPossibleAnswer(answer: string) {
+    if (answer === "true" || answer === "false") {
+      const checkboxWrapper = document.createElement("div");
+      checkboxWrapper.classList.add("question-page__answer--checkbox");
+
+      const checkbox = Checkbox.unchecked(answer).large().withText(answer);
+
+      checkboxWrapper.appendChild(checkbox.render());
+      this.questionPageAnswers.appendChild(checkboxWrapper);
+    }
+  }
 
   private createTitle() {
     const questionPageQuestion = this.questionPage.getElementsByClassName(
@@ -16,19 +31,9 @@ export class MultipleChoiceQuestionPage {
   }
 
   private createQuestions() {
-    const questionPageAnswers = this.questionPage.getElementsByClassName(
-      "question-page__answers"
-    )[0];
-
-    this.currentQuestion.getData().possibleAnswers.forEach((answer) => {
-      const checkboxWrapper = document.createElement("div");
-      checkboxWrapper.classList.add("question-page__answer--checkbox");
-
-      const checkbox = Checkbox.unchecked(answer).large().withText(answer);
-
-      checkboxWrapper.appendChild(checkbox.render());
-      questionPageAnswers.appendChild(checkboxWrapper);
-    });
+    this.currentQuestion
+      .getData()
+      .possibleAnswers.forEach(this.renderPossibleAnswer);
   }
 
   private createConfirm() {
@@ -38,9 +43,7 @@ export class MultipleChoiceQuestionPage {
       )[0];
     const questionPageConfirmButton: Button = Button.bolded("confirm-button")
       .withText("Confirm")
-      .onClick(() => {
-        console.log("placeholder for handleConfirm");
-      });
+      .onClick(this.onConfirm);
     questionPageConfirmButtonWrapper.append(questionPageConfirmButton.render());
   }
 
