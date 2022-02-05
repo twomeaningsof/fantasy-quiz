@@ -9,11 +9,7 @@ interface Settings {
 export class QuizModel {
   constructor(
     private allQuestionsData: QuestionData[],
-    private settings: Settings = {
-      singleChoiceEnabled: true,
-      multipleChoiceEnabled: true,
-      trueFalseChoiceEnabled: true,
-    }
+    private settings: Settings
   ) {}
 
   remainingQuestions: QuestionData[] = [];
@@ -35,7 +31,7 @@ export class QuizModel {
   determineAnswerCorrectness(answers: string[]) {
     if (
       this.currentQuestion &&
-      !this.currentQuestion.isAnsweredCorrectly(answers)
+      this.currentQuestion.isAnsweredCorrectly(answers)
     )
       this.correctlyAnswered.push(this.currentQuestion.getData());
   }

@@ -14,7 +14,14 @@ export class QuizPresenter {
     });
 
     this.quiz.startQuiz();
-    this.questionPresenter = new QuestionPresenter(this.quiz.currentQuestion!);
+    this.questionPresenter = new QuestionPresenter(
+      this.quiz.currentQuestion!,
+      this.onConfirm
+    );
+  }
+
+  private onConfirm(answers: string[]) {
+    this.quiz.determineAnswerCorrectness(answers);
   }
 
   private initializeNextQuestionPresenter() {
