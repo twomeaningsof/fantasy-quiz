@@ -43,7 +43,7 @@ export class MultipleChoiceQuestionPage {
       )[0];
     const questionPageConfirmButton: Button = Button.bolded("confirm-button")
       .withText("Confirm")
-      .onClick(this.onConfirm);
+      .onClick(() => this.onConfirm());
     questionPageConfirmButtonWrapper.append(questionPageConfirmButton.render());
   }
 
