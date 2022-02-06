@@ -1,19 +1,18 @@
+import { Question } from "../model/Question";
 import { TrueFalseQuestionPage } from "../view/pages/QuizTrueFalse";
-import { SummaryPresenter } from "./Summary";
 
 export class QuizTrueFalsePresenter {
+  constructor(private currentQuestion: Question, private onConfirm: () => {}) {}
+
   static destroy() {
     document.getElementsByClassName("question-page")[0].remove();
   }
 
-  handleChangePageToSummary() {
-    const summaryPresenter = new SummaryPresenter();
-    QuizTrueFalsePresenter.destroy();
-    summaryPresenter.initialize();
-  }
-
   initialize() {
-    const trueFalsePage = new TrueFalseQuestionPage(this.handleChangePageToSummary);
+    const trueFalsePage = new TrueFalseQuestionPage(
+      this.currentQuestion,
+      this.onConfirm
+    );
     trueFalsePage.render();
   }
 }

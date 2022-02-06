@@ -1,19 +1,18 @@
+import { Question } from "../model/Question";
 import { MultipleChoiceQuestionPage } from "../view/pages/QuizMultiple";
-import { QuizTrueFalsePresenter } from "./QuizTrueFalse";
 
 export class QuizMultiplePresenter {
+  constructor(private currentQuestion: Question, private onConfirm: () => {}) {}
+
   static destroy() {
     document.getElementsByClassName("question-page")[0].remove();
   }
 
-  handleChangePageToTrueFalseChoice() {
-    const quizTrueFalsePresenter = new QuizTrueFalsePresenter();
-    QuizMultiplePresenter.destroy();
-    quizTrueFalsePresenter.initialize();
-  }
-
   initialize() {
-    const multiplePage = new MultipleChoiceQuestionPage(this.handleChangePageToTrueFalseChoice);
+    const multiplePage = new MultipleChoiceQuestionPage(
+      this.currentQuestion,
+      this.onConfirm
+    );
     multiplePage.render();
   }
 }

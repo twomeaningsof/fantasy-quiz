@@ -1,55 +1,44 @@
 import { Button } from "../components/Button";
 import { RadioButton } from "../components/Radio-button";
 import { QuestionPage } from "../components/Question-page";
-
-type handleChange = () => void;
+import { Question } from "../../model/Question";
 
 export class SingleChoiceQuestionPage {
-  constructor(private handleChangeToMultiple: handleChange) {}
+  constructor(private currentQuestion: Question, private onConfirm: () => {}) {}
 
   questionPage = new QuestionPage().render();
+  questionPageAnswers = this.questionPage.getElementsByClassName(
+    "question-page__answers"
+  )[0];
+
+  private renderPossibleAnswer(answer: string) {
+    if (answer === "true" || answer === "false") {
+      const radioButton = RadioButton.unchecked(answer).withText(answer);
+      this.questionPageAnswers.appendChild(radioButton.render());
+    }
+  }
 
   private createTitle() {
-    const questionPageQuestion =
-      this.questionPage.getElementsByClassName("question-page__question")[0];
-    questionPageQuestion.textContent =
-      "Who managed to bring the Ring to Mount Doom to destroy it and Sauron's power?";
+    const questionPageQuestion = this.questionPage.getElementsByClassName(
+      "question-page__question"
+    )[0];
+    questionPageQuestion.textContent = this.currentQuestion.getData().content;
   }
 
   private createQuestions() {
-    const questionPageAnswers =
-      this.questionPage.getElementsByClassName("question-page__answers")[0];
-
-    const radioButtonOne = RadioButton.unchecked("answer-one")
-      .withText("Frodo Baggins")
-      .onCheck(function () {
-        console.log("Zaznaczam odp. pierwszą");
-      });
-    const radioButtonTwo = RadioButton.unchecked("answer-two")
-      .withText("Geralt z Rivii")
-      .onCheck(function () {
-        console.log("Zaznaczam odp. drugą");
-      });
-    const radioButtonThree = RadioButton.unchecked("answer-three")
-      .withText("Harry Potter")
-      .onCheck(function () {
-        console.log("Zaznaczam odp. trzecią");
-      });
-
-    questionPageAnswers.append(
-      radioButtonOne.render(),
-      radioButtonTwo.render(),
-      radioButtonThree.render()
-    );
+    this.currentQuestion
+      .getData()
+      .possibleAnswers.forEach(this.renderPossibleAnswer);
   }
 
   private createConfirm() {
-    const questionPageConfirmButtonWrapper = this.questionPage.getElementsByClassName(
-      "question-page__confirm-button-wrapper"
-    )[0];
+    const questionPageConfirmButtonWrapper =
+      this.questionPage.getElementsByClassName(
+        "question-page__confirm-button-wrapper"
+      )[0];
     const questionPageConfirmButton: Button = Button.bolded("confirm-button")
       .withText("Confirm")
-      .onClick(this.handleChangeToMultiple);
+      .onClick(() => this.onConfirm());
     questionPageConfirmButtonWrapper.append(questionPageConfirmButton.render());
   }
 
