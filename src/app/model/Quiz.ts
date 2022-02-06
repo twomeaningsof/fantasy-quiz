@@ -16,6 +16,10 @@ export class QuizModel {
   correctlyAnswered: QuestionData[] = [];
   currentQuestion?: Question;
 
+  getAllQuestionsData() {
+    return this.allQuestionsData;
+  }
+
   setNextQuestion() {
     const randomlySelectedQuestion = this.getRandomQuestion(
       this.remainingQuestions
@@ -37,7 +41,7 @@ export class QuizModel {
   }
 
   private getRandomQuestion(questions: QuestionData[]) {
-    return questions[Math.floor(Math.random() * questions.length) - 1];
+    return questions[Math.floor(Math.random() * questions.length)];
   }
 
   private filterOutQuestionType(limit: number, type: QuestionType) {

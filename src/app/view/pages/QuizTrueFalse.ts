@@ -3,15 +3,18 @@ import { Button } from "../components/Button";
 import { QuestionPage } from "../components/Question-page";
 
 export class TrueFalseQuestionPage {
-  constructor(private currentQuestion: Question, private onConfirm: () => {}) {}
+  constructor(
+    private currentQuestion: Question,
+    private onConfirm: (input: HTMLDivElement) => void
+  ) {}
 
   questionPage = new QuestionPage().render();
   questionPageAnswers = this.questionPage.getElementsByClassName(
     "question-page__answers"
-  )[0];
+  )[0] as HTMLDivElement;
 
   private trueFalseChoice = (type: "true" | "false") => {
-    const button = document.getElementById(`answer-${type}`);
+    const button = document.getElementById(`${type}`);
     const activeButtons = document.getElementsByClassName(
       "button--true-false-active"
     );
@@ -46,7 +49,7 @@ export class TrueFalseQuestionPage {
   private createQuestions() {
     this.currentQuestion
       .getData()
-      .possibleAnswers.forEach(this.renderPossibleAnswer);
+      .possibleAnswers.forEach((answer) => this.renderPossibleAnswer(answer));
   }
 
   private createConfirm() {
@@ -56,7 +59,7 @@ export class TrueFalseQuestionPage {
       )[0];
     const questionPageConfirmButton: Button = Button.bolded("confirm-button")
       .withText("Confirm")
-      .onClick(() => this.onConfirm());
+      .onClick(() => this.onConfirm(this.questionPageAnswers));
     questionPageConfirmButtonWrapper.append(questionPageConfirmButton.render());
   }
 

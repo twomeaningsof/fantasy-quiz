@@ -4,6 +4,8 @@
   position: relative;
   background-image: url("/src/assets/img/radio-button.png");
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 
   &__input {
     width: 100%;
