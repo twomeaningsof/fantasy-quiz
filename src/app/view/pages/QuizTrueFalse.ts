@@ -30,13 +30,11 @@ export class TrueFalseQuestionPage {
     button?.classList.add("button--true-false-active");
   };
 
-  private renderPossibleAnswer(answer: string) {
-    if (answer === "true" || answer === "false") {
-      const trueFalseButton = Button.trueFalse(answer)
-        .withText(answer)
-        .onClick(() => this.trueFalseChoice(answer));
-      this.questionPageAnswers.appendChild(trueFalseButton.render());
-    }
+  private renderPossibleAnswer(answer: "true" | "false") {
+    const trueFalseButton = Button.trueFalse(answer)
+      .withText(answer)
+      .onClick(() => this.trueFalseChoice(answer));
+    this.questionPageAnswers.appendChild(trueFalseButton.render());
   }
 
   private createTitle() {
@@ -47,9 +45,13 @@ export class TrueFalseQuestionPage {
   }
 
   private createQuestions() {
-    this.currentQuestion
-      .getData()
-      .possibleAnswers.forEach((answer) => this.renderPossibleAnswer(answer));
+    this.currentQuestion.getData().possibleAnswers.forEach((answer) => {
+      if (answer === "true" || answer === "false") {
+        this.renderPossibleAnswer(answer);
+      } else {
+        throw "Invalid answer";
+      }
+    });
   }
 
   private createConfirm() {
