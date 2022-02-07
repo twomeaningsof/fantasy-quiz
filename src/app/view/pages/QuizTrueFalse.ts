@@ -30,12 +30,12 @@ export class TrueFalseQuestionPage {
     button?.classList.add("button--true-false-active");
   };
 
-  private renderPossibleAnswer(answer: "true" | "false") {
+  private renderPossibleAnswer = (answer: "true" | "false") => {
     const trueFalseButton = Button.trueFalse(answer)
       .withText(answer)
       .onClick(() => this.trueFalseChoice(answer));
     this.questionPageAnswers.appendChild(trueFalseButton.render());
-  }
+  };
 
   private createTitle() {
     const questionPageQuestion = this.questionPage.getElementsByClassName(

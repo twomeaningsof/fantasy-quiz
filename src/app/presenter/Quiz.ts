@@ -87,7 +87,11 @@ export class QuizPresenter {
       this.quiz.determineAnswerCorrectness(answers);
       this.questionPresenter?.destroyPage();
       if (this.quiz.remainingQuestions.length === 0) {
-        new SummaryPresenter(this.getScore()).initialize();
+        new SummaryPresenter(
+          this.getScore(),
+          this.quiz.getAllQuestionsData(),
+          this.quiz.correctlyAnswered
+        ).initialize();
       } else {
         this.quiz.setNextQuestion();
         this.initializeNextQuestionPresenter();

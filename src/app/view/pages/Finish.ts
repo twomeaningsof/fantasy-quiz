@@ -1,59 +1,65 @@
 import { Button } from "../components/Button";
 import { OpenedBook } from "../components/Opened-book";
+import { QuestionData } from "../../model/Question";
 
 type handleChange = () => void;
 
-interface Question {
-  index: number;
-  isCorrect: boolean;
-  content: string;
-  correctAnswers: string[];
-}
-
 export class FinishPage {
-  constructor(private handleChangeToWelcome: handleChange) {}
+  constructor(
+    private handleChangeToWelcome: handleChange,
+    private allQuestionsData: QuestionData[],
+    private correctlyAnsweredQuestions: QuestionData[]
+  ) {}
 
   openedBook = new OpenedBook().render();
 
-  private renderQuestion({ index, isCorrect, content, correctAnswers }: Question) {
-    const question = document.createElement("div");
-    question.classList.add("question-wrapper");
+  private renderQuestion(question: QuestionData) {
+    const questionWrapper = document.createElement("div");
+    questionWrapper.classList.add("question-wrapper");
 
     const questionCounter = document.createElement("div");
     questionCounter.classList.add("question-wrapper__counter");
-    questionCounter.textContent = `${index + 1}.`;
+    questionCounter.textContent = `${
+      this.allQuestionsData.indexOf(question) + 1
+    }.`;
 
     const questionText = document.createElement("div");
     questionText.classList.add("question-wrapper__question");
-    questionText.textContent = content;
+    questionText.textContent = question.content;
 
     const questionAnswer = document.createElement("div");
     questionAnswer.classList.add("question-wrapper__answer");
-    questionAnswer.innerHTML = `- <span class="question-wrapper__answered-${isCorrect}">${correctAnswers.join(
+
+    const isCorrect = this.correctlyAnsweredQuestions.includes(question);
+
+    questionAnswer.innerHTML = `- <span class="question-wrapper__answered-${isCorrect}">${question.correctAnswers.join(
       ", "
     )}</span>`;
 
     questionText.append(questionAnswer);
-    question.append(questionCounter, questionText);
-    return question;
+    questionWrapper.append(questionCounter, questionText);
+    return questionWrapper;
   }
 
   private createLeftPage() {
-    const leftPageBottom = this.openedBook.getElementsByClassName("left-page__bottom")[0];
+    const leftPageBottom =
+      this.openedBook.getElementsByClassName("left-page__bottom")[0];
     const leftPageButton = Button.standard("left-page-button")
       .withText("Finish")
       .onClick(this.handleChangeToWelcome);
     leftPageBottom.append(leftPageButton.render());
   }
 
-  private createRightPage() {
-    const rightPageTop = this.openedBook.getElementsByClassName("right-page__top")[0];
+  private createRightPage(allQuestionsData: QuestionData[]) {
+    const rightPageTop =
+      this.openedBook.getElementsByClassName("right-page__top")[0];
     const rightPageTitle = document.createElement("span");
     rightPageTitle.classList.add("right-page__title");
     rightPageTitle.textContent = "Thank you for taking the quiz!";
     rightPageTop.append(rightPageTitle);
 
-    const rightPageMiddle = this.openedBook.getElementsByClassName("right-page__middle")[0];
+    const rightPageMiddle =
+      this.openedBook.getElementsByClassName("right-page__middle")[0];
     rightPageMiddle.classList.remove("right-page__middle");
     rightPageMiddle.classList.add("right-page__middle-summary");
 
@@ -67,26 +73,9 @@ export class FinishPage {
     const rightPageMiddleText = document.createElement("div");
     rightPageMiddleText.classList.add("right-page__middle-text");
 
-    const questionOne = this.renderQuestion({
-      index: 0,
-      content: "Who managed to bring the Ring to Mount Doom to destroy it and Sauron's power?",
-      correctAnswers: ["Frodo Baggins"],
-      isCorrect: false,
+    allQuestionsData.forEach((question) => {
+      rightPageMiddleText.appendChild(this.renderQuestion(question));
     });
-    const questionTwo = this.renderQuestion({
-      index: 1,
-      content: "Harry, are you a wizard?",
-      correctAnswers: ["True"],
-      isCorrect: true,
-    });
-    const questionThree = this.renderQuestion({
-      index: 3,
-      content: "What are the characteristics of Gandalf the Grey?",
-      correctAnswers: ["You shall not paaaas!"],
-      isCorrect: false,
-    });
-
-    rightPageMiddleText.append(questionOne, questionTwo, questionThree);
 
     const rightPageMiddleScroll = document.createElement("div");
     rightPageMiddleScroll.classList.add("right-page__scrollbar");
@@ -103,7 +92,7 @@ export class FinishPage {
     wrapper.classList.add("wrapper");
 
     this.createLeftPage();
-    this.createRightPage();
+    this.createRightPage(this.allQuestionsData);
 
     wrapper.appendChild(this.openedBook);
 
