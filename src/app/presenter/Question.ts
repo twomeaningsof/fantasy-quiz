@@ -6,10 +6,10 @@ import { QuizTrueFalsePresenter } from "./QuizTrueFalse";
 export class QuestionPresenter {
   constructor(
     private currentQuestion: Question,
-    private onConfirm: (input: HTMLDivElement) => void
+    private onConfirm: (inputsWrapper: HTMLDivElement) => void
   ) {}
 
-  questionType = this.currentQuestion.getData().type;
+  private questionType = this.currentQuestion.getData().type;
 
   destroyPage() {
     if (this.questionType === "single-choice") {

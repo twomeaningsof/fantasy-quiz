@@ -6,7 +6,7 @@ import { QuestionPage } from "../components/Question-page";
 export class MultipleChoiceQuestionPage {
   constructor(
     private currentQuestion: Question,
-    private onConfirm: (input: HTMLDivElement) => void
+    private onConfirm: (inputsWrapper: HTMLDivElement) => void
   ) {}
 
   questionPage = new QuestionPage().render();

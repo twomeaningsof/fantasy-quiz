@@ -4,7 +4,7 @@ import { MultipleChoiceQuestionPage } from "../view/pages/QuizMultiple";
 export class QuizMultiplePresenter {
   constructor(
     private currentQuestion: Question,
-    private onConfirm: (input: HTMLDivElement) => void
+    private onConfirm: (inputsWrapper: HTMLDivElement) => void
   ) {}
 
   static destroy() {

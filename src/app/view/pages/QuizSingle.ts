@@ -6,7 +6,7 @@ import { Question } from "../../model/Question";
 export class SingleChoiceQuestionPage {
   constructor(
     private currentQuestion: Question,
-    private onConfirm: (input: HTMLDivElement) => void
+    private onConfirm: (inputsWrapper: HTMLDivElement) => void
   ) {}
 
   questionPage = new QuestionPage().render();

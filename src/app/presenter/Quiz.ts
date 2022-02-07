@@ -15,6 +15,7 @@ export class QuizPresenter {
     });
 
     this.quiz.startQuiz();
+
     if (this.quiz.currentQuestion) {
       this.questionPresenter = new QuestionPresenter(
         this.quiz.currentQuestion!,
@@ -31,22 +32,22 @@ export class QuizPresenter {
     }`;
   };
 
-  private getAnswers(input: HTMLDivElement) {
+  private getAnswers(inputsWrapper: HTMLDivElement) {
     const currentQuestionType = this.quiz.currentQuestion?.getData().type;
-    let inputElements;
+    let inputElements: HTMLButtonElement[] | HTMLInputElement[];
     let answers: string[] = [];
 
     switch (currentQuestionType) {
       case "single-choice":
       case "multiple-choice":
-        inputElements = [...input.getElementsByTagName("input")];
+        inputElements = [...inputsWrapper.getElementsByTagName("input")];
         inputElements.forEach((element) => {
           if (element.checked) answers.push(element.value);
         });
         break;
 
       case "true-false":
-        inputElements = [...input.getElementsByTagName("button")];
+        inputElements = [...inputsWrapper.getElementsByTagName("button")];
         inputElements?.forEach((element) => {
           if (element.classList.contains("button--true-false-active")) {
             answers.push(element.value);
@@ -57,8 +58,30 @@ export class QuizPresenter {
     return answers;
   }
 
-  private onConfirm = (input: HTMLDivElement) => {
-    const answers = this.getAnswers(input);
+  private createAlert() {
+    const alertBackground = document.createElement("div");
+    alertBackground.classList.add("alert-wrapper");
+    alertBackground.onclick = () => {
+      alertBackground.remove();
+    };
+
+    const alertWrapper = document.createElement("div");
+    alertWrapper.classList.add("alert-wrapper__alert");
+
+    const alertText = document.createElement("div");
+    alertText.classList.add("alert-wrapper__text");
+    alertText.innerHTML =
+      "Hey, fellow fantasy enthusiast!<br> Yeah, I mean you. <br> Choose some answer to proceed.";
+
+    alertWrapper.appendChild(alertText);
+    alertBackground.appendChild(alertWrapper);
+
+    const rootWrapper = document.body;
+    rootWrapper.appendChild(alertBackground);
+  }
+
+  private onConfirm = (inputsWrapper: HTMLDivElement) => {
+    const answers = this.getAnswers(inputsWrapper);
 
     if (answers.length !== 0) {
       this.quiz.determineAnswerCorrectness(answers);
@@ -69,6 +92,8 @@ export class QuizPresenter {
         this.quiz.setNextQuestion();
         this.initializeNextQuestionPresenter();
       }
+    } else {
+      this.createAlert();
     }
   };
 
