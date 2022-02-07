@@ -14,7 +14,7 @@ export class MultipleChoiceQuestionPage {
     "question-page__answers"
   )[0] as HTMLDivElement;
 
-  private renderPossibleAnswer(answer: string) {
+  private renderPossibleAnswer = (answer: string) => {
     const checkboxWrapper = document.createElement("div");
     checkboxWrapper.classList.add("question-page__answer--checkbox");
 
@@ -22,7 +22,7 @@ export class MultipleChoiceQuestionPage {
 
     checkboxWrapper.appendChild(checkbox.render());
     this.questionPageAnswers.appendChild(checkboxWrapper);
-  }
+  };
 
   private createTitle() {
     const questionPageQuestion = this.questionPage.getElementsByClassName(
@@ -34,7 +34,7 @@ export class MultipleChoiceQuestionPage {
   private createQuestions() {
     this.currentQuestion
       .getData()
-      .possibleAnswers.forEach((answer) => this.renderPossibleAnswer(answer));
+      .possibleAnswers.forEach(this.renderPossibleAnswer);
   }
 
   private createConfirm() {

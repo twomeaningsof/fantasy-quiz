@@ -14,10 +14,10 @@ export class SingleChoiceQuestionPage {
     "question-page__answers"
   )[0] as HTMLDivElement;
 
-  private renderPossibleAnswer(answer: string) {
+  private renderPossibleAnswer = (answer: string) => {
     const radioButton = RadioButton.unchecked(answer).withText(answer);
     this.questionPageAnswers.appendChild(radioButton.render());
-  }
+  };
 
   private createTitle() {
     const questionPageQuestion = this.questionPage.getElementsByClassName(
@@ -29,7 +29,7 @@ export class SingleChoiceQuestionPage {
   private createQuestions() {
     this.currentQuestion
       .getData()
-      .possibleAnswers.forEach((answer) => this.renderPossibleAnswer(answer));
+      .possibleAnswers.forEach(this.renderPossibleAnswer);
   }
 
   private createConfirm() {
