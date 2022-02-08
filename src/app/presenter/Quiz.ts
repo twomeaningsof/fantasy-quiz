@@ -2,6 +2,7 @@ import { QuizModel } from "../model/Quiz";
 import { QuestionPresenter } from "./Question";
 import { SummaryPresenter } from "./Summary";
 import { questions } from "../model/questions";
+import { Alert } from "../view/components/Alert";
 
 export class QuizPresenter {
   private quiz: QuizModel;
@@ -58,28 +59,6 @@ export class QuizPresenter {
     return answers;
   }
 
-  private createAlert() {
-    const alertBackground = document.createElement("div");
-    alertBackground.classList.add("alert-wrapper");
-    alertBackground.onclick = () => {
-      alertBackground.remove();
-    };
-
-    const alertWrapper = document.createElement("div");
-    alertWrapper.classList.add("alert-wrapper__alert");
-
-    const alertText = document.createElement("div");
-    alertText.classList.add("alert-wrapper__text");
-    alertText.innerHTML =
-      "Hey, fellow fantasy enthusiast!<br> Yeah, I mean you. <br> Choose some answer to proceed.";
-
-    alertWrapper.appendChild(alertText);
-    alertBackground.appendChild(alertWrapper);
-
-    const rootWrapper = document.body;
-    rootWrapper.appendChild(alertBackground);
-  }
-
   private onConfirm = (inputsWrapper: HTMLDivElement) => {
     const answers = this.getAnswers(inputsWrapper);
 
@@ -97,7 +76,7 @@ export class QuizPresenter {
         this.initializeNextQuestionPresenter();
       }
     } else {
-      this.createAlert();
+      new Alert().render();
     }
   };
 
