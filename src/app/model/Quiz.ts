@@ -25,6 +25,8 @@ export class QuizModel {
       this.remainingQuestions
     );
 
+    this.allQuestionsData.push(randomlySelectedQuestion);
+
     this.remainingQuestions = this.remainingQuestions.filter(
       (question) => question.id !== randomlySelectedQuestion.id
     );
@@ -153,6 +155,7 @@ export class QuizModel {
   startQuiz() {
     this.applySettings();
     this.remainingQuestions = [...this.allQuestionsData];
+    this.allQuestionsData = [];
     this.setNextQuestion();
   }
 }

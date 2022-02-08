@@ -1,7 +1,13 @@
 import { FinishPage } from "../view/pages/Finish";
 import { WelcomePresenter } from "./Welcome";
+import { QuestionData } from "../model/Question";
 
 export class FinishPresenter {
+  constructor(
+    private allQuestionsData: QuestionData[],
+    private correctlyAnsweredQuestions: QuestionData[]
+  ) {}
+
   static destroy() {
     document.getElementsByClassName("opened-book")[0].remove();
   }
@@ -13,7 +19,11 @@ export class FinishPresenter {
   }
 
   initialize() {
-    const finishPage = new FinishPage(this.handleChangePageToWelcome);
+    const finishPage = new FinishPage(
+      this.handleChangePageToWelcome,
+      this.allQuestionsData,
+      this.correctlyAnsweredQuestions
+    );
     finishPage.render();
   }
 }
