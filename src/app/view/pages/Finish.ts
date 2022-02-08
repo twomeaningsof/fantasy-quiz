@@ -13,15 +13,13 @@ export class FinishPage {
 
   openedBook = new OpenedBook().render();
 
-  private renderQuestion(question: QuestionData) {
+  private renderQuestion(question: QuestionData, index: number) {
     const questionWrapper = document.createElement("div");
     questionWrapper.classList.add("question-wrapper");
 
     const questionCounter = document.createElement("div");
     questionCounter.classList.add("question-wrapper__counter");
-    questionCounter.textContent = `${
-      this.allQuestionsData.indexOf(question) + 1
-    }.`;
+    questionCounter.textContent = `${index + 1}.`;
 
     const questionText = document.createElement("div");
     questionText.classList.add("question-wrapper__question");
@@ -73,8 +71,8 @@ export class FinishPage {
     const rightPageMiddleText = document.createElement("div");
     rightPageMiddleText.classList.add("right-page__middle-text");
 
-    allQuestionsData.forEach((question) => {
-      rightPageMiddleText.appendChild(this.renderQuestion(question));
+    allQuestionsData.forEach((question, index) => {
+      rightPageMiddleText.appendChild(this.renderQuestion(question, index));
     });
 
     const rightPageMiddleScroll = document.createElement("div");
