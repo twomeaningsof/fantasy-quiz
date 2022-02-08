@@ -4,19 +4,20 @@ import { QuestionPage } from "../components/Question-page";
 import { Question } from "../../model/Question";
 
 export class SingleChoiceQuestionPage {
-  constructor(private currentQuestion: Question, private onConfirm: () => {}) {}
+  constructor(
+    private currentQuestion: Question,
+    private onConfirm: (inputsWrapper: HTMLDivElement) => void
+  ) {}
 
   questionPage = new QuestionPage().render();
   questionPageAnswers = this.questionPage.getElementsByClassName(
     "question-page__answers"
-  )[0];
+  )[0] as HTMLDivElement;
 
-  private renderPossibleAnswer(answer: string) {
-    if (answer === "true" || answer === "false") {
-      const radioButton = RadioButton.unchecked(answer).withText(answer);
-      this.questionPageAnswers.appendChild(radioButton.render());
-    }
-  }
+  private renderPossibleAnswer = (answer: string) => {
+    const radioButton = RadioButton.unchecked(answer).withText(answer);
+    this.questionPageAnswers.appendChild(radioButton.render());
+  };
 
   private createTitle() {
     const questionPageQuestion = this.questionPage.getElementsByClassName(
@@ -38,7 +39,7 @@ export class SingleChoiceQuestionPage {
       )[0];
     const questionPageConfirmButton: Button = Button.bolded("confirm-button")
       .withText("Confirm")
-      .onClick(() => this.onConfirm());
+      .onClick(() => this.onConfirm(this.questionPageAnswers));
     questionPageConfirmButtonWrapper.append(questionPageConfirmButton.render());
   }
 

@@ -2,7 +2,10 @@ import { Question } from "../model/Question";
 import { MultipleChoiceQuestionPage } from "../view/pages/QuizMultiple";
 
 export class QuizMultiplePresenter {
-  constructor(private currentQuestion: Question, private onConfirm: () => {}) {}
+  constructor(
+    private currentQuestion: Question,
+    private onConfirm: (inputsWrapper: HTMLDivElement) => void
+  ) {}
 
   static destroy() {
     document.getElementsByClassName("question-page")[0].remove();

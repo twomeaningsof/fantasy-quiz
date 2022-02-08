@@ -6,19 +6,19 @@ interface Settings {
   trueFalseChoiceEnabled: boolean;
 }
 
-export class Quiz {
+export class QuizModel {
   constructor(
     private allQuestionsData: QuestionData[],
-    private settings: Settings = {
-      singleChoiceEnabled: true,
-      multipleChoiceEnabled: true,
-      trueFalseChoiceEnabled: true,
-    }
+    private settings: Settings
   ) {}
 
   remainingQuestions: QuestionData[] = [];
   correctlyAnswered: QuestionData[] = [];
   currentQuestion?: Question;
+
+  getAllQuestionsData() {
+    return this.allQuestionsData;
+  }
 
   setNextQuestion() {
     const randomlySelectedQuestion = this.getRandomQuestion(
@@ -35,13 +35,13 @@ export class Quiz {
   determineAnswerCorrectness(answers: string[]) {
     if (
       this.currentQuestion &&
-      !this.currentQuestion.isAnsweredCorrectly(answers)
+      this.currentQuestion.isAnsweredCorrectly(answers)
     )
       this.correctlyAnswered.push(this.currentQuestion.getData());
   }
 
   private getRandomQuestion(questions: QuestionData[]) {
-    return questions[Math.floor(Math.random() * questions.length) - 1];
+    return questions[Math.floor(Math.random() * questions.length)];
   }
 
   private filterOutQuestionType(limit: number, type: QuestionType) {

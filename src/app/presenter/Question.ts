@@ -4,22 +4,39 @@ import { QuizSinglePresenter } from "./QuizSingle";
 import { QuizTrueFalsePresenter } from "./QuizTrueFalse";
 
 export class QuestionPresenter {
-  constructor(private currentQuestion: Question, private onConfirm: () => {}) {}
+  constructor(
+    private currentQuestion: Question,
+    private onConfirm: (inputsWrapper: HTMLDivElement) => void
+  ) {}
+
+  private questionType = this.currentQuestion.getData().type;
+
+  destroyPage() {
+    if (this.questionType === "single-choice") {
+      QuizSinglePresenter.destroy();
+    }
+    if (this.questionType === "multiple-choice") {
+      QuizMultiplePresenter.destroy();
+    }
+    if (this.questionType === "true-false") {
+      QuizTrueFalsePresenter.destroy();
+    }
+  }
 
   initializePage() {
-    if (this.currentQuestion.getData().type === "single-choice") {
+    if (this.questionType === "single-choice") {
       new QuizSinglePresenter(
         this.currentQuestion,
         this.onConfirm
       ).initialize();
     }
-    if (this.currentQuestion.getData().type === "multiple-choice") {
+    if (this.questionType === "multiple-choice") {
       new QuizMultiplePresenter(
         this.currentQuestion,
         this.onConfirm
       ).initialize();
     }
-    if (this.currentQuestion.getData().type === "true-false") {
+    if (this.questionType === "true-false") {
       new QuizTrueFalsePresenter(
         this.currentQuestion,
         this.onConfirm

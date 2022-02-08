@@ -1,7 +1,7 @@
 import { RulebookPage } from "../view/pages/Rulebook";
 import { SettingsPresenter } from "./Settings";
 import { WelcomePresenter } from "./Welcome";
-import { QuizSinglePresenter } from "./QuizSingle";
+import { QuizPresenter } from "./Quiz";
 
 export class RulebookPresenter {
   static destroy(toRemove: string) {
@@ -21,9 +21,8 @@ export class RulebookPresenter {
   }
 
   handleChangePageToQuiz() {
-    const quizPresenter = new QuizSinglePresenter();
+    new QuizPresenter();
     RulebookPresenter.destroy("wrapper");
-    quizPresenter.initialize();
   }
 
   initialize() {

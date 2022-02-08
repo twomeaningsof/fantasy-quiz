@@ -1,7 +1,7 @@
 import { WelcomePage } from "../view/pages/Welcome";
 import { RulebookPresenter } from "./Rulebook";
 import { SettingsPresenter } from "./Settings";
-import { QuizSinglePresenter } from "./QuizSingle";
+import { QuizPresenter } from "./Quiz";
 
 export class WelcomePresenter {
   static destroy(toRemove: string) {
@@ -21,9 +21,8 @@ export class WelcomePresenter {
   }
 
   handleChangePageToQuiz() {
-    const quizPresenter = new QuizSinglePresenter();
+    new QuizPresenter();
     WelcomePresenter.destroy("wrapper");
-    quizPresenter.initialize();
   }
 
   initialize() {

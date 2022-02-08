@@ -4,48 +4,54 @@ import { QuestionPage } from "../components/Question-page";
 type handleChange = () => void;
 
 export class SummaryPage {
-  constructor(private handleChangeToFinish: handleChange) {}
+  constructor(
+    private handleChangeToFinish: handleChange,
+    private score: string
+  ) {}
 
-  questionPage = new QuestionPage().render();
+  summaryPage = new QuestionPage().render();
 
   private createTitle() {
-    const questionPageQuestion =
-      this.questionPage.getElementsByClassName("question-page__question")[0];
-    questionPageQuestion.classList.remove("question-page__question");
-    questionPageQuestion.classList.add("question-page__question--bolded");
-    questionPageQuestion.textContent = "Congratulations";
+    const summaryPageTitle = this.summaryPage.getElementsByClassName(
+      "question-page__question"
+    )[0];
+    summaryPageTitle.classList.remove("question-page__question");
+    summaryPageTitle.classList.add("question-page__question--bolded");
+    summaryPageTitle.textContent = "Congratulations";
   }
 
-  private createQuestions() {
-    const questionPageAnswers =
-      this.questionPage.getElementsByClassName("question-page__answers")[0];
+  private createSummary() {
+    const summaryPageMiddle = this.summaryPage.getElementsByClassName(
+      "question-page__answers"
+    )[0];
 
-    const questionPageSummaryWrapper = document.createElement("div");
-    questionPageSummaryWrapper.classList.add("question-page__summary-wrapper");
+    const summaryPageMiddleWrapper = document.createElement("div");
+    summaryPageMiddleWrapper.classList.add("question-page__summary-wrapper");
 
-    const questionPageSummaryText = document.createElement("div");
-    questionPageSummaryText.innerHTML = `You answered <span id="summary-value">13/88</span> questions correctly!`;
+    const summaryPageMiddleText = document.createElement("div");
+    summaryPageMiddleText.innerHTML = `You answered ${this.score} questions correctly!`;
 
-    questionPageSummaryWrapper.append(questionPageSummaryText);
+    summaryPageMiddleWrapper.append(summaryPageMiddleText);
 
-    questionPageAnswers.append(questionPageSummaryWrapper);
+    summaryPageMiddle.append(summaryPageMiddleWrapper);
   }
 
   private createConfirm() {
-    const questionPageConfirmButtonWrapper = this.questionPage.getElementsByClassName(
-      "question-page__confirm-button-wrapper"
-    )[0];
-    const questionPageConfirmButton: Button = Button.bolded("confirm-button")
+    const summaryPageConfirmButtonWrapper =
+      this.summaryPage.getElementsByClassName(
+        "question-page__confirm-button-wrapper"
+      )[0];
+    const summaryPageConfirmButton: Button = Button.bolded("confirm-button")
       .withText("See all answers")
       .onClick(this.handleChangeToFinish);
-    questionPageConfirmButtonWrapper.append(questionPageConfirmButton.render());
+    summaryPageConfirmButtonWrapper.append(summaryPageConfirmButton.render());
   }
 
   render() {
     this.createTitle();
-    this.createQuestions();
+    this.createSummary();
     this.createConfirm();
     const rootWrapper = document.body;
-    rootWrapper?.appendChild(this.questionPage);
+    rootWrapper?.appendChild(this.summaryPage);
   }
 }

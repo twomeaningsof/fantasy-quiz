@@ -4,24 +4,25 @@ import { Checkbox } from "../components/Checkbox";
 import { QuestionPage } from "../components/Question-page";
 
 export class MultipleChoiceQuestionPage {
-  constructor(private currentQuestion: Question, private onConfirm: () => {}) {}
+  constructor(
+    private currentQuestion: Question,
+    private onConfirm: (inputsWrapper: HTMLDivElement) => void
+  ) {}
 
   questionPage = new QuestionPage().render();
   questionPageAnswers = this.questionPage.getElementsByClassName(
     "question-page__answers"
-  )[0];
+  )[0] as HTMLDivElement;
 
-  private renderPossibleAnswer(answer: string) {
-    if (answer === "true" || answer === "false") {
-      const checkboxWrapper = document.createElement("div");
-      checkboxWrapper.classList.add("question-page__answer--checkbox");
+  private renderPossibleAnswer = (answer: string) => {
+    const checkboxWrapper = document.createElement("div");
+    checkboxWrapper.classList.add("question-page__answer--checkbox");
 
-      const checkbox = Checkbox.unchecked(answer).large().withText(answer);
+    const checkbox = Checkbox.unchecked(answer).large().withText(answer);
 
-      checkboxWrapper.appendChild(checkbox.render());
-      this.questionPageAnswers.appendChild(checkboxWrapper);
-    }
-  }
+    checkboxWrapper.appendChild(checkbox.render());
+    this.questionPageAnswers.appendChild(checkboxWrapper);
+  };
 
   private createTitle() {
     const questionPageQuestion = this.questionPage.getElementsByClassName(
@@ -43,7 +44,7 @@ export class MultipleChoiceQuestionPage {
       )[0];
     const questionPageConfirmButton: Button = Button.bolded("confirm-button")
       .withText("Confirm")
-      .onClick(() => this.onConfirm());
+      .onClick(() => this.onConfirm(this.questionPageAnswers));
     questionPageConfirmButtonWrapper.append(questionPageConfirmButton.render());
   }
 
