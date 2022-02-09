@@ -16,34 +16,24 @@ export class SettingsPage {
   openedBook = new OpenedBook().render();
 
   private handleSettingsAssignment = () => {
-    const singleChoiceQuestionCheckboxElement =
-      this.openedBook.getElementsByClassName(
-        "checkbox-wrapper__checkmark"
-      )[0] as HTMLInputElement;
-
-    singleChoiceQuestionCheckboxElement.checked =
-      this.settingsModel.getSettingsData().singleChoiceEnabled;
-
-    const multipleChoiceQuestionCheckboxElement =
-      this.openedBook.getElementsByClassName(
-        "checkbox-wrapper__checkmark"
-      )[1] as HTMLInputElement;
-
-    multipleChoiceQuestionCheckboxElement.checked =
-      this.settingsModel.getSettingsData().multipleChoiceEnabled;
-
-    const trueFalseChoiceQuestionCheckboxElement =
-      this.openedBook.getElementsByClassName(
-        "checkbox-wrapper__checkmark"
-      )[2] as HTMLInputElement;
-
-    trueFalseChoiceQuestionCheckboxElement.checked =
-      this.settingsModel.getSettingsData().trueFalseChoiceEnabled;
+    const [
+      singleChoiceQuestionCheckboxElement,
+      multipleChoiceQuestionCheckboxElement,
+      trueFalseChoiceQuestionCheckboxElement,
+    ] = this.openedBook.getElementsByClassName(
+      "checkbox-wrapper__checkmark"
+    ) as HTMLCollectionOf<HTMLInputElement>;
 
     const timeLimitElement = this.openedBook.getElementsByClassName(
       "input"
     )[0] as HTMLInputElement;
 
+    singleChoiceQuestionCheckboxElement.checked =
+      this.settingsModel.getSettingsData().singleChoiceEnabled;
+    multipleChoiceQuestionCheckboxElement.checked =
+      this.settingsModel.getSettingsData().multipleChoiceEnabled;
+    trueFalseChoiceQuestionCheckboxElement.checked =
+      this.settingsModel.getSettingsData().trueFalseChoiceEnabled;
     timeLimitElement.value = this.settingsModel.getSettingsData().timeLimit;
   };
 
@@ -121,7 +111,7 @@ export class SettingsPage {
 
         this.settingsModel.handleSettingsChange(
           trueFalseChoiceQuestionCheckboxElement.checked,
-          "true-false-choice"
+          "true-false"
         );
       });
 
@@ -155,6 +145,13 @@ export class SettingsPage {
         timeLimitTextInput.value = "15";
 
       this.settingsModel.handleSettingsChange(timeLimitTextInput.value);
+    };
+
+    timeLimitTextInput.onblur = () => {
+      if (timeLimitTextInput.value === "") {
+        timeLimitTextInput.value = "4";
+        this.settingsModel.handleSettingsChange("4");
+      }
     };
 
     timeLimitSettingWrapper.append(timeLimitText, timeLimitTextInput);

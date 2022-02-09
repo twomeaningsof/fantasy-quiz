@@ -1,4 +1,5 @@
-import { Question, QuestionData, QuestionType } from "./Question";
+import { Question, QuestionData } from "./Question";
+import { QuestionType } from "./questionType";
 import { SettingsData } from "./Settings";
 
 export class QuizModel {
@@ -66,20 +67,10 @@ export class QuizModel {
 
   private getQuestionTypesCounters() {
     const questionTypesCounters = {
-      singleQuestionCountLimit: 0,
-      multipleQuestionCountLimit: 0,
-      trueFalseQuestionCountLimit: 0,
+      singleQuestionCountLimit: 5,
+      multipleQuestionCountLimit: 5,
+      trueFalseQuestionCountLimit: 5,
     };
-
-    if (
-      this.settingsData.singleChoiceEnabled &&
-      this.settingsData.multipleChoiceEnabled &&
-      this.settingsData.trueFalseChoiceEnabled
-    ) {
-      questionTypesCounters.singleQuestionCountLimit = 5;
-      questionTypesCounters.multipleQuestionCountLimit = 5;
-      questionTypesCounters.multipleQuestionCountLimit = 5;
-    }
 
     if (
       this.settingsData.singleChoiceEnabled &&
@@ -88,6 +79,7 @@ export class QuizModel {
     ) {
       questionTypesCounters.singleQuestionCountLimit = 8;
       questionTypesCounters.multipleQuestionCountLimit = 7;
+      questionTypesCounters.trueFalseQuestionCountLimit = 0;
     }
 
     if (
@@ -96,6 +88,7 @@ export class QuizModel {
       this.settingsData.trueFalseChoiceEnabled
     ) {
       questionTypesCounters.singleQuestionCountLimit = 8;
+      questionTypesCounters.multipleQuestionCountLimit = 0;
       questionTypesCounters.trueFalseQuestionCountLimit = 7;
     }
 
@@ -105,6 +98,8 @@ export class QuizModel {
       !this.settingsData.trueFalseChoiceEnabled
     ) {
       questionTypesCounters.singleQuestionCountLimit = 15;
+      questionTypesCounters.multipleQuestionCountLimit = 0;
+      questionTypesCounters.trueFalseQuestionCountLimit = 0;
     }
 
     if (
@@ -112,6 +107,7 @@ export class QuizModel {
       this.settingsData.multipleChoiceEnabled &&
       this.settingsData.trueFalseChoiceEnabled
     ) {
+      questionTypesCounters.singleQuestionCountLimit = 0;
       questionTypesCounters.multipleQuestionCountLimit = 8;
       questionTypesCounters.trueFalseQuestionCountLimit = 7;
     }
@@ -121,7 +117,9 @@ export class QuizModel {
       this.settingsData.multipleChoiceEnabled &&
       !this.settingsData.trueFalseChoiceEnabled
     ) {
+      questionTypesCounters.singleQuestionCountLimit = 0;
       questionTypesCounters.multipleQuestionCountLimit = 15;
+      questionTypesCounters.trueFalseQuestionCountLimit = 0;
     }
 
     if (
@@ -129,6 +127,8 @@ export class QuizModel {
       !this.settingsData.multipleChoiceEnabled &&
       this.settingsData.trueFalseChoiceEnabled
     ) {
+      questionTypesCounters.singleQuestionCountLimit = 0;
+      questionTypesCounters.multipleQuestionCountLimit = 0;
       questionTypesCounters.trueFalseQuestionCountLimit = 15;
     }
 

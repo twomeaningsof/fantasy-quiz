@@ -34,7 +34,7 @@ export class RulebookPage {
     const rightPageMiddleText = document.createElement("span");
     rightPageMiddleText.classList.add("right-page__middle-text");
     rightPageMiddleText.innerHTML =
-      "By default you have 3 minutes, to answer all questions.<br><br> There is 15 questions and if you answer all of them before times is up, the quiz will end.<br><br> You can see correct answers for all questions at the end of the quiz.<br><br> There are 3 types of questions: single answer, multiple answer and true or false.<br><br> You can toggle in the settings which questions you want to see in the quiz, and extend your time limit up to 15 minutes.";
+      "By default you have 4 minutes, to answer all questions.<br><br> There are 15 questions and if you answer all of them before time is up, the quiz will end.<br><br> You can see correct answers for all questions at the end of the quiz.<br><br> There are 3 types of questions: single answer, multiple answers, and true or false.<br><br> You can toggle in the settings which questions you want to see in the quiz, and extend your time limit up to 15 minutes.";
 
     const rightPageMiddleScroll = document.createElement("div");
     rightPageMiddleScroll.classList.add("right-page__scrollbar");

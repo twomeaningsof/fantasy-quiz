@@ -1,3 +1,5 @@
+import { QuestionType } from "./questionType";
+
 export interface SettingsData {
   singleChoiceEnabled: boolean;
   multipleChoiceEnabled: boolean;
@@ -5,18 +7,13 @@ export interface SettingsData {
   timeLimit: string;
 }
 
-export type QuestionType =
-  | "single-choice"
-  | "multiple-choice"
-  | "true-false-choice";
-
 export class SettingsModel {
   constructor(
     private settingsData: SettingsData = {
       singleChoiceEnabled: true,
       multipleChoiceEnabled: true,
       trueFalseChoiceEnabled: true,
-      timeLimit: "3",
+      timeLimit: "4",
     }
   ) {}
 
@@ -32,7 +29,7 @@ export class SettingsModel {
       this.settingsData.singleChoiceEnabled = setting;
     if (questionType === "multiple-choice")
       this.settingsData.multipleChoiceEnabled = setting;
-    if (questionType === "true-false-choice")
+    if (questionType === "true-false")
       this.settingsData.trueFalseChoiceEnabled = setting;
   }
 
@@ -46,10 +43,10 @@ export class SettingsModel {
   ) => {
     if (typeof setting == "boolean" && questionType) {
       this.handleQuestionTypeSwitch(setting, questionType);
-    }
-
-    if (typeof setting == "string") {
+    } else if (typeof setting == "string") {
       this.handleTimeLimitChange(setting);
+    } else {
+      throw "Not supported setting type";
     }
   };
 }
