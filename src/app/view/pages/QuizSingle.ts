@@ -43,6 +43,12 @@ export class SingleChoiceQuestionPage {
     questionPageConfirmButtonWrapper.append(questionPageConfirmButton.render());
   }
 
+  private createTimer() {
+    const timerElement = document.createElement("div");
+    timerElement.classList.add("timer");
+    timerElement.id = "timer";
+  }
+
   render() {
     this.createTitle();
     this.createQuestions();

@@ -8,6 +8,7 @@ import { Alert } from "../view/components/Alert";
 export class QuizPresenter {
   private quiz: QuizModel;
   private questionPresenter?: QuestionPresenter;
+  private timeLimitInMiliseconds: number;
 
   constructor(private settingsModel: SettingsModel) {
     this.quiz = new QuizModel(questions, settingsModel.getSettingsData());
@@ -22,6 +23,9 @@ export class QuizPresenter {
 
       this.questionPresenter.initializePage();
     }
+
+    this.timeLimitInMiliseconds =
+      parseInt(this.settingsModel.getSettingsData().timeLimit) * 60000;
   }
 
   private getScore = () => {
@@ -55,6 +59,14 @@ export class QuizPresenter {
     }
     return answers;
   }
+
+  private handleTimer = () => {
+    setInterval(() => {
+      this.timeLimitInMiliseconds - 1000;
+      //tutaj updateujemy timer element
+      if (this.timeLimitInMiliseconds < 0) this.quiz.forceQuizEnd();
+    }, 1000);
+  };
 
   private onConfirm = (inputsWrapper: HTMLDivElement) => {
     const answers = this.getAnswers(inputsWrapper);

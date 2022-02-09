@@ -157,6 +157,13 @@ export class QuizModel {
     ];
   }
 
+  forceQuizEnd() {
+    this.allQuestionsData = [
+      ...new Set([...this.allQuestionsData, ...this.remainingQuestions]),
+    ];
+    this.remainingQuestions.length = 0;
+  }
+
   startQuiz() {
     this.applySettings();
     this.remainingQuestions = [...this.allQuestionsData];
