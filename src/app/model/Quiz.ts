@@ -1,15 +1,10 @@
 import { Question, QuestionData, QuestionType } from "./Question";
-
-interface Settings {
-  singleChoiceEnabled: boolean;
-  multipleChoiceEnabled: boolean;
-  trueFalseChoiceEnabled: boolean;
-}
+import { SettingsData } from "./Settings";
 
 export class QuizModel {
   constructor(
     private allQuestionsData: QuestionData[],
-    private settings: Settings
+    private settingsData: SettingsData
   ) {}
 
   remainingQuestions: QuestionData[] = [];
@@ -32,6 +27,8 @@ export class QuizModel {
     );
 
     this.currentQuestion = new Question(randomlySelectedQuestion);
+
+    console.log(this.settingsData);
   }
 
   determineAnswerCorrectness(answers: string[]) {
@@ -71,61 +68,62 @@ export class QuizModel {
 
   private getQuestionTypesCounters() {
     const questionTypesCounters = {
-      singleQuestionCountLimit: 5,
-      multipleQuestionCountLimit: 5,
-      trueFalseQuestionCountLimit: 5,
+      singleQuestionCountLimit: 0,
+      multipleQuestionCountLimit: 0,
+      trueFalseQuestionCountLimit: 0,
     };
 
     if (
-      this.settings.singleChoiceEnabled &&
-      this.settings.multipleChoiceEnabled &&
-      !this.settings.trueFalseChoiceEnabled
+      this.settingsData.singleChoiceEnabled &&
+      this.settingsData.multipleChoiceEnabled &&
+      !this.settingsData.trueFalseChoiceEnabled
     ) {
       questionTypesCounters.singleQuestionCountLimit = 8;
       questionTypesCounters.multipleQuestionCountLimit = 7;
     }
 
     if (
-      this.settings.singleChoiceEnabled &&
-      !this.settings.multipleChoiceEnabled &&
-      this.settings.trueFalseChoiceEnabled
+      this.settingsData.singleChoiceEnabled &&
+      !this.settingsData.multipleChoiceEnabled &&
+      this.settingsData.trueFalseChoiceEnabled
     ) {
       questionTypesCounters.singleQuestionCountLimit = 8;
       questionTypesCounters.trueFalseQuestionCountLimit = 7;
     }
 
     if (
-      this.settings.singleChoiceEnabled &&
-      !this.settings.multipleChoiceEnabled &&
-      !this.settings.trueFalseChoiceEnabled
+      this.settingsData.singleChoiceEnabled &&
+      !this.settingsData.multipleChoiceEnabled &&
+      !this.settingsData.trueFalseChoiceEnabled
     ) {
       questionTypesCounters.singleQuestionCountLimit = 15;
     }
 
     if (
-      !this.settings.singleChoiceEnabled &&
-      this.settings.multipleChoiceEnabled &&
-      this.settings.trueFalseChoiceEnabled
+      !this.settingsData.singleChoiceEnabled &&
+      this.settingsData.multipleChoiceEnabled &&
+      this.settingsData.trueFalseChoiceEnabled
     ) {
       questionTypesCounters.multipleQuestionCountLimit = 8;
       questionTypesCounters.trueFalseQuestionCountLimit = 7;
     }
 
     if (
-      !this.settings.singleChoiceEnabled &&
-      this.settings.multipleChoiceEnabled &&
-      !this.settings.trueFalseChoiceEnabled
+      !this.settingsData.singleChoiceEnabled &&
+      this.settingsData.multipleChoiceEnabled &&
+      !this.settingsData.trueFalseChoiceEnabled
     ) {
       questionTypesCounters.multipleQuestionCountLimit = 15;
     }
 
     if (
-      !this.settings.singleChoiceEnabled &&
-      !this.settings.multipleChoiceEnabled &&
-      this.settings.trueFalseChoiceEnabled
+      !this.settingsData.singleChoiceEnabled &&
+      !this.settingsData.multipleChoiceEnabled &&
+      this.settingsData.trueFalseChoiceEnabled
     ) {
       questionTypesCounters.trueFalseQuestionCountLimit = 15;
     }
+    console.log(questionTypesCounters);
 
     return questionTypesCounters;
   }

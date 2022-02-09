@@ -1,6 +1,7 @@
 import { FinishPage } from "../view/pages/Finish";
 import { WelcomePresenter } from "./Welcome";
 import { QuestionData } from "../model/Question";
+import { SettingsModel } from "../model/Settings";
 
 export class FinishPresenter {
   constructor(
@@ -13,7 +14,7 @@ export class FinishPresenter {
   }
 
   handleChangePageToWelcome() {
-    const welcomePresenter = new WelcomePresenter();
+    const welcomePresenter = new WelcomePresenter(new SettingsModel());
     FinishPresenter.destroy();
     welcomePresenter.initialize();
   }

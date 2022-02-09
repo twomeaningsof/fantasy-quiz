@@ -3,7 +3,8 @@ export class Checkbox {
     private id: string,
     private checked: boolean,
     private size = "",
-    private labelText: string = ""
+    private labelText: string = "",
+    private onClickFn: () => void = () => {}
   ) {}
 
   static checked(id: string) {
@@ -24,6 +25,16 @@ export class Checkbox {
 
   withText(labelText: string) {
     return new Checkbox(this.id, this.checked, this.size, labelText);
+  }
+
+  onClick(clickFn: () => void) {
+    return new Checkbox(
+      this.id,
+      this.checked,
+      this.size,
+      this.labelText,
+      clickFn
+    );
   }
 
   render() {
@@ -58,6 +69,8 @@ export class Checkbox {
     checkboxLabelElement.textContent = this.labelText;
 
     checkboxWrapper.append(checkboxInputElementWrapper, checkboxLabelElement);
+
+    checkboxWrapper.onclick = this.onClickFn;
 
     return checkboxWrapper;
   }

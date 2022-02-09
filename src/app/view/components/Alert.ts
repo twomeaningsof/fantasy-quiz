@@ -1,5 +1,5 @@
 export class Alert {
-  render() {
+  renderQuestionAlert() {
     const alertBackground = document.createElement("div");
     alertBackground.classList.add("alert-wrapper");
     alertBackground.onclick = () => {
