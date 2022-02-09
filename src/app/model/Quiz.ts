@@ -27,8 +27,6 @@ export class QuizModel {
     );
 
     this.currentQuestion = new Question(randomlySelectedQuestion);
-
-    console.log(this.settingsData);
   }
 
   determineAnswerCorrectness(answers: string[]) {
@@ -72,6 +70,16 @@ export class QuizModel {
       multipleQuestionCountLimit: 0,
       trueFalseQuestionCountLimit: 0,
     };
+
+    if (
+      this.settingsData.singleChoiceEnabled &&
+      this.settingsData.multipleChoiceEnabled &&
+      this.settingsData.trueFalseChoiceEnabled
+    ) {
+      questionTypesCounters.singleQuestionCountLimit = 5;
+      questionTypesCounters.multipleQuestionCountLimit = 5;
+      questionTypesCounters.multipleQuestionCountLimit = 5;
+    }
 
     if (
       this.settingsData.singleChoiceEnabled &&
@@ -123,7 +131,6 @@ export class QuizModel {
     ) {
       questionTypesCounters.trueFalseQuestionCountLimit = 15;
     }
-    console.log(questionTypesCounters);
 
     return questionTypesCounters;
   }

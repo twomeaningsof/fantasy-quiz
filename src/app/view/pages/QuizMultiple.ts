@@ -18,7 +18,7 @@ export class MultipleChoiceQuestionPage {
     const checkboxWrapper = document.createElement("div");
     checkboxWrapper.classList.add("question-page__answer--checkbox");
 
-    const checkbox = Checkbox.unchecked(answer).large().withText(answer);
+    const checkbox = Checkbox.large(answer).withText(answer);
 
     checkboxWrapper.appendChild(checkbox.render());
     this.questionPageAnswers.appendChild(checkboxWrapper);

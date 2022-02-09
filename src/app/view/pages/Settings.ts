@@ -2,23 +2,50 @@ import { Button } from "../components/Button";
 import { Checkbox } from "../components/Checkbox";
 import { OpenedBook } from "../components/Opened-book";
 import { SettingsModel } from "../../model/Settings";
-import { QuestionType } from "../../model/Settings";
 
 type handleChange = () => void;
-type handleSettingsChange = (
-  setting: boolean | string,
-  questionType?: QuestionType
-) => void;
 
 export class SettingsPage {
   constructor(
     private handleChangeToWelcome: handleChange,
     private handleChangeRulebook: handleChange,
     private handleChangeToQuiz: handleChange,
-    private handleSettingsChange: handleSettingsChange
+    private settingsModel: SettingsModel
   ) {}
 
   openedBook = new OpenedBook().render();
+
+  private handleSettingsAssignment = () => {
+    const singleChoiceQuestionCheckboxElement =
+      this.openedBook.getElementsByClassName(
+        "checkbox-wrapper__checkmark"
+      )[0] as HTMLInputElement;
+
+    singleChoiceQuestionCheckboxElement.checked =
+      this.settingsModel.getSettingsData().singleChoiceEnabled;
+
+    const multipleChoiceQuestionCheckboxElement =
+      this.openedBook.getElementsByClassName(
+        "checkbox-wrapper__checkmark"
+      )[1] as HTMLInputElement;
+
+    multipleChoiceQuestionCheckboxElement.checked =
+      this.settingsModel.getSettingsData().multipleChoiceEnabled;
+
+    const trueFalseChoiceQuestionCheckboxElement =
+      this.openedBook.getElementsByClassName(
+        "checkbox-wrapper__checkmark"
+      )[2] as HTMLInputElement;
+
+    trueFalseChoiceQuestionCheckboxElement.checked =
+      this.settingsModel.getSettingsData().trueFalseChoiceEnabled;
+
+    const timeLimitElement = this.openedBook.getElementsByClassName(
+      "input"
+    )[0] as HTMLInputElement;
+
+    timeLimitElement.value = this.settingsModel.getSettingsData().timeLimit;
+  };
 
   private createLeftPage() {
     const leftPageBottom =
@@ -44,10 +71,9 @@ export class SettingsPage {
 
     const singleChoiceSettingWrapper = document.createElement("div");
     singleChoiceSettingWrapper.classList.add("right-page__settings-element");
-    const singleChoiceCheckbox = Checkbox.checked(
+    const singleChoiceCheckbox = Checkbox.small(
       "settings-single-choice-checkbox"
     )
-      .small()
       .withText("Enable single choice questions")
       .onClick(() => {
         const singleChoiceQuestionCheckboxElement =
@@ -55,7 +81,7 @@ export class SettingsPage {
             "checkbox-wrapper__checkmark"
           )[0] as HTMLInputElement;
 
-        this.handleSettingsChange(
+        this.settingsModel.handleSettingsChange(
           singleChoiceQuestionCheckboxElement.checked,
           "single-choice"
         );
@@ -65,10 +91,9 @@ export class SettingsPage {
 
     const multipleChoiceSettingWrapper = document.createElement("div");
     multipleChoiceSettingWrapper.classList.add("right-page__settings-element");
-    const multipleChoiceCheckbox = Checkbox.checked(
+    const multipleChoiceCheckbox = Checkbox.small(
       "settings-multiple-choice-checkbox"
     )
-      .small()
       .withText("Enable multiple choice questions")
       .onClick(() => {
         const multipleChoiceQuestionCheckboxElement =
@@ -76,9 +101,9 @@ export class SettingsPage {
             "checkbox-wrapper__checkmark"
           )[1] as HTMLInputElement;
 
-        this.handleSettingsChange(
+        this.settingsModel.handleSettingsChange(
           multipleChoiceQuestionCheckboxElement.checked,
-          "true-false-choice"
+          "multiple-choice"
         );
       });
 
@@ -86,8 +111,7 @@ export class SettingsPage {
 
     const trueFalseSettingWrapper = document.createElement("div");
     trueFalseSettingWrapper.classList.add("right-page__settings-element");
-    const trueFalseCheckbox = Checkbox.checked("settings-true-false-checkbox")
-      .small()
+    const trueFalseCheckbox = Checkbox.small("settings-true-false-checkbox")
       .withText("Enable true or false questions")
       .onClick(() => {
         const trueFalseChoiceQuestionCheckboxElement =
@@ -95,9 +119,9 @@ export class SettingsPage {
             "checkbox-wrapper__checkmark"
           )[2] as HTMLInputElement;
 
-        this.handleSettingsChange(
+        this.settingsModel.handleSettingsChange(
           trueFalseChoiceQuestionCheckboxElement.checked,
-          "multiple-choice"
+          "true-false-choice"
         );
       });
 
@@ -130,7 +154,7 @@ export class SettingsPage {
       if (parseInt(timeLimitTextInput.value) > 15)
         timeLimitTextInput.value = "15";
 
-      this.handleSettingsChange(timeLimitTextInput.value);
+      this.settingsModel.handleSettingsChange(timeLimitTextInput.value);
     };
 
     timeLimitSettingWrapper.append(timeLimitText, timeLimitTextInput);
@@ -167,6 +191,7 @@ export class SettingsPage {
   render() {
     this.createLeftPage();
     this.createRightPage();
+    this.handleSettingsAssignment();
     const rootWrapper = document.getElementsByClassName("wrapper")[0];
     rootWrapper?.appendChild(this.openedBook);
   }

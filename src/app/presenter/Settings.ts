@@ -3,6 +3,7 @@ import { WelcomePresenter } from "./Welcome";
 import { RulebookPresenter } from "./Rulebook";
 import { QuizPresenter } from "./Quiz";
 import { SettingsModel } from "../model/Settings";
+import { Alert } from "../view/components/Alert";
 
 export class SettingsPresenter {
   constructor(private settingsModel: SettingsModel) {}
@@ -24,8 +25,16 @@ export class SettingsPresenter {
   };
 
   handleChangePageToQuiz = () => {
-    new QuizPresenter(this.settingsModel);
-    SettingsPresenter.destroy("wrapper");
+    if (
+      Object.values(this.settingsModel.getSettingsData()).some(
+        (setting) => setting === true
+      )
+    ) {
+      new QuizPresenter(this.settingsModel);
+      SettingsPresenter.destroy("wrapper");
+    } else {
+      new Alert().renderSettingsAlert();
+    }
   };
 
   initialize = () => {
@@ -33,7 +42,7 @@ export class SettingsPresenter {
       this.handleChangePageToWelcome,
       this.handleChangePageToRulebook,
       this.handleChangePageToQuiz,
-      this.settingsModel.handleSettingsChange
+      this.settingsModel
     );
     settingsPage.render();
   };
