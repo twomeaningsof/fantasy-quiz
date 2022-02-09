@@ -1,4 +1,4 @@
-export type QuestionType = "single-choice" | "multiple-choice" | "true-false";
+import { QuestionType } from "./questionType";
 
 export interface QuestionData {
   id: string;

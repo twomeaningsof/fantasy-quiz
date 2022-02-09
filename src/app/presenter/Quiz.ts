@@ -1,4 +1,5 @@
 import { QuizModel } from "../model/Quiz";
+import { SettingsModel } from "../model/Settings";
 import { QuestionPresenter } from "./Question";
 import { SummaryPresenter } from "./Summary";
 import { questions } from "../model/questions";
@@ -8,12 +9,8 @@ export class QuizPresenter {
   private quiz: QuizModel;
   private questionPresenter?: QuestionPresenter;
 
-  constructor() {
-    this.quiz = new QuizModel(questions, {
-      singleChoiceEnabled: true,
-      multipleChoiceEnabled: true,
-      trueFalseChoiceEnabled: true,
-    });
+  constructor(private settingsModel: SettingsModel) {
+    this.quiz = new QuizModel(questions, settingsModel.getSettingsData());
 
     this.quiz.startQuiz();
 
@@ -76,7 +73,7 @@ export class QuizPresenter {
         this.initializeNextQuestionPresenter();
       }
     } else {
-      new Alert().render();
+      new Alert().renderQuestionAlert();
     }
   };
 

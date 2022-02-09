@@ -1,29 +1,25 @@
 export class Checkbox {
   constructor(
     private id: string,
-    private checked: boolean,
     private size = "",
-    private labelText: string = ""
+    private labelText: string = "",
+    private onClickFn: () => void = () => {}
   ) {}
 
-  static checked(id: string) {
-    return new Checkbox(id, true);
+  static small(id: string) {
+    return new Checkbox(id, "small");
   }
 
-  static unchecked(id: string) {
-    return new Checkbox(id, false);
-  }
-
-  small() {
-    return new Checkbox(this.id, this.checked, (this.size = "small"));
-  }
-
-  large() {
-    return new Checkbox(this.id, this.checked, (this.size = "large"));
+  static large(id: string) {
+    return new Checkbox(id, "large");
   }
 
   withText(labelText: string) {
-    return new Checkbox(this.id, this.checked, this.size, labelText);
+    return new Checkbox(this.id, this.size, labelText);
+  }
+
+  onClick(clickFn: () => void) {
+    return new Checkbox(this.id, this.size, this.labelText, clickFn);
   }
 
   render() {
@@ -41,7 +37,6 @@ export class Checkbox {
     checkboxDOMElement.id = this.id;
     checkboxDOMElement.classList.add("checkbox-wrapper__checkmark");
     checkboxDOMElement.value = this.labelText;
-    checkboxDOMElement.checked = this.checked;
 
     checkboxInputElementWrapper.append(checkboxDOMElement);
 
@@ -58,6 +53,8 @@ export class Checkbox {
     checkboxLabelElement.textContent = this.labelText;
 
     checkboxWrapper.append(checkboxInputElementWrapper, checkboxLabelElement);
+
+    checkboxWrapper.onclick = this.onClickFn;
 
     return checkboxWrapper;
   }

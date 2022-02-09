@@ -1,6 +1,7 @@
 import { Button } from "../components/Button";
 import { Checkbox } from "../components/Checkbox";
 import { OpenedBook } from "../components/Opened-book";
+import { SettingsModel } from "../../model/Settings";
 
 type handleChange = () => void;
 
@@ -8,10 +9,33 @@ export class SettingsPage {
   constructor(
     private handleChangeToWelcome: handleChange,
     private handleChangeRulebook: handleChange,
-    private handleChangeToQuiz: handleChange
+    private handleChangeToQuiz: handleChange,
+    private settingsModel: SettingsModel
   ) {}
 
   openedBook = new OpenedBook().render();
+
+  private handleSettingsAssignment = () => {
+    const [
+      singleChoiceQuestionCheckboxElement,
+      multipleChoiceQuestionCheckboxElement,
+      trueFalseChoiceQuestionCheckboxElement,
+    ] = this.openedBook.getElementsByClassName(
+      "checkbox-wrapper__checkmark"
+    ) as HTMLCollectionOf<HTMLInputElement>;
+
+    const timeLimitElement = this.openedBook.getElementsByClassName(
+      "input"
+    )[0] as HTMLInputElement;
+
+    singleChoiceQuestionCheckboxElement.checked =
+      this.settingsModel.getSettingsData().singleChoiceEnabled;
+    multipleChoiceQuestionCheckboxElement.checked =
+      this.settingsModel.getSettingsData().multipleChoiceEnabled;
+    trueFalseChoiceQuestionCheckboxElement.checked =
+      this.settingsModel.getSettingsData().trueFalseChoiceEnabled;
+    timeLimitElement.value = this.settingsModel.getSettingsData().timeLimit;
+  };
 
   private createLeftPage() {
     const leftPageBottom =
@@ -37,27 +61,59 @@ export class SettingsPage {
 
     const singleChoiceSettingWrapper = document.createElement("div");
     singleChoiceSettingWrapper.classList.add("right-page__settings-element");
-    const singleChoiceCheckbox = Checkbox.checked(
+    const singleChoiceCheckbox = Checkbox.small(
       "settings-single-choice-checkbox"
     )
-      .small()
-      .withText("Enable single choice questions");
+      .withText("Enable single choice questions")
+      .onClick(() => {
+        const singleChoiceQuestionCheckboxElement =
+          document.getElementsByClassName(
+            "checkbox-wrapper__checkmark"
+          )[0] as HTMLInputElement;
+
+        this.settingsModel.handleSettingsChange(
+          singleChoiceQuestionCheckboxElement.checked,
+          "single-choice"
+        );
+      });
+
     singleChoiceSettingWrapper.append(singleChoiceCheckbox.render());
 
     const multipleChoiceSettingWrapper = document.createElement("div");
     multipleChoiceSettingWrapper.classList.add("right-page__settings-element");
-    const multipleChoiceCheckbox = Checkbox.checked(
+    const multipleChoiceCheckbox = Checkbox.small(
       "settings-multiple-choice-checkbox"
     )
-      .small()
-      .withText("Enable multiple choice questions");
+      .withText("Enable multiple choice questions")
+      .onClick(() => {
+        const multipleChoiceQuestionCheckboxElement =
+          document.getElementsByClassName(
+            "checkbox-wrapper__checkmark"
+          )[1] as HTMLInputElement;
+
+        this.settingsModel.handleSettingsChange(
+          multipleChoiceQuestionCheckboxElement.checked,
+          "multiple-choice"
+        );
+      });
+
     multipleChoiceSettingWrapper.append(multipleChoiceCheckbox.render());
 
     const trueFalseSettingWrapper = document.createElement("div");
     trueFalseSettingWrapper.classList.add("right-page__settings-element");
-    const trueFalseCheckbox = Checkbox.checked("settings-true-false-checkbox")
-      .small()
-      .withText("Enable true or false questions");
+    const trueFalseCheckbox = Checkbox.small("settings-true-false-checkbox")
+      .withText("Enable true or false questions")
+      .onClick(() => {
+        const trueFalseChoiceQuestionCheckboxElement =
+          document.getElementsByClassName(
+            "checkbox-wrapper__checkmark"
+          )[2] as HTMLInputElement;
+
+        this.settingsModel.handleSettingsChange(
+          trueFalseChoiceQuestionCheckboxElement.checked,
+          "true-false"
+        );
+      });
 
     trueFalseSettingWrapper.append(trueFalseCheckbox.render());
 
@@ -75,18 +131,27 @@ export class SettingsPage {
     timeLimitTextInput.classList.add("input");
     timeLimitTextInput.value = "3";
 
-    timeLimitTextInput.onclick = function () {
+    timeLimitTextInput.onclick = () => {
       const position = timeLimitTextInput.value.length;
       timeLimitTextInput.setSelectionRange(position, position);
     };
 
-    timeLimitTextInput.oninput = function () {
+    timeLimitTextInput.oninput = () => {
       timeLimitTextInput.value = timeLimitTextInput.value
         .replace(/[^0-9]/gi, "")
         .replace(/\b0+/g, "");
 
       if (parseInt(timeLimitTextInput.value) > 15)
         timeLimitTextInput.value = "15";
+
+      this.settingsModel.handleSettingsChange(timeLimitTextInput.value);
+    };
+
+    timeLimitTextInput.onblur = () => {
+      if (timeLimitTextInput.value === "") {
+        timeLimitTextInput.value = "4";
+        this.settingsModel.handleSettingsChange("4");
+      }
     };
 
     timeLimitSettingWrapper.append(timeLimitText, timeLimitTextInput);
@@ -123,6 +188,7 @@ export class SettingsPage {
   render() {
     this.createLeftPage();
     this.createRightPage();
+    this.handleSettingsAssignment();
     const rootWrapper = document.getElementsByClassName("wrapper")[0];
     rootWrapper?.appendChild(this.openedBook);
   }
