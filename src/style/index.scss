@@ -8,16 +8,10 @@
 @use "./pages/_summary.scss";
 @use "./pages/_finish.scss";
 
-@media only screen and (max-width: 1024px) {
-  *,
-  *:before,
-  *:after {
-    display: none;
-  }
-}
-
-label {
-  cursor: inherit;
+body {
+  height: 100vh;
+  margin: 0px;
+  cursor: url("/src/assets/img/standard-dagger.png"), auto;
 }
 
 :root {
@@ -32,6 +26,10 @@ label {
   user-select: none;
 }
 
+label {
+  cursor: inherit;
+}
+
 input {
   all: unset;
 }
@@ -40,18 +38,42 @@ html {
   min-height: 100%;
 }
 
-body {
-  height: 100vh;
-  margin: 0px;
-  cursor: url("/src/assets/img/standard-dagger.png"), auto;
+@media only screen and (max-width: 1024px) {
+  .wrapper {
+    display: none;
+  }
+
+  .mobile-message-wrapper {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("/src/assets/img/background.png");
+
+    &__message {
+      padding: 10%;
+      font-family: "MedievalSharp", cursive;
+      font-size: 30px;
+      text-align: center;
+      line-height: 150%;
+      background-color: rgba(180, 174, 136, 0.541);
+    }
+  }
 }
 
-.wrapper {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url("/src/assets/img/background.png");
-  background-size: cover;
+@media only screen and (min-width: 1025px) {
+  .mobile-message-wrapper {
+    display: none;
+  }
+
+  .wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url("/src/assets/img/background.png");
+    background-size: cover;
+  }
 }
