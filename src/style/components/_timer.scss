@@ -1,0 +1,14 @@
+.timer-wrapper {
+  width: 12vw;
+  height: 12vh;
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &_timer {
+    font-size: 35px;
+  }
+}
