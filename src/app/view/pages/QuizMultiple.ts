@@ -2,11 +2,13 @@ import { Question } from "../../model/Question";
 import { Button } from "../components/Button";
 import { Checkbox } from "../components/Checkbox";
 import { QuestionPage } from "../components/Question-page";
+import { Timer } from "../components/Timer";
 
 export class MultipleChoiceQuestionPage {
   constructor(
     private currentQuestion: Question,
-    private onConfirm: (inputsWrapper: HTMLDivElement) => void
+    private onConfirm: (inputsWrapper: HTMLDivElement) => void,
+    private handleTimer: () => void
   ) {}
 
   questionPage = new QuestionPage().render();
@@ -49,6 +51,8 @@ export class MultipleChoiceQuestionPage {
   }
 
   render() {
+    new Timer().render();
+    this.handleTimer();
     this.createTitle();
     this.createQuestions();
     this.createConfirm();

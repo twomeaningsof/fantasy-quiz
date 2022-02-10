@@ -1,11 +1,13 @@
 import { Question } from "../../model/Question";
 import { Button } from "../components/Button";
 import { QuestionPage } from "../components/Question-page";
+import { Timer } from "../components/Timer";
 
 export class TrueFalseQuestionPage {
   constructor(
     private currentQuestion: Question,
-    private onConfirm: (inputsWrapper: HTMLDivElement) => void
+    private onConfirm: (inputsWrapper: HTMLDivElement) => void,
+    private handleTimer: () => void
   ) {}
 
   questionPage = new QuestionPage().render();
@@ -65,7 +67,15 @@ export class TrueFalseQuestionPage {
     questionPageConfirmButtonWrapper.append(questionPageConfirmButton.render());
   }
 
+  private createTimer = () => {
+    const timerElement = document.createElement("div");
+    timerElement.classList.add("timer");
+    timerElement.id = "timer";
+  };
+
   render() {
+    new Timer().render();
+    this.handleTimer();
     this.createTitle();
     this.createQuestions();
     this.createConfirm();

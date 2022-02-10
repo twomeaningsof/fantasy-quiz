@@ -2,11 +2,13 @@ import { Button } from "../components/Button";
 import { RadioButton } from "../components/Radio-button";
 import { QuestionPage } from "../components/Question-page";
 import { Question } from "../../model/Question";
+import { Timer } from "../components/Timer";
 
 export class SingleChoiceQuestionPage {
   constructor(
     private currentQuestion: Question,
-    private onConfirm: (inputsWrapper: HTMLDivElement) => void
+    private onConfirm: (inputsWrapper: HTMLDivElement) => void,
+    private handleTimer: () => void
   ) {}
 
   questionPage = new QuestionPage().render();
@@ -44,6 +46,8 @@ export class SingleChoiceQuestionPage {
   }
 
   render() {
+    new Timer().render();
+    this.handleTimer();
     this.createTitle();
     this.createQuestions();
     this.createConfirm();

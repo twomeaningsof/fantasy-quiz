@@ -4,7 +4,8 @@ import { TrueFalseQuestionPage } from "../view/pages/QuizTrueFalse";
 export class QuizTrueFalsePresenter {
   constructor(
     private currentQuestion: Question,
-    private onConfirm: (inputsWrapper: HTMLDivElement) => void
+    private onConfirm: (inputsWrapper: HTMLDivElement) => void,
+    private handleTimer: () => void
   ) {}
 
   static destroy() {
@@ -14,7 +15,8 @@ export class QuizTrueFalsePresenter {
   initialize() {
     const trueFalsePage = new TrueFalseQuestionPage(
       this.currentQuestion,
-      this.onConfirm
+      this.onConfirm,
+      this.handleTimer
     );
     trueFalsePage.render();
   }

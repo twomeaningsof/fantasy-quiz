@@ -4,7 +4,8 @@ import { SingleChoiceQuestionPage } from "../view/pages/QuizSingle";
 export class QuizSinglePresenter {
   constructor(
     private currentQuestion: Question,
-    private onConfirm: (inputsWrapper: HTMLDivElement) => void
+    private onConfirm: (inputsWrapper: HTMLDivElement) => void,
+    private handleTimer: () => void
   ) {}
 
   static destroy() {
@@ -14,7 +15,8 @@ export class QuizSinglePresenter {
   initialize() {
     const singlePage = new SingleChoiceQuestionPage(
       this.currentQuestion,
-      this.onConfirm
+      this.onConfirm,
+      this.handleTimer
     );
     singlePage.render();
   }

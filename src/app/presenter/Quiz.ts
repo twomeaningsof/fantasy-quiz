@@ -8,6 +8,9 @@ import { Alert } from "../view/components/Alert";
 export class QuizPresenter {
   private quiz: QuizModel;
   private questionPresenter?: QuestionPresenter;
+  private timeLimitInMilliseconds: number;
+  private currentTimeLimitInMilliseconds: number;
+  private interval: ReturnType<typeof setInterval> = setInterval(() => {});
 
   constructor(private settingsModel: SettingsModel) {
     this.quiz = new QuizModel(questions, settingsModel.getSettingsData());
@@ -17,11 +20,17 @@ export class QuizPresenter {
     if (this.quiz.currentQuestion) {
       this.questionPresenter = new QuestionPresenter(
         this.quiz.currentQuestion!,
-        this.onConfirm
+        this.onConfirm,
+        this.handleTimer
       );
 
       this.questionPresenter.initializePage();
     }
+
+    this.timeLimitInMilliseconds =
+      parseInt(this.settingsModel.getSettingsData().timeLimit) * 60000;
+
+    this.currentTimeLimitInMilliseconds = this.timeLimitInMilliseconds;
   }
 
   private getScore = () => {
@@ -56,6 +65,44 @@ export class QuizPresenter {
     return answers;
   }
 
+  private handleTimer = () => {
+    if (this.currentTimeLimitInMilliseconds === this.timeLimitInMilliseconds) {
+      this.interval = setInterval(() => {
+        const timerElement = document.getElementById("timer");
+
+        if (timerElement) {
+          const minutes = Math.floor(
+            this.currentTimeLimitInMilliseconds / 60000
+          );
+          const seconds = parseInt(
+            ((this.currentTimeLimitInMilliseconds % 60000) / 1000).toFixed(0)
+          );
+
+          timerElement.textContent = `${minutes}:${
+            seconds < 10 ? "0" : ""
+          }${seconds}`;
+        }
+
+        this.currentTimeLimitInMilliseconds =
+          this.currentTimeLimitInMilliseconds - 1000;
+
+        if (this.currentTimeLimitInMilliseconds < 0) {
+          this.quiz.forceQuizEnd();
+
+          clearInterval(this.interval);
+
+          this.questionPresenter?.destroyPage();
+
+          new SummaryPresenter(
+            this.getScore(),
+            this.quiz.getAllQuestionsData(),
+            this.quiz.correctlyAnswered
+          ).initialize();
+        }
+      }, 1000);
+    }
+  };
+
   private onConfirm = (inputsWrapper: HTMLDivElement) => {
     const answers = this.getAnswers(inputsWrapper);
 
@@ -63,6 +110,8 @@ export class QuizPresenter {
       this.quiz.determineAnswerCorrectness(answers);
       this.questionPresenter?.destroyPage();
       if (this.quiz.remainingQuestions.length === 0) {
+        clearInterval(this.interval);
+
         new SummaryPresenter(
           this.getScore(),
           this.quiz.getAllQuestionsData(),
@@ -81,7 +130,8 @@ export class QuizPresenter {
     if (this.quiz.currentQuestion) {
       this.questionPresenter = new QuestionPresenter(
         this.quiz.currentQuestion,
-        this.onConfirm
+        this.onConfirm,
+        this.handleTimer
       );
       this.questionPresenter.initializePage();
     }

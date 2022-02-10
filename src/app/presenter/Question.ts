@@ -6,7 +6,8 @@ import { QuizTrueFalsePresenter } from "./QuizTrueFalse";
 export class QuestionPresenter {
   constructor(
     private currentQuestion: Question,
-    private onConfirm: (inputsWrapper: HTMLDivElement) => void
+    private onConfirm: (inputsWrapper: HTMLDivElement) => void,
+    private handleTimer: () => void
   ) {}
 
   private questionType = this.currentQuestion.getData().type;
@@ -27,19 +28,22 @@ export class QuestionPresenter {
     if (this.questionType === "single-choice") {
       new QuizSinglePresenter(
         this.currentQuestion,
-        this.onConfirm
+        this.onConfirm,
+        this.handleTimer
       ).initialize();
     }
     if (this.questionType === "multiple-choice") {
       new QuizMultiplePresenter(
         this.currentQuestion,
-        this.onConfirm
+        this.onConfirm,
+        this.handleTimer
       ).initialize();
     }
     if (this.questionType === "true-false") {
       new QuizTrueFalsePresenter(
         this.currentQuestion,
-        this.onConfirm
+        this.onConfirm,
+        this.handleTimer
       ).initialize();
     }
   }
