@@ -62,6 +62,10 @@ export class QuizPresenter {
 
   private handleTimer = () => {
     setInterval(() => {
+      const timerElement = document.getElementById("timer");
+      if (timerElement) {
+        const minutes = Math.floor(this.timeLimitInMiliseconds % 60000);
+      }
       this.timeLimitInMiliseconds - 1000;
       //tutaj updateujemy timer element
       if (this.timeLimitInMiliseconds < 0) this.quiz.forceQuizEnd();
