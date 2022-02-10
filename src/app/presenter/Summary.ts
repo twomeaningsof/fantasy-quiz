@@ -1,6 +1,7 @@
 import { SummaryPage } from "../view/pages/Summary";
 import { FinishPresenter } from "./Finish";
 import { QuestionData } from "../model/Question";
+import { Timer } from "../view/components/Timer";
 
 export class SummaryPresenter {
   constructor(
@@ -23,6 +24,7 @@ export class SummaryPresenter {
   };
 
   initialize() {
+    Timer.destroy();
     const summaryPage = new SummaryPage(
       this.handleChangePageToFinish,
       this.score

@@ -1,4 +1,8 @@
 export class Timer {
+  static destroy = () => {
+    document.getElementById("timer")?.remove();
+  };
+
   render = () => {
     const timerElementWrapper = document.createElement("div");
     timerElementWrapper.classList.add("timer-wrapper");

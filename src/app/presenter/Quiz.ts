@@ -10,6 +10,7 @@ export class QuizPresenter {
   private questionPresenter?: QuestionPresenter;
   private timeLimitInMilliseconds: number;
   private currentTimeLimitInMilliseconds: number;
+  private interval: ReturnType<typeof setInterval> = setInterval(() => {});
 
   constructor(private settingsModel: SettingsModel) {
     this.quiz = new QuizModel(questions, settingsModel.getSettingsData());
@@ -66,7 +67,7 @@ export class QuizPresenter {
 
   private handleTimer = () => {
     if (this.currentTimeLimitInMilliseconds === this.timeLimitInMilliseconds) {
-      const interval = setInterval(() => {
+      this.interval = setInterval(() => {
         const timerElement = document.getElementById("timer");
 
         if (timerElement) {
@@ -88,6 +89,8 @@ export class QuizPresenter {
         if (this.currentTimeLimitInMilliseconds < 0) {
           this.quiz.forceQuizEnd();
 
+          clearInterval(this.interval);
+
           this.questionPresenter?.destroyPage();
 
           new SummaryPresenter(
@@ -95,10 +98,6 @@ export class QuizPresenter {
             this.quiz.getAllQuestionsData(),
             this.quiz.correctlyAnswered
           ).initialize();
-
-          timerElement?.remove();
-
-          clearInterval(interval);
         }
       }, 1000);
     }
@@ -111,6 +110,8 @@ export class QuizPresenter {
       this.quiz.determineAnswerCorrectness(answers);
       this.questionPresenter?.destroyPage();
       if (this.quiz.remainingQuestions.length === 0) {
+        clearInterval(this.interval);
+
         new SummaryPresenter(
           this.getScore(),
           this.quiz.getAllQuestionsData(),
