@@ -1,5 +1,5 @@
 # Fantasy Quiz
-I developed the app to practice OOP (MVP pattern used) and become acquainted with TypeScript. It includes humoristic fantasy-related questions in single, multiple, and true-false choice forms.
+The app was developed to practice OOP (MVP pattern used) and become acquainted with TypeScript. It includes humoristic fantasy-related questions in single, multiple, and true-false choice forms.
 
 ## Technologies
 - TypeScript
